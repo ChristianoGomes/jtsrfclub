@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Setting the Timing Sensor — JTSRF CLUB</title>
+  <meta name="description" content="Installing and adjusting the ignition timing sensor on a gas JetSurf engine — finding the magnet ignition point, reading ignition advance, and dialing it into range." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="icon" type="image/png" href="assets/img/logo.png" />
+</head>
+<body>
+
+  <!-- ================= NAV ================= -->
+  <header class="nav">
+    <div class="container nav__inner">
+      <a href="index.html" class="brand"><img src="assets/img/logo-wordmark.png" alt="JTSRF CLUB" /></a>
+      <button class="nav__toggle" aria-label="Menu" aria-expanded="false">☰</button>
+      <ul class="nav__links">
+        <li><a href="index.html#lessons">Lessons</a></li>
+        <li><a href="index.html#how">How it works</a></li>
+        <li><a href="index.html#boards">Boards</a></li>
+        <li><a href="index.html#gallery">Gallery</a></li>
+        <li><a href="maintenance.html">Maintenance</a></li>
+        <li><a href="index.html#faq">FAQ</a></li>
+        <li><a href="index.html#book" class="btn btn--primary">Book a ride</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ================= PAGE HERO ================= -->
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Maintain · Gas boards</span>
+      <h1>Setting the timing sensor</h1>
+      <p>Fitting the ignition timing sensor, finding the magnet ignition point, and adjusting ignition advance into range.</p>
+    </div>
+  </section>
+
+  <!-- ================= TUTORIAL ================= -->
+  <section>
+    <div class="container tutorial-doc">
+      <span class="eyebrow">Guide</span>
+      <h2>Setting the timing sensor</h2>
+      <div class="doc-meta">
+        <span>Difficulty: Advanced</span>
+        <span>Time: ~30 min</span>
+        <span>Applies to: Gas boards</span>
+        <span>Last updated: Sep 2026</span>
+      </div>
+
+      <h3>Watch the walkthrough</h3>
+      <div style="position:relative;padding-top:56.25%;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line)">
+        <iframe
+          src="https://www.youtube.com/embed/Xp7pJLK2p90"
+          title="Setting the timing sensor — video walkthrough"
+          style="position:absolute;inset:0;width:100%;height:100%;border:0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <p class="note" style="margin-top:16px">
+        <a href="https://www.youtube.com/watch?v=Xp7pJLK2p90" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+        · JETSURF tuning. Timestamps in the steps below follow the video's on-screen counter (0:00–3:14).
+      </p>
+
+      <p>The timing sensor sets the engine's ignition advance. This is a measure-and-adjust job — you find the magnet's zero point, rotate slowly to top dead center, read the advance value, and nudge the sensor until it lands in range. You need a way to read the advance value off the board.</p>
+
+      <h3>Tools &amp; supplies</h3>
+      <ul>
+        <li>Medium-strength (blue) Loctite</li>
+        <li>Bright light source (to spot the magnet ignition point)</li>
+        <li>Diagnostic tool / reader for the ignition advance value</li>
+        <li>The timing carrier / rotation tool</li>
+      </ul>
+
+      <h3>Fit the sensor</h3>
+      <ol>
+        <li><strong>0:00</strong> — Secure the sensor bolts with medium-strength Loctite.</li>
+        <li><strong>0:19</strong> — Set the timing sensor roughly in the center of its adjustment range.</li>
+        <li><strong>0:39</strong> — Connect the wiring to both the sensor and the ECU.</li>
+      </ol>
+
+      <h3>Find the ignition point</h3>
+      <ol start="4">
+        <li><strong>1:02</strong> — Using a light source, locate the magnet ignition point.</li>
+        <li><strong>2:01</strong> — If you rotate past the magnet position, start the rotation over from the beginning.</li>
+        <li><strong>2:22</strong> — With the exact 0.00 position on the magnet identified, slowly rotate the carrier toward top dead center (TDC).</li>
+        <li><strong>2:30</strong> — Move very slowly so you can read the exact value at which the reading stops.</li>
+      </ol>
+
+      <h3>Read &amp; adjust the advance</h3>
+      <ol start="8">
+        <li><strong>2:38</strong> — Read the ignition advance value. (In the video's example it measured 0.107.)</li>
+        <li><strong>2:45</strong> — Check it against spec: acceptable range <strong>0.080–0.160</strong>, optimal <strong>0.120</strong>.</li>
+        <li><strong>3:03</strong> — Adjust by moving the timing sensor: <strong>right decreases</strong> the value, <strong>left increases</strong> it.</li>
+        <li><strong>3:14</strong> — Move the sensor gradually and re-measure until you reach the target advance, then lock it down.</li>
+      </ol>
+
+      <div class="callout">
+        <strong>Ignition advance spec:</strong> acceptable 0.080–0.160 · optimal 0.120. Right = less advance, left = more. Adjust in small increments and re-read after every move.
+      </div>
+
+      <div class="callout callout--warn">
+        <strong>Caution:</strong> the reading is only valid if you approach TDC slowly and from the magnet's 0.00 point — rush it or overshoot and the value is meaningless, so restart the rotation. Don't ride on an advance value outside 0.080–0.160.
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= NOTIFY CTA ================= -->
+  <section class="cta-band">
+    <div class="container">
+      <span class="eyebrow">Keep riding</span>
+      <h2>More guides on the way</h2>
+      <p>We'll email you when the next maintenance tutorial goes live.</p>
+      <div class="hero__cta" style="justify-content:center">
+        <a href="maintenance.html" class="btn btn--primary">Back to tutorial library</a>
+        <a href="index.html#book" class="btn btn--ghost">Book a lesson</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <img class="footer__logo" src="assets/img/logo-wordmark.png" alt="JTSRF CLUB logo" />
+          <p>Ride / Maintain / Master. Jetsurf lessons and rider support out of Miami.</p>
+        </div>
+        <div>
+          <h4>Sessions</h4>
+          <ul>
+            <li><a href="index.html#lessons">Intro Lesson</a></li>
+            <li><a href="index.html#lessons">Private Coaching</a></li>
+            <li><a href="index.html#lessons">Open Ride Session</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Club</h4>
+          <ul>
+            <li><a href="index.html#how">How it works</a></li>
+            <li><a href="index.html#boards">Boards</a></li>
+            <li><a href="maintenance.html">Maintenance tutorials</a></li>
+            <li><a href="index.html#faq">FAQ</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:hello@jtsrfclub.com">hello@jtsrfclub.com</a></li>
+            <li><a href="index.html#book">Book a ride</a></li>
+            <li><a href="#">Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>&copy; <span data-year>2026</span> JTSRF CLUB. All rights reserved.</span>
+        <span>Miami, FL · Daily by appointment</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

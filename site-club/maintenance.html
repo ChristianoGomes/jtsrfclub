@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Maintenance Tutorials — JTSRF CLUB</title>
+  <meta name="description" content="Jetsurf board maintenance tutorials from JTSRF CLUB — cleaning, winterizing, spark plugs, impeller checks, battery care and more. Guides in progress." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="icon" type="image/png" href="assets/img/logo.png" />
+</head>
+<body>
+
+  <!-- ================= NAV ================= -->
+  <header class="nav">
+    <div class="container nav__inner">
+      <a href="index.html" class="brand"><img src="assets/img/logo-wordmark.png" alt="JTSRF CLUB" /></a>
+      <button class="nav__toggle" aria-label="Menu" aria-expanded="false">☰</button>
+      <ul class="nav__links">
+        <li><a href="index.html#lessons">Lessons</a></li>
+        <li><a href="index.html#how">How it works</a></li>
+        <li><a href="index.html#boards">Boards</a></li>
+        <li><a href="index.html#gallery">Gallery</a></li>
+        <li><a href="maintenance.html">Maintenance</a></li>
+        <li><a href="index.html#faq">FAQ</a></li>
+        <li><a href="index.html#book" class="btn btn--primary">Book a ride</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ================= PAGE HERO ================= -->
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Maintain</span>
+      <h1>Jetsurf maintenance tutorials</h1>
+      <p>A rider who services their own board rides more and breaks down less. Step-by-step guides for the whole board — cleaning and storage through to a full engine rebuild — each with a video walkthrough and timestamped steps.</p>
+    </div>
+  </section>
+
+  <!-- ================= LIBRARY ================= -->
+  <section>
+    <div class="container">
+      <div class="sec-head">
+        <span class="eyebrow">Tutorial library</span>
+        <h2>The guides</h2>
+        <p>Each one is a full walkthrough — tools, timestamped steps, torque specs, and the video up top. Guides are grouped by where the walkthrough comes from — <strong>scroll each row sideways</strong>, or search and filter below.</p>
+      </div>
+
+      <div class="tut-filter">
+        <div class="tut-filter__search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="search" id="tutSearch" placeholder="Search guides — spark plug, winterize, impeller, flooded…" autocomplete="off" aria-label="Search maintenance guides" />
+          <button type="button" class="tut-filter__clear" id="tutClear" aria-label="Clear search" hidden>&times;</button>
+        </div>
+        <div class="tut-filter__chips" id="tutChips">
+          <button type="button" class="chip is-active" data-cat="all">All</button>
+          <button type="button" class="chip" data-cat="start">Getting started</button>
+          <button type="button" class="chip" data-cat="riding">Riding</button>
+          <button type="button" class="chip" data-cat="cleaning">Cleaning</button>
+          <button type="button" class="chip" data-cat="storage">Storage &amp; travel</button>
+          <button type="button" class="chip" data-cat="engine">Engine</button>
+          <button type="button" class="chip" data-cat="fuel">Fuel system</button>
+          <button type="button" class="chip" data-cat="exhaust">Exhaust</button>
+          <button type="button" class="chip" data-cat="drivetrain">Drivetrain</button>
+          <button type="button" class="chip" data-cat="electrical">Electrical</button>
+          <button type="button" class="chip" data-cat="controls">Controls</button>
+          <button type="button" class="chip" data-cat="electric">Electric boards</button>
+          <button type="button" class="chip" data-cat="troubleshooting">Troubleshooting</button>
+          <button type="button" class="chip" data-cat="servicing">Servicing</button>
+        </div>
+        <p class="tut-filter__count" id="tutCount" hidden></p>
+      </div>
+
+      <p class="tut-empty" id="tutEmpty" hidden>No guides match that search. Try a different word, or hit <strong>All</strong>.</p>
+
+      <div class="tut-grid tut-results" id="tutResults" hidden></div>
+
+      <div class="tut-source">
+        <h3>JETSURF Official</h3>
+        <span class="tut-source__count">22 guides</span>
+        <p>The manufacturer's own <a href="https://www.youtube.com/@jetsurf_official" target="_blank" rel="noopener">Service Tutorials</a> series (#1–14) plus their owner, troubleshooting and tuning videos. Gas boards unless noted.</p>
+      </div>
+
+      <div class="tut-grid">
+        <article class="tut" data-cat="start" data-tags="gas petrol overview fuel mix cooling pumps signal lights battery icu storage travel flooded engine">
+          <a class="tut__thumb" href="petrol-board-overview-tutorial.html">
+            <img src="https://i.ytimg.com/vi/CiytS153KSA/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Getting started</span>
+            <h3><a href="petrol-board-overview-tutorial.html">Petrol board owner orientation</a></h3>
+            <p>JETSURF's whole-board walkthrough — fuel mix, cooling, the pumps, the signal lights, the battery and ICU, storage, plane travel, and a flooded engine.</p>
+            <span class="tut__meta">~11 min · Beginner</span>
+            <a href="petrol-board-overview-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="riding" data-tags="gas petrol first ride starts stance shallow deep water standing after-care flush no-idle">
+          <a class="tut__thumb" href="petrol-board-riding-tutorial.html">
+            <img src="https://i.ytimg.com/vi/GjmMhQBlUZ8/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Riding</span>
+            <h3><a href="petrol-board-riding-tutorial.html">First ride — prep, starts &amp; after-care</a></h3>
+            <p>Set up the board, the two-tap no-idle start, three shallow-water and two deep-water starts, standing up, and the after-ride flush.</p>
+            <span class="tut__meta">First session · Beginner</span>
+            <a href="petrol-board-riding-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="cleaning" data-tags="gas petrol cooling flush attachment impeller pin hose salt after-ride telltale">
+          <a class="tut__thumb" href="cleaning-attachment-tutorial.html">
+            <img src="https://i.ytimg.com/vi/g2MyxSQ4vMc/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Cleaning</span>
+            <h3><a href="cleaning-attachment-tutorial.html">The cooling-system flush attachment</a></h3>
+            <p>The cleaning attachment onto the cooling pin in the impeller, hose on, engine running for at least two minutes.</p>
+            <span class="tut__meta">~5 min · Beginner</span>
+            <a href="cleaning-attachment-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="electric start" data-tags="electric overview throttle booster power modes battery capacity lights safe return cooling charging">
+          <a class="tut__thumb" href="electric-board-overview-tutorial.html">
+            <img src="https://i.ytimg.com/vi/TVjErmVF7-U/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Electric boards</span>
+            <h3><a href="electric-board-overview-tutorial.html">Electric board owner orientation</a></h3>
+            <p>What's in the package, the throttle booster, power modes, the battery capacity lights and safe-return mode, battery handling, cooling, and charging.</p>
+            <span class="tut__meta">~6 min · Beginner</span>
+            <a href="electric-board-overview-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="electric riding" data-tags="electric first ride inspection lid decompression chamber starts shallow deep water standing drain">
+          <a class="tut__thumb" href="electric-board-riding-tutorial.html">
+            <img src="https://i.ytimg.com/vi/DD3LNXjEHEk/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Electric boards</span>
+            <h3><a href="electric-board-riding-tutorial.html">Electric board — first ride</a></h3>
+            <p>The inspection-lid and decompression-chamber water checks, the start procedure, shallow- and deep-water starts, standing up, and the after-ride drain.</p>
+            <span class="tut__meta">First session · Beginner</span>
+            <a href="electric-board-riding-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="cleaning" data-tags="salt fresh water rinse dry hull jet impeller electronics bay after ride">
+          <a class="tut__thumb" href="rinse-dry-down-tutorial.html">
+            <img src="https://i.ytimg.com/vi/iMzPtPwgIbo/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Cleaning</span>
+            <h3><a href="rinse-dry-down-tutorial.html">Fresh-water rinse &amp; dry-down</a></h3>
+            <p>Flushing salt and grit from the hull, jet, and electronics bay after every ride.</p>
+            <span class="tut__meta">~10 min · Beginner</span>
+            <a href="rinse-dry-down-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="engine servicing" data-tags="gas petrol spark plug gap reading colour ignition head cross-thread">
+          <a class="tut__thumb" href="spark-plug-tutorial.html">
+            <img src="https://i.ytimg.com/vi/AqQRUiy_AJc/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Engine</span>
+            <h3><a href="spark-plug-tutorial.html">Spark plug check &amp; replacement</a></h3>
+            <p>Reading plug color, gapping, and swapping without cross-threading the head.</p>
+            <span class="tut__meta">~20 min · Intermediate</span>
+            <a href="spark-plug-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="fuel" data-tags="gas petrol fuel tank vent pump lines strap removal installation cps">
+          <a class="tut__thumb" href="fuel-tank-tutorial.html">
+            <img src="https://i.ytimg.com/vi/bGk8k5JaO4E/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Fuel system</span>
+            <h3><a href="fuel-tank-tutorial.html">Fuel tank removal &amp; installation</a></h3>
+            <p>Disconnecting the fuel, vent, and pump lines, freeing the strap, and lifting the tank out — then reassembling in order.</p>
+            <span class="tut__meta">~15 min · Intermediate</span>
+            <a href="fuel-tank-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="electrical" data-tags="icu ecu connectors main starter holder screws flight service replacement">
+          <a class="tut__thumb" href="icu-tutorial.html">
+            <img src="https://i.ytimg.com/vi/SW-9bemtubc/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Electrical</span>
+            <h3><a href="icu-tutorial.html">iCU removal &amp; installation</a></h3>
+            <p>Pulling the iCU for service, replacement, or a flight — fuel tank out, main and starter connectors, two holder screws.</p>
+            <span class="tut__meta">~15 min · Intermediate</span>
+            <a href="icu-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="drivetrain" data-tags="freewheel one-way clutch loctite torque 11nm engine">
+          <a class="tut__thumb" href="freewheel-tutorial.html">
+            <img src="https://i.ytimg.com/vi/_Id2re_ze58/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Drivetrain</span>
+            <h3><a href="freewheel-tutorial.html">Freewheel removal &amp; installation</a></h3>
+            <p>Pulling the freewheel off the engine and refitting it with fresh Loctite and the correct 11 Nm torque.</p>
+            <span class="tut__meta">~20 min · Intermediate</span>
+            <a href="freewheel-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="engine" data-tags="gas petrol engine removal fuel cable electrical exhaust mounting rails">
+          <a class="tut__thumb" href="engine-removal-tutorial.html">
+            <img src="https://i.ytimg.com/vi/Uzw70y5wsLs/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Engine</span>
+            <h3><a href="engine-removal-tutorial.html">Engine removal</a></h3>
+            <p>Stripping the fuel, cable, and electrical connections, freeing the exhaust, and lifting the engine off its mounting rails.</p>
+            <span class="tut__meta">~45 min · Advanced</span>
+            <a href="engine-removal-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="engine exhaust" data-tags="engine exhaust removal silencer ball spring retaining ring">
+          <a class="tut__thumb" href="engine-exhaust-removal-tutorial.html">
+            <img src="https://i.ytimg.com/vi/u_7Jzxj7Ji0/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Engine</span>
+            <h3><a href="engine-exhaust-removal-tutorial.html">Engine &amp; exhaust removal</a></h3>
+            <p>The full engine pull, then dropping the silencer, exhaust ball spring, retaining ring, and sliding the exhaust out.</p>
+            <span class="tut__meta">~60 min · Advanced</span>
+            <a href="engine-exhaust-removal-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="engine exhaust" data-tags="engine exhaust installation coupler axial play throttle cable covers">
+          <a class="tut__thumb" href="engine-exhaust-install-tutorial.html">
+            <img src="https://i.ytimg.com/vi/L-tEbaaoZaM/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Engine</span>
+            <h3><a href="engine-exhaust-install-tutorial.html">Engine &amp; exhaust installation</a></h3>
+            <p>Setting the exhaust and engine back in the hull, dialing in coupler axial play, and refitting the throttle cable and covers.</p>
+            <span class="tut__meta">~60 min · Advanced</span>
+            <a href="engine-exhaust-install-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="drivetrain electrical" data-tags="starter motor removal loctite freewheel clearance">
+          <a class="tut__thumb" href="starter-tutorial.html">
+            <img src="https://i.ytimg.com/vi/RDUC0Gu1Lpc/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Drivetrain</span>
+            <h3><a href="starter-tutorial.html">Starter removal &amp; installation</a></h3>
+            <p>Pulling the starter off the engine and refitting it with blue Loctite and the correct clearance to the freewheel.</p>
+            <span class="tut__meta">~20 min · Intermediate</span>
+            <a href="starter-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="fuel" data-tags="fuel injection throttle body reed valve petals gaskets dfi">
+          <a class="tut__thumb" href="fuel-injection-tutorial.html">
+            <img src="https://i.ytimg.com/vi/7vWATg4bS44/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Fuel system</span>
+            <h3><a href="fuel-injection-tutorial.html">Fuel injection removal &amp; installation</a></h3>
+            <p>Taking the throttle body and reed valve off, inspecting the reed petals against a light, and reassembling with fresh gaskets.</p>
+            <span class="tut__meta">~25 min · Intermediate</span>
+            <a href="fuel-injection-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="engine" data-tags="piston pin connecting rod bearing rings alignment cylinder head torque 7nm">
+          <a class="tut__thumb" href="piston-tutorial.html">
+            <img src="https://i.ytimg.com/vi/rAE-AW92hvM/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Engine</span>
+            <h3><a href="piston-tutorial.html">Piston removal &amp; installation</a></h3>
+            <p>Piston pin, connecting-rod bearing, washer orientation, ring alignment, and torquing the cylinder head to 7 Nm.</p>
+            <span class="tut__meta">~60 min · Advanced</span>
+            <a href="piston-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="engine" data-tags="crankshaft case split flywheel puller bearing heat fit o-ring seals torque">
+          <a class="tut__thumb" href="crankshaft-tutorial.html">
+            <img src="https://i.ytimg.com/vi/byimwHrry4A/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Engine</span>
+            <h3><a href="crankshaft-tutorial.html">Crankshaft removal &amp; installation</a></h3>
+            <p>The full case split — flywheel puller, bearing heat-fit, sealing O-rings, bolt-length order, and the 7 Nm case torque.</p>
+            <span class="tut__meta">~90 min · Advanced</span>
+            <a href="crankshaft-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="electrical troubleshooting" data-tags="bilge pump water bolt connector bracket">
+          <a class="tut__thumb" href="bilge-pump-tutorial.html">
+            <img src="https://i.ytimg.com/vi/3vuisoKNaV0/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Electrical</span>
+            <h3><a href="bilge-pump-tutorial.html">Bilge pump removal &amp; installation</a></h3>
+            <p>One bolt, one connector — swapping the bilge pump out of its bracket.</p>
+            <span class="tut__meta">~10 min · Beginner</span>
+            <a href="bilge-pump-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="engine drivetrain" data-tags="flywheel hub shaft coupling puller heat gun loctite crankshaft">
+          <a class="tut__thumb" href="flywheel-hub-tutorial.html">
+            <img src="https://i.ytimg.com/vi/Pi6tyT9L_dk/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Engine</span>
+            <h3><a href="flywheel-hub-tutorial.html">Flywheel hub removal &amp; installation</a></h3>
+            <p>Puller and heat gun to get the flywheel hub off the crankshaft, then a new hub set with green and blue Loctite.</p>
+            <span class="tut__meta">~20 min · Advanced</span>
+            <a href="flywheel-hub-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="controls" data-tags="handle throttle wiring kill switch removal installation">
+          <a class="tut__thumb" href="handle-tutorial.html">
+            <img src="https://i.ytimg.com/vi/Ucw1uQU8PoI/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Controls</span>
+            <h3><a href="handle-tutorial.html">Handle removal &amp; installation</a></h3>
+            <p>Taking the handle off and refitting it — throttle, wiring, and kill-switch connections. Video up now, written steps soon.</p>
+            <span class="tut__meta">~30 min · Advanced</span>
+            <a href="handle-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="troubleshooting" data-tags="flooded engine water cylinder cleaning mode dry spark plug chamber hydrolock">
+          <a class="tut__thumb" href="flooded-engine-tutorial.html">
+            <img src="https://i.ytimg.com/vi/-lbgm6SiyGc/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Troubleshooting</span>
+            <h3><a href="flooded-engine-tutorial.html">Draining a flooded engine</a></h3>
+            <p>Clearing water from the cylinder with cleaning mode, then drying the plug and chamber so the engine starts again.</p>
+            <span class="tut__meta">~15 min · Intermediate</span>
+            <a href="flooded-engine-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="servicing engine" data-tags="ignition timing sensor magnet ignition point advance tuning">
+          <a class="tut__thumb" href="timing-sensor-tutorial.html">
+            <img src="https://i.ytimg.com/vi/Xp7pJLK2p90/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Servicing</span>
+            <h3><a href="timing-sensor-tutorial.html">Setting the timing sensor</a></h3>
+            <p>Fitting the ignition timing sensor, finding the magnet ignition point, and adjusting ignition advance into the 0.080–0.160 range.</p>
+            <span class="tut__meta">~30 min · Advanced</span>
+            <a href="timing-sensor-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="tut-source">
+        <h3>JETSURF USA</h3>
+        <span class="tut-source__count">26 guides</span>
+        <p>New-owner and getting-started walkthroughs from <a href="https://www.youtube.com/@jetsurfusa1082" target="_blank" rel="noopener">JETSURF USA</a>.</p>
+      </div>
+
+      <div class="tut-grid">
+        <article class="tut" data-cat="start" data-tags="unboxing box bag foam protector wheels stand documents toolkit magnets fins new owner">
+          <a class="tut__thumb" href="whats-in-the-box-tutorial.html">
+            <img src="https://i.ytimg.com/vi/L0lMqt0xaY4/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Getting started</span>
+            <h3><a href="whats-in-the-box-tutorial.html">What comes with your new board</a></h3>
+            <p>Opening the board bag for the first time — foam protector, wheels, stand, documents, toolkit contents, magnets, and fins.</p>
+            <span class="tut__meta">~5 min · Beginner</span>
+            <a href="whats-in-the-box-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="start" data-tags="warranty activation jetsurf app register scan garage pairing date">
+          <a class="tut__thumb" href="warranty-activation-tutorial.html">
+            <img src="https://i.ytimg.com/vi/Zkh7VSAnJAs/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Getting started</span>
+            <h3><a href="warranty-activation-tutorial.html">Activating your warranty</a></h3>
+            <p>Registering the board in the JETSURF app — download, scan, add to your garage, and confirm the initial pairing date.</p>
+            <span class="tut__meta">~10 min · Beginner</span>
+            <a href="warranty-activation-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="start" data-tags="fins fin plate fcs main side fins mount remove">
+          <a class="tut__thumb" href="mounting-fins-tutorial.html">
+            <img src="https://i.ytimg.com/vi/CVxw2a6EVvA/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Getting started</span>
+            <h3><a href="mounting-fins-tutorial.html">Mounting the fins</a></h3>
+            <p>Fitting the main fin plate, the main FCS fin, and the two handed side fins — and taking them back off.</p>
+            <span class="tut__meta">~15 min · Beginner</span>
+            <a href="mounting-fins-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="start riding" data-tags="pads regular goofy stance foot pads cover bolts bolt length">
+          <a class="tut__thumb" href="swap-pads-tutorial.html">
+            <img src="https://i.ytimg.com/vi/YRdrN45F7eU/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Getting started</span>
+            <h3><a href="swap-pads-tutorial.html">Swapping the pads — regular / goofy</a></h3>
+            <p>Turning both foot pads around to switch the board between stances — cover bolts, 5 mm pad bolts, and the front/back bolt-length order.</p>
+            <span class="tut__meta">~15 min · Beginner</span>
+            <a href="swap-pads-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="start" data-tags="start engine bay checks two tap magnet key sequence stop power off">
+          <a class="tut__thumb" href="starting-your-board-tutorial.html">
+            <img src="https://i.ytimg.com/vi/iHx4IV8hF38/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Getting started</span>
+            <h3><a href="starting-your-board-tutorial.html">Starting your board</a></h3>
+            <p>Pre-start engine-bay checks and the two-tap magnet-key start sequence — plus stopping the engine and powering off.</p>
+            <span class="tut__meta">~5 min · Beginner</span>
+            <a href="starting-your-board-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="start" data-tags="board stand unfold legs setup">
+          <a class="tut__thumb" href="board-stand-tutorial.html">
+            <img src="https://i.ytimg.com/vi/k424S-qoBSQ/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Getting started</span>
+            <h3><a href="board-stand-tutorial.html">Setting up the board stand</a></h3>
+            <p>Unfolding the stand into its X — longer legs on the bottom.</p>
+            <span class="tut__meta">~2 min · Beginner</span>
+            <a href="board-stand-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="troubleshooting servicing" data-tags="cooling telltale water spray catalytic converter race board check">
+          <a class="tut__thumb" href="cooling-check-tutorial.html">
+            <img src="https://i.ytimg.com/vi/HGbrt6jeIaM/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Troubleshooting</span>
+            <h3><a href="cooling-check-tutorial.html">Is your board cooling properly?</a></h3>
+            <p>Reading the telltale water spray, what to do if it stops, and how to tell a catalytic-converter board from a race board.</p>
+            <span class="tut__meta">~3 min · Beginner</span>
+            <a href="cooling-check-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="cleaning" data-tags="after ride wash engine bay bilge pump flush adapter dry salt">
+          <a class="tut__thumb" href="clean-your-board-tutorial.html">
+            <img src="https://i.ytimg.com/vi/9xdeo-s0mKg/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Cleaning</span>
+            <h3><a href="clean-your-board-tutorial.html">Cleaning your board after a ride</a></h3>
+            <p>The full after-ride wash — outside, engine bay without flooding the engine, bilge pump, engine flush with the adapter, and dry-out.</p>
+            <span class="tut__meta">~20 min · Beginner</span>
+            <a href="clean-your-board-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="start riding" data-tags="fuel oil 50:1 mix buoyancy aid helmet wetsuit gear checklist">
+          <a class="tut__thumb" href="what-you-need-to-ride-tutorial.html">
+            <img src="https://i.ytimg.com/vi/NVftgZbiXK0/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Getting started</span>
+            <h3><a href="what-you-need-to-ride-tutorial.html">What you need to ride</a></h3>
+            <p>The short list — fuel and oil at 50:1, a buoyancy aid, a helmet, and a wetsuit if the water's cold.</p>
+            <span class="tut__meta">~2 min · Beginner</span>
+            <a href="what-you-need-to-ride-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="riding" data-tags="stance magnet start stomach knees feet deep water restart">
+          <a class="tut__thumb" href="start-riding-tutorial.html">
+            <img src="https://i.ytimg.com/vi/6QTBetgRbP8/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Riding</span>
+            <h3><a href="start-riding-tutorial.html">How to start riding</a></h3>
+            <p>Stance, the magnet start, and the progression from your stomach to your knees to your feet — plus the deep-water restart.</p>
+            <span class="tut__meta">First session · Beginner</span>
+            <a href="start-riding-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="start electrical" data-tags="charge electronics battery red tag charge lead starter charger light red green">
+          <a class="tut__thumb" href="charging-petrol-board-tutorial.html">
+            <img src="https://i.ytimg.com/vi/3ta0y8HF8Ds/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Getting started</span>
+            <h3><a href="charging-petrol-board-tutorial.html">Charging a petrol board</a></h3>
+            <p>Topping up the electronics battery — the red-tagged charge lead by the starter, and reading the red/green charger light.</p>
+            <span class="tut__meta">~5 min + charge · Beginner</span>
+            <a href="charging-petrol-board-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="troubleshooting" data-tags="flooded board riding on water recovery shore plug crank restart">
+          <a class="tut__thumb" href="flooded-board-riding-tutorial.html">
+            <img src="https://i.ytimg.com/vi/cYglM_LlmnY/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Troubleshooting</span>
+            <h3><a href="flooded-board-riding-tutorial.html">Flooded board while riding</a></h3>
+            <p>The full on-water recovery — get to shore, pull the plug, crank the water out, refit and restart.</p>
+            <span class="tut__meta">~30 min · Intermediate</span>
+            <a href="flooded-board-riding-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="electric start" data-tags="electric fins battery bay install covers arrows power mode test start">
+          <a class="tut__thumb" href="electric-get-ready-tutorial.html">
+            <img src="https://i.ytimg.com/vi/8KoXkp_zSUg/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Electric boards</span>
+            <h3><a href="electric-get-ready-tutorial.html">Getting an electric board ready</a></h3>
+            <p>Fins, battery bay check, battery install flat, covers to the arrows, power-mode select, and a test start.</p>
+            <span class="tut__meta">~10 min · Beginner</span>
+            <a href="electric-get-ready-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="electric cleaning" data-tags="electric battery connectors covers wash flush cooling line motor compartment dry">
+          <a class="tut__thumb" href="clean-electric-board-tutorial.html">
+            <img src="https://i.ytimg.com/vi/DDwhZBUT-_A/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Electric boards</span>
+            <h3><a href="clean-electric-board-tutorial.html">Cleaning an electric board after a ride</a></h3>
+            <p>Battery out, connectors covered, wash down, flush the cooling line, and open the motor compartment to dry.</p>
+            <span class="tut__meta">~20 min · Beginner</span>
+            <a href="clean-electric-board-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="electric storage" data-tags="electric store battery storage mode connector lube">
+          <a class="tut__thumb" href="store-electric-board-tutorial.html">
+            <img src="https://i.ytimg.com/vi/DcWR42PHXq8/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Electric boards</span>
+            <h3><a href="store-electric-board-tutorial.html">Storing an electric board</a></h3>
+            <p>Covers off and parked, a storage-mode battery charge to ~50%, connector lube, and the battery out of the board.</p>
+            <span class="tut__meta">~15 min · Beginner</span>
+            <a href="store-electric-board-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="electric riding" data-tags="electric skateboard remote speed modes button yacht race">
+          <a class="tut__thumb" href="skateboard-speed-modes-tutorial.html">
+            <img src="https://i.ytimg.com/vi/EV4SsmKHgfs/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Electric boards</span>
+            <h3><a href="skateboard-speed-modes-tutorial.html">Changing speed modes — electric skateboard</a></h3>
+            <p>Wake the remote, then cycle the three speed modes with the large button. Same for Yacht and Race skateboards.</p>
+            <span class="tut__meta">~2 min · Beginner</span>
+            <a href="skateboard-speed-modes-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="electric" data-tags="electric smart charger battery bag standard storage travel recovery modes">
+          <a class="tut__thumb" href="charging-electric-board-tutorial.html">
+            <img src="https://i.ytimg.com/vi/IZcM7xATfcw/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Electric boards</span>
+            <h3><a href="charging-electric-board-tutorial.html">Charging an electric board</a></h3>
+            <p>Connecting the smart charger to the battery in its bag, and the four modes — standard, storage, travel, recovery.</p>
+            <span class="tut__meta">~5 min + charge · Beginner</span>
+            <a href="charging-electric-board-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="storage" data-tags="tube inflate psi nose section strap tow accessory">
+          <a class="tut__thumb" href="fit-tube-tutorial.html">
+            <img src="https://i.ytimg.com/vi/AXa9-ZpZtPM/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Storage & travel</span>
+            <h3><a href="fit-tube-tutorial.html">Fitting the JetSurf tube</a></h3>
+            <p>Inflate to 3.6 PSI, seat the board into the nose section, and strap it down at the handles and rear buckle.</p>
+            <span class="tut__meta">~15 min · Beginner</span>
+            <a href="fit-tube-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="cleaning" data-tags="saltwater freshwater salt fresh maintenance wash">
+          <a class="tut__thumb" href="salt-vs-fresh-tutorial.html">
+            <img src="https://i.ytimg.com/vi/xkA-WvG5yL0/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Cleaning</span>
+            <h3><a href="salt-vs-fresh-tutorial.html">Saltwater vs freshwater</a></h3>
+            <p>The maintenance is the same either way — the only difference in salt is washing the board more thoroughly.</p>
+            <span class="tut__meta">~2 min · Beginner</span>
+            <a href="salt-vs-fresh-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="servicing" data-tags="service schedule interval spark plug main bearing hours 50 hours 12 months shop">
+          <a class="tut__thumb" href="service-schedule-tutorial.html">
+            <img src="https://i.ytimg.com/vi/WiKgA_K2Mng/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Servicing</span>
+            <h3><a href="service-schedule-tutorial.html">How often to service your board</a></h3>
+            <p>The schedule — after every ride, spark plug + main bearing every 6–10 hours, full shop service at 50 hours or 12 months.</p>
+            <span class="tut__meta">~2 min · Beginner</span>
+            <a href="service-schedule-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="storage" data-tags="winterize winter storage dry lube engine bay fuel tank breather charge 30 days">
+          <a class="tut__thumb" href="winterize-petrol-board-tutorial.html">
+            <img src="https://i.ytimg.com/vi/PQ9_lIAyA_s/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Storage & travel</span>
+            <h3><a href="winterize-petrol-board-tutorial.html">Winterizing a petrol board</a></h3>
+            <p>Dry it out, lube the engine bay, pull the fuel tank and vent the breather, prop the lid for airflow, and charge every 30 days.</p>
+            <span class="tut__meta">~30 min · Intermediate</span>
+            <a href="winterize-petrol-board-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="storage" data-tags="fly flying travel flight fuel tank icu hand luggage transport guards bag pack">
+          <a class="tut__thumb" href="flying-with-board-tutorial.html">
+            <img src="https://i.ytimg.com/vi/kpTXp21r-R0/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Storage & travel</span>
+            <h3><a href="flying-with-board-tutorial.html">Flying with your board</a></h3>
+            <p>Fuel tank and iCU out for hand luggage, engine flushed dry, transport guards on, and the bag packed so nothing can move.</p>
+            <span class="tut__meta">~45 min · Intermediate</span>
+            <a href="flying-with-board-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="start" data-tags="older screw on fins slots four screw main fin plate fcs">
+          <a class="tut__thumb" href="screw-on-fins-tutorial.html">
+            <img src="https://i.ytimg.com/vi/8QU1hveeKYc/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Getting started</span>
+            <h3><a href="screw-on-fins-tutorial.html">Mounting screw-on fins (older JetSurfs)</a></h3>
+            <p>The older screw-on side fins into slots, plus the four-screw main-fin plate. FCS-clip boards use the newer fins guide.</p>
+            <span class="tut__meta">~15 min · Beginner</span>
+            <a href="screw-on-fins-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="electrical" data-tags="older 2018 2019 multi chemistry charger lipo 3s red zip tie">
+          <a class="tut__thumb" href="battery-charger-older-tutorial.html">
+            <img src="https://i.ytimg.com/vi/XzfUMkeewPc/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Electrical</span>
+            <h3><a href="battery-charger-older-tutorial.html">Battery charger (older JetSurfs)</a></h3>
+            <p>The 2018–2019 multi-chemistry charger — what's in the box, the red-zip-tie connector, and charging in LiPo mode at 3S / 4200&nbsp;V.</p>
+            <span class="tut__meta">~5 min + charge · Intermediate</span>
+            <a href="battery-charger-older-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="troubleshooting servicing" data-tags="6 point pre ride check fuel sensor spark plug starter charge freewheel wont start">
+          <a class="tut__thumb" href="six-point-check-tutorial.html">
+            <img src="https://i.ytimg.com/vi/_Y-jxiOPt1w/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Troubleshooting</span>
+            <h3><a href="six-point-check-tutorial.html">6-point pre-ride check</a></h3>
+            <p>Fuel, sensor, spark plug, starter, charge, and the freewheel test — before every ride and first when a board won't start.</p>
+            <span class="tut__meta">~2 min · Beginner</span>
+            <a href="six-point-check-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="electrical" data-tags="older icu removal short walkthrough">
+          <a class="tut__thumb" href="icu-removal-older-tutorial.html">
+            <img src="https://i.ytimg.com/vi/VGfV9tJYSMg/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Electrical</span>
+            <h3><a href="icu-removal-older-tutorial.html">Removing the ICU (older JetSurfs)</a></h3>
+            <p>The older short walkthrough for pulling the ICU. Video up now; full steps are in the newer iCU guide.</p>
+            <span class="tut__meta">~5 min · Intermediate</span>
+            <a href="icu-removal-older-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="tut-source">
+        <h3>Jetboard Australia</h3>
+        <span class="tut-source__count">15 guides</span>
+        <p>Longer, more comprehensive workshop walkthroughs of JetSurf repairs from Rod Camp at <a href="https://www.youtube.com/@JetboardAustralia" target="_blank" rel="noopener">Jetboard Australia</a> — worth a subscribe.</p>
+      </div>
+
+      <div class="tut-grid">
+        <article class="tut" data-cat="engine exhaust" data-tags="dfi engine exhaust full removal refit quieter exhaust valve eccentric jetboard australia rod camp">
+          <a class="tut__thumb" href="jba-engine-exhaust-tutorial.html">
+            <img src="https://i.ytimg.com/vi/dAy-UI-EqKw/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Engine</span>
+            <h3><a href="jba-engine-exhaust-tutorial.html">DFI engine &amp; exhaust — full removal &amp; refit</a></h3>
+            <p>The complete teardown and rebuild on a late-model DFI — engine out, exhaust out, the quieter exhaust fitted, the valve eccentric set, and running again.</p>
+            <span class="tut__meta">Half a day · Advanced</span>
+            <a href="jba-engine-exhaust-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="fuel controls" data-tags="carburettor carb gp mixture pop off settings throttle cable lube fuel tank breather valve">
+          <a class="tut__thumb" href="jba-carburettor-tutorial.html">
+            <img src="https://i.ytimg.com/vi/KZHQdFdasYE/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Fuel system</span>
+            <h3><a href="jba-carburettor-tutorial.html">Carburettor, fuel tank &amp; throttle cable service</a></h3>
+            <p>Carbureted GP boards — carb overhaul, mixture &amp; pop-off settings, throttle-cable lube, and the fuel-tank breather valve test.</p>
+            <span class="tut__meta">Half a day · Advanced</span>
+            <a href="jba-carburettor-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="cleaning" data-tags="flush clean after salt hose engine bay rinse bilge pump engine flush soap wash lube">
+          <a class="tut__thumb" href="jba-flush-clean-tutorial.html">
+            <img src="https://i.ytimg.com/vi/Jk_oniuQEsg/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Cleaning</span>
+            <h3><a href="jba-flush-clean-tutorial.html">Flush &amp; clean your JetSurf like a pro</a></h3>
+            <p>The full after-salt routine — hose, engine-bay rinse, bilge-pump, engine flush done right, soap wash, engine-bay lube, and when flushing is actually needed.</p>
+            <span class="tut__meta">~30 min · Intermediate</span>
+            <a href="jba-flush-clean-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="drivetrain" data-tags="starter clutch one way bearing ep2 grease three types identify">
+          <a class="tut__thumb" href="jba-starter-clutch-tutorial.html">
+            <img src="https://i.ytimg.com/vi/4dngQjiJlnQ/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Drivetrain</span>
+            <h3><a href="jba-starter-clutch-tutorial.html">Starter clutch — check, service &amp; the three types</a></h3>
+            <p>Testing the one-way bearing, stripping and re-greasing it with EP2, and identifying which of the three JetSurf clutch types you have.</p>
+            <span class="tut__meta">1–2 hrs · Advanced</span>
+            <a href="jba-starter-clutch-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="troubleshooting" data-tags="blocked cooling system diagnosis salt corrosion cylinder o-ring groove flush">
+          <a class="tut__thumb" href="jba-blocked-cooling-tutorial.html">
+            <img src="https://i.ytimg.com/vi/P9EI0ErrTrg/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Troubleshooting</span>
+            <h3><a href="jba-blocked-cooling-tutorial.html">Blocked cooling system — diagnosis &amp; repair</a></h3>
+            <p>Tracing a salt-blocked cooling circuit branch by branch to a cylinder corroded past its O-ring groove — a case study in why the flush matters.</p>
+            <span class="tut__meta">Varies · Advanced</span>
+            <a href="jba-blocked-cooling-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="exhaust" data-tags="exhaust ball valve water silencer upgrade burned leaking pipe end types">
+          <a class="tut__thumb" href="jba-exhaust-problems-tutorial.html">
+            <img src="https://i.ytimg.com/vi/vAh_0qMF_ww/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Exhaust</span>
+            <h3><a href="jba-exhaust-problems-tutorial.html">Exhaust systems explained — valve, ball &amp; silencer</a></h3>
+            <p>How the ball valve keeps water out, cleaning it, the two incompatible end types, the bolt-on silencer upgrade, and reading a burned or leaking pipe.</p>
+            <span class="tut__meta">~1 hr · Intermediate</span>
+            <a href="jba-exhaust-problems-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="engine" data-tags="old school gp engine removal refit carbureted pre cradle coupling slotted mount drain valve vacuum bilge prime carb">
+          <a class="tut__thumb" href="jba-old-engine-tutorial.html">
+            <img src="https://i.ytimg.com/vi/NpHF4IU2Ra4/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Engine</span>
+            <h3><a href="jba-old-engine-tutorial.html">Old-school GP engine — removal &amp; refit</a></h3>
+            <p>The pre-cradle carbureted engine — couplings off, the slotted mount bolt, the deleted drain valve and vacuum bilge pump, and priming a dry carb.</p>
+            <span class="tut__meta">Half a day · Advanced</span>
+            <a href="jba-old-engine-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="engine" data-tags="full engine rebuild old school gp top bottom end crank main bearings circlip groove machining piston cylinder head coupling starter clutch">
+          <a class="tut__thumb" href="jba-engine-rebuild-tutorial.html">
+            <img src="https://i.ytimg.com/vi/KZtXvUshOGw/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Engine</span>
+            <h3><a href="jba-engine-rebuild-tutorial.html">Full engine rebuild — old-school GP</a></h3>
+            <p>Top and bottom end — crank, main bearings, the circlip-groove machining fix, piston, cylinder, head, coupling and starter clutch, back to life.</p>
+            <span class="tut__meta">Multi-day · Expert</span>
+            <a href="jba-engine-rebuild-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="drivetrain" data-tags="jet pump drive shaft bearings seals impeller repair rtv coupling alignment">
+          <a class="tut__thumb" href="jba-jetpump-bearings-tutorial.html">
+            <img src="https://i.ytimg.com/vi/hBiOPE4x1M0/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Drivetrain</span>
+            <h3><a href="jba-jetpump-bearings-tutorial.html">Jet pump &amp; drive-shaft bearings + impeller repair</a></h3>
+            <p>Pull the pump, replace both sets of bearings and seals, dress a chewed impeller back to shape, reseal with RTV, and realign the coupling.</p>
+            <span class="tut__meta">1–2 days · Advanced</span>
+            <a href="jba-jetpump-bearings-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="controls" data-tags="hand control throttle cable full replacement snorkel wiring routing handle length">
+          <a class="tut__thumb" href="jba-hand-control-tutorial.html">
+            <img src="https://i.ytimg.com/vi/fZ2FszRVAOY/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Controls</span>
+            <h3><a href="jba-hand-control-tutorial.html">Hand control / throttle cable — full replacement</a></h3>
+            <p>The whole handle-and-cable unit out through the snorkel and a new one drawn back through — wiring, throttle-cable routing, and handle-length setup.</p>
+            <span class="tut__meta">Half a day · Advanced</span>
+            <a href="jba-hand-control-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="controls" data-tags="sticky throttle cable seized oiler graphite penetrant reroute free play">
+          <a class="tut__thumb" href="jba-throttle-cable-tutorial.html">
+            <img src="https://i.ytimg.com/vi/m0PAubX2Y5M/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Controls</span>
+            <h3><a href="jba-throttle-cable-tutorial.html">Freeing a sticky throttle cable</a></h3>
+            <p>Save a seized cable without replacing the handle — remove it, flush it through with a motorcycle oiler and graphite penetrant, re-route it, and set the free play.</p>
+            <span class="tut__meta">~1 hr · Intermediate</span>
+            <a href="jba-throttle-cable-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="riding" data-tags="leg rope leash surf safety binding bolt short leash under binding mount">
+          <a class="tut__thumb" href="jba-leg-rope-tutorial.html">
+            <img src="https://i.ytimg.com/vi/ZQd-1_xFax4/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Riding</span>
+            <h3><a href="jba-leg-rope-tutorial.html">Leg ropes — why, where, and where not</a></h3>
+            <p>Why a leash matters in the surf, never leashing to the hand control or a single binding bolt, short-leash length, and a load-spreading under-binding mount.</p>
+            <span class="tut__meta">~8 min · Beginner</span>
+            <a href="jba-leg-rope-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="servicing" data-tags="12 month dfi service compression test starter clutch throttle cable exhaust valve bearings impeller fuel tank spark plug">
+          <a class="tut__thumb" href="jba-dfi-service-tutorial.html">
+            <img src="https://i.ytimg.com/vi/JV6DwjF18Io/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Servicing</span>
+            <h3><a href="jba-dfi-service-tutorial.html">The full 12-month DFI service</a></h3>
+            <p>The complete yearly service on a late-model DFI — compression test, starter clutch, throttle cable, exhaust valve, bearings, impeller, fuel tank, spark plug.</p>
+            <span class="tut__meta">Full day · Advanced</span>
+            <a href="jba-dfi-service-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="drivetrain electrical" data-tags="starter motor diagnose replace icu cleanout switch bench test coupling gear backlash">
+          <a class="tut__thumb" href="jba-starter-motor-tutorial.html">
+            <img src="https://i.ytimg.com/vi/SrvmoEtmF7Q/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Drivetrain</span>
+            <h3><a href="jba-starter-motor-tutorial.html">Diagnosing &amp; replacing the starter motor</a></h3>
+            <p>Confirm it's dead with the ICU cleanout switch and a bench test, get it out past the coupling, fit the right model, and set the gear backlash.</p>
+            <span class="tut__meta">2–3 hrs · Advanced</span>
+            <a href="jba-starter-motor-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="start riding" data-tags="bindings dual race heel up ratchet swap tops bases front v binding upgrade">
+          <a class="tut__thumb" href="jba-bindings-tutorial.html">
+            <img src="https://i.ytimg.com/vi/pDYbtwk7pk8/mqdefault.jpg" alt="" loading="lazy" />
+            <span class="tut__play" aria-hidden="true"></span>
+          </a>
+          <div class="tut__body">
+            <span class="tut__tag">Getting started</span>
+            <h3><a href="jba-bindings-tutorial.html">Bindings explained — the three types &amp; swapping</a></h3>
+            <p>Dual, race and heel-up ratchet — which board each comes on, what tops and bases interchange, and the front-V-binding trap when you upgrade.</p>
+            <span class="tut__meta">~10 min · Beginner</span>
+            <a href="jba-bindings-tutorial.html" class="badge-ready">Watch guide →</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="tut-source">
+        <h3>JTSRF CLUB</h3>
+        <span class="tut-source__count">In progress</span>
+        <p>General-care guides we're producing in-house — the everyday jobs the manufacturer series doesn't cover.</p>
+      </div>
+
+      <div class="tut-grid">
+        <article class="tut" data-cat="drivetrain" data-tags="impeller stator inspection nicks debris wear ring clearance">
+          <span class="tut__thumb tut__thumb--soon" aria-hidden="true"></span>
+          <div class="tut__body">
+            <span class="tut__tag">Drivetrain</span>
+            <h3>Impeller &amp; stator inspection</h3>
+            <p>Spotting nicks, clearing debris, and checking impeller-to-wear-ring clearance.</p>
+            <span class="tut__meta">~30 min · Intermediate</span>
+            <span class="badge-soon">Coming soon</span>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="electric storage" data-tags="battery care storage charge voltage temperature contact cleaning electric">
+          <span class="tut__thumb tut__thumb--soon" aria-hidden="true"></span>
+          <div class="tut__body">
+            <span class="tut__tag">Electric boards</span>
+            <h3>Battery care &amp; storage charge</h3>
+            <p>Safe charging, storage voltage, temperature limits, and contact cleaning.</p>
+            <span class="tut__meta">~15 min · Beginner</span>
+            <span class="badge-soon">Coming soon</span>
+          </div>
+        </article>
+
+        <article class="tut" data-cat="fuel" data-tags="fuel filter line service drain old fuel inline filter pressure test leaks">
+          <span class="tut__thumb tut__thumb--soon" aria-hidden="true"></span>
+          <div class="tut__body">
+            <span class="tut__tag">Fuel system</span>
+            <h3>Fuel filter &amp; line service</h3>
+            <p>Draining old fuel, replacing the inline filter, and pressure-testing for leaks.</p>
+            <span class="tut__meta">~25 min · Intermediate</span>
+            <span class="badge-soon">Coming soon</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= NOTIFY CTA ================= -->
+  <section class="cta-band">
+    <div class="container">
+      <span class="eyebrow">Stay posted</span>
+      <h2>Get the guides as they drop</h2>
+      <p>We'll email you when each maintenance tutorial goes live. No spam, just wrench work.</p>
+      <div class="hero__cta" style="justify-content:center">
+        <a href="mailto:hello@jtsrfclub.com?subject=Notify%20me%20about%20maintenance%20tutorials" class="btn btn--primary">Notify me</a>
+        <a href="index.html#book" class="btn btn--ghost">Book a lesson</a>
+      </div>
+      <p class="note" style="margin-top:26px;display:inline-block">Hook this up to your email list (Mailchimp, ConvertKit, Beehiiv) later.</p>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <img class="footer__logo" src="assets/img/logo-wordmark.png" alt="JTSRF CLUB logo" />
+          <p>Ride / Maintain / Master. Jetsurf lessons and rider support out of Miami.</p>
+        </div>
+        <div>
+          <h4>Sessions</h4>
+          <ul>
+            <li><a href="index.html#lessons">Intro Lesson</a></li>
+            <li><a href="index.html#lessons">Private Coaching</a></li>
+            <li><a href="index.html#lessons">Open Ride Session</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Club</h4>
+          <ul>
+            <li><a href="index.html#how">How it works</a></li>
+            <li><a href="index.html#boards">Boards</a></li>
+            <li><a href="maintenance.html">Maintenance tutorials</a></li>
+            <li><a href="index.html#faq">FAQ</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:hello@jtsrfclub.com">hello@jtsrfclub.com</a></li>
+            <li><a href="index.html#book">Book a ride</a></li>
+            <li><a href="#">Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>&copy; <span data-year>2026</span> JTSRF CLUB. All rights reserved.</span>
+        <span>Miami, FL · Daily by appointment</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
