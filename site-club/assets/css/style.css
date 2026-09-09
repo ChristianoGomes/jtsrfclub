@@ -348,11 +348,14 @@ section { padding: 96px 0; }
   flex-direction: column;
 }
 .board-card__img {
+  display: block;
   background: linear-gradient(180deg, var(--brand-cream) 0%, var(--brand-mint) 100%);
   aspect-ratio: 1 / 1;
   padding: 14px;
 }
 .board-card__img img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
+.board-card__body h3 a { color: inherit; }
+.board-card__body h3 a:hover { color: var(--brand-bright); }
 .board-card__body { padding: 16px 18px 20px; border-top: 1px solid var(--line); }
 .board-card__body h3 { font-size: 1.05rem; margin-bottom: 6px; }
 .board-card__kicker {
@@ -425,6 +428,15 @@ section { padding: 96px 0; }
   padding: 5px;
 }
 .compare__head strong { font-size: 0.8rem; letter-spacing: 0.02em; }
+.compare__head a.compare__head-link {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: var(--text);
+  font-size: inherit;
+  letter-spacing: normal;
+}
+.compare__head a.compare__head-link:hover strong { color: var(--brand-bright); }
 .compare__head a { font-size: 0.66rem; color: var(--brand-bright); letter-spacing: 0.03em; }
 .compare tbody td { color: var(--text-dim); }
 .compare .compare--yes { color: var(--brand-bright); font-weight: 700; }
@@ -554,6 +566,78 @@ section { padding: 96px 0; }
   .spot-feature__body { border-left: 0; border-top: 1px solid var(--line); }
   .spot-feature__map { border-left: 0; border-top: 1px solid var(--line); }
   .spot-feature__media, .spot-feature__map, .spot-feature__map iframe { min-height: 200px; }
+}
+
+/* ---------- board detail page ---------- */
+.bd-hero__media {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--brand-cream) 0%, var(--brand-mint) 100%);
+}
+.bd-hero__media img { width: 100%; aspect-ratio: 4 / 3; object-fit: contain; padding: 26px; mix-blend-mode: multiply; }
+.bd-hero__kicker {
+  display: inline-block;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--brand-bright);
+  margin-bottom: 14px;
+}
+.bd-hero h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); margin-bottom: 16px; }
+.bd-hero p { font-size: 1.1rem; color: var(--text-dim); margin-bottom: 26px; }
+
+.spec-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.spec-tile { background: var(--bg-elev); padding: 22px; }
+.spec-tile dt {
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+}
+.spec-tile dd {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  line-height: 1.1;
+  color: #fff;
+}
+.spec-tile dd small { font-family: var(--font-body); font-size: 0.8rem; font-weight: 600; color: var(--text-dim); }
+
+.spec-sheet {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.spec-sheet__group {
+  padding: 12px 20px;
+  background: var(--bg-elev-2);
+  font-family: var(--font-display);
+  font-size: 0.74rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--brand-bright);
+}
+.spec-sheet__row {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 16px;
+  padding: 13px 20px;
+  border-top: 1px solid var(--line);
+  font-size: 0.92rem;
+}
+.spec-sheet__row dt { color: var(--text-dim); }
+.spec-sheet__row dd { color: var(--text); }
+@media (max-width: 520px) {
+  .spec-sheet__row { grid-template-columns: 1fr; gap: 3px; }
 }
 .race-group {
   margin: 46px 0 18px;
@@ -820,12 +904,30 @@ section { padding: 96px 0; }
   flex: 1;
 }
 .tut__tag {
-  font-size: 0.7rem;
-  letter-spacing: 0.14em;
+  align-self: flex-start;
+  padding: 4px 11px;
+  border-radius: 999px;
+  background: var(--brand-deep);
+  color: #fff;
+  font-size: 0.64rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--brand-bright);
   font-weight: 700;
 }
+/* colour-code the tag by category family */
+.tut[data-cat~="start"] .tut__tag,
+.tut[data-cat~="riding"] .tut__tag { background: #1f7a4d; }
+.tut[data-cat~="cleaning"] .tut__tag,
+.tut[data-cat~="storage"] .tut__tag { background: #0e6f79; }
+.tut[data-cat~="engine"] .tut__tag,
+.tut[data-cat~="fuel"] .tut__tag,
+.tut[data-cat~="exhaust"] .tut__tag,
+.tut[data-cat~="drivetrain"] .tut__tag,
+.tut[data-cat~="servicing"] .tut__tag { background: #a8641e; }
+.tut[data-cat~="electrical"] .tut__tag,
+.tut[data-cat~="electric"] .tut__tag,
+.tut[data-cat~="controls"] .tut__tag { background: #1B6CA8; }
+.tut[data-cat~="troubleshooting"] .tut__tag { background: #9c3030; }
 .tut h3 { font-size: 1.1rem; }
 .tut h3 a { color: var(--text); transition: color .15s ease; }
 .tut h3 a:hover { color: var(--brand-bright); }
@@ -886,14 +988,29 @@ section { padding: 96px 0; }
 .tut-filter__clear:hover { background: var(--brand); color: #fff; }
 .tut-filter__chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
 .chip {
-  padding: 7px 14px; border-radius: 999px;
-  border: 1px solid var(--line); background: transparent;
-  color: var(--text-dim); font: inherit; font-size: 0.8rem; font-weight: 600;
+  padding: 7px 15px; border-radius: 999px;
+  border: 1px solid var(--line); background: var(--bg-elev-2);
+  color: var(--text); font: inherit; font-size: 0.8rem; font-weight: 600;
   cursor: pointer; white-space: nowrap;
   transition: color .15s ease, border-color .15s ease, background .15s ease;
 }
-.chip:hover { color: var(--text); border-color: var(--brand-bright); }
+.chip:hover { filter: brightness(1.15); }
 .chip.is-active { background: var(--brand); border-color: var(--brand); color: #fff; }
+
+/* colour each filter chip by its category family */
+.chip[data-cat="start"], .chip[data-cat="riding"] { color: #5cc492; border-color: #2b5f47; background: #16241d; }
+.chip[data-cat="cleaning"], .chip[data-cat="storage"] { color: #46bcc7; border-color: #1e535a; background: #102326; }
+.chip[data-cat="engine"], .chip[data-cat="fuel"], .chip[data-cat="exhaust"],
+.chip[data-cat="drivetrain"], .chip[data-cat="servicing"] { color: #e0a05f; border-color: #6a4a24; background: #271c11; }
+.chip[data-cat="electrical"], .chip[data-cat="controls"], .chip[data-cat="electric"] { color: #64aae0; border-color: #244a63; background: #10222d; }
+.chip[data-cat="troubleshooting"] { color: #e07a7a; border-color: #653232; background: #271414; }
+
+.chip[data-cat="start"].is-active, .chip[data-cat="riding"].is-active { background: #1f7a4d; border-color: #1f7a4d; color: #fff; }
+.chip[data-cat="cleaning"].is-active, .chip[data-cat="storage"].is-active { background: #0e6f79; border-color: #0e6f79; color: #fff; }
+.chip[data-cat="engine"].is-active, .chip[data-cat="fuel"].is-active, .chip[data-cat="exhaust"].is-active,
+.chip[data-cat="drivetrain"].is-active, .chip[data-cat="servicing"].is-active { background: #a8641e; border-color: #a8641e; color: #fff; }
+.chip[data-cat="electrical"].is-active, .chip[data-cat="controls"].is-active, .chip[data-cat="electric"].is-active { background: #1B6CA8; border-color: #1B6CA8; color: #fff; }
+.chip[data-cat="troubleshooting"].is-active { background: #9c3030; border-color: #9c3030; color: #fff; }
 .tut-filter__count { margin-top: 16px; font-size: 0.85rem; color: var(--text-dim); }
 .tut-empty { padding: 20px 0 60px; font-size: 1rem; color: var(--text-dim); }
 

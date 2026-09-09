@@ -14,27 +14,22 @@
     'electric-2', 'race-dfi-ski', 'titanium-dfi-ski', 'titanium-dfi-sl'
   ];
 
-  var productUrls = [
-    'https://jetsurf.com/products/adventure-2-dfi',
-    'https://jetsurf.com/products/race-dfi-sl-1',
-    'https://jetsurf.com/products/cruiser-dfi',
-    'https://jetsurf.com/products/electric-2-ski',
-    'https://jetsurf.com/products/electric-2',
-    'https://jetsurf.com/products/race-dfi-ski',
-    'https://jetsurf.com/products/jetsurf-titanium-dfi-ski',
-    'https://jetsurf.com/products/titanium-dfi-sl'
-  ];
+  var SHOP_BOARDS = 'https://jetsurfusa.com/collections/jetsurf-boards-2024';
+  var SHOP_SKI = 'https://jetsurfusa.com/collections/jetsurf-ski';
+  function shopFor(slug) {
+    return /-ski$/.test(slug) ? SHOP_SKI : SHOP_BOARDS;
+  }
 
   function fill(v) { return [v, v, v, v, v, v, v, v]; }
 
   // [ label, values[8], isBool?, wrap? ]
   var specRows = [
-    ['Design', ['Fluo Yellow / Blue, Red / Blue', 'Fluo Yellow, White', 'Grey / White, Green / Red', 'Carbon', 'Carbon', 'Carbon', 'Carbon', 'Fluo Yellow, White'], false, true],
+    ['Design', ['Fluo Yellow / Blue, Red / Blue', 'White, Fluo Yellow', 'Fluo Red, White Grey, Fluo Orange', 'Carbon', 'Carbon', 'Carbon', 'Carbon', 'White, Fluo Yellow'], false, true],
     ['Skill level', ['Beginner / Intermediate', 'Advanced', 'Beginner / Intermediate / Advanced', 'Beginner / Intermediate / Advanced', 'Beginner / Intermediate / Advanced', 'Beginner / Intermediate / Advanced', 'PRO / Racer', 'PRO / Racer'], false, true],
     ['Top speed', ['34 mph', '36 mph', '35 mph', '34 mph', '34 mph', '36 mph', '40 mph', '40 mph']],
     ['Weight', ['45 lb', '43 lb', '45 lb', '84 lb', '73 lb', '57 lb', '55 lb', '41 lb']],
     ['Range', ['60 min', '60 min', '60 min', '25–55 min', '25–55 min', '60 min', '40 min', '40 min']],
-    ['Alternator', ['No', 'No', 'Yes', 'No', 'No', 'Yes', 'Yes', 'No'], true],
+    ['Alternator', ['Yes', 'No', 'Yes', 'No', 'No', 'Yes', 'No', 'No'], true],
     ['Charging time', ['', '', '', '2.5 hr', '2.5 hr', '', '', '']],
     ['Description', [
       'Our most popular and best-selling board',
@@ -69,7 +64,6 @@
   function pick(arr) { return ORDER.map(function (i) { return arr[i]; }); }
   boards = pick(boards);
   slugs = pick(slugs);
-  productUrls = pick(productUrls);
   specRows = specRows.map(function (row) {
     return [row[0], pick(row[1]), row[2], row[3]];
   });
@@ -80,11 +74,27 @@
     });
   }
 
+  // Local detail pages, keyed by slug. Add entries as pages are built.
+  var detailPages = {
+    'adventure-2-dfi': 'board-adventure-2-dfi.html',
+    'race-dfi-sl': 'board-race-dfi-sl.html',
+    'cruiser-dfi': 'board-cruiser-dfi.html',
+    'electric-2-ski': 'board-electric-2-ski.html',
+    'electric-2': 'board-electric-2.html',
+    'race-dfi-ski': 'board-race-dfi-ski.html',
+    'titanium-dfi-ski': 'board-titanium-dfi-ski.html',
+    'titanium-dfi-sl': 'board-titanium-dfi-sl.html'
+  };
+
   var head = '<thead><tr><th aria-hidden="true"></th>' + boards.map(function (b, i) {
-    return '<th scope="col"><span class="compare__head">' +
-      '<img src="assets/img/boards/' + slugs[i] + '.png" alt="" loading="lazy" />' +
-      '<strong>' + esc(b) + '</strong>' +
-      '<a href="' + productUrls[i] + '" target="_blank" rel="noopener">View on jetsurf.com →</a>' +
+    var img = '<img src="assets/img/boards/' + slugs[i] + '.png" alt="" loading="lazy" />';
+    var name = '<strong>' + esc(b) + '</strong>';
+    var detail = detailPages[slugs[i]];
+    var identity = detail
+      ? '<a class="compare__head-link" href="' + detail + '">' + img + name + '</a>'
+      : img + name;
+    return '<th scope="col"><span class="compare__head">' + identity +
+      '<a href="' + shopFor(slugs[i]) + '" target="_blank" rel="noopener">View on jetsurfusa.com →</a>' +
       '</span></th>';
   }).join('') + '</tr></thead>';
 
