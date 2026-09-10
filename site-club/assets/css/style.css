@@ -872,6 +872,15 @@ section { padding: 96px 0; }
 .tut__thumb--soon {
   background: linear-gradient(135deg, var(--bg-elev) 0%, var(--line) 100%);
 }
+/* PDF-cover thumbnail (owner's manuals) */
+.tut__thumb--doc {
+  aspect-ratio: 4 / 3;
+  background: #c9ccce;
+}
+.tut__thumb--doc img {
+  object-fit: cover;
+  object-position: center top;
+}
 .tut__play {
   position: absolute;
   inset: 0;
