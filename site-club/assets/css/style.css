@@ -368,6 +368,40 @@ section { padding: 96px 0; }
 }
 .board-card__body p { font-size: 0.88rem; color: var(--text-dim); }
 
+/* ---------- catalog covers (full-bleed image cards) ---------- */
+.catalog-cover {
+  flex: 0 0 clamp(200px, 56vw, 240px);
+  scroll-snap-align: start;
+  position: relative;
+  display: block;
+  aspect-ratio: 3 / 4;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #0b0f12;
+}
+.catalog-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .35s ease;
+}
+.catalog-cover:hover img { transform: scale(1.05); }
+.catalog-cover__year {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 8px 14px 10px;
+  background: linear-gradient(0deg, rgba(0,0,0,.82) 0%, rgba(0,0,0,0) 100%);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
 /* ---------- comparison table ---------- */
 .compare {
   overflow-x: auto;
