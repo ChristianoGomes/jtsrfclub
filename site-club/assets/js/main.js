@@ -134,4 +134,42 @@
     }
     apply();
   }
+
+  // Spot submission modal
+  var spotModal = document.getElementById('spotModal');
+  var openSpotBtns = document.querySelectorAll('[data-open-modal="spotModal"]');
+  var closeSpotBtn = document.getElementById('spotModalClose');
+  var spotForm = document.getElementById('spotForm');
+  if (spotModal && openSpotBtns.length && spotForm) {
+    openSpotBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () { spotModal.showModal(); });
+    });
+    if (closeSpotBtn) closeSpotBtn.addEventListener('click', function () { spotModal.close(); });
+    spotModal.addEventListener('click', function (e) {
+      if (e.target === spotModal) spotModal.close(); // click on backdrop
+    });
+
+    spotForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var f = spotForm.elements;
+      var name = f.spotName.value.trim();
+      var lines = [
+        'Spot name / area: ' + name,
+        'How you launch: ' + f.spotLaunch.value.trim(),
+        'Parking: ' + f.spotParking.value.trim(),
+        'Water (protected/open, depth, hazards): ' + f.spotWater.value.trim(),
+        'Best conditions: ' + f.spotConditions.value.trim(),
+        'Rules or access notes: ' + f.spotRules.value.trim(),
+        'Map pin or location: ' + f.spotPin.value.trim(),
+        'Your name (for credit, optional): ' + f.spotSubmitter.value.trim()
+      ];
+      var subject = 'Spot submission' + (name ? ': ' + name : '');
+      var body = lines.join('\n');
+      var mailto = 'mailto:hello@jtsrfclub.com?subject=' + encodeURIComponent(subject) +
+        '&body=' + encodeURIComponent(body);
+      window.location.href = mailto;
+      spotModal.close();
+      spotForm.reset();
+    });
+  }
 })();
