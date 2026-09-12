@@ -842,6 +842,7 @@ section { padding: 96px 0; }
   padding-bottom: 16px;
   border-bottom: 1px solid var(--line);
 }
+#jtsrf-club { scroll-margin-top: 90px; }
 .tut-source + .tut-grid { margin-bottom: 4px; }
 .tut-grid + .tut-source { margin-top: 60px; }
 .tut-source h3 { font-size: 1.5rem; }
