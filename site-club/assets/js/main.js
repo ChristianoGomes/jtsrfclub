@@ -153,8 +153,10 @@
       e.preventDefault();
       var f = spotForm.elements;
       var name = f.spotName.value.trim();
+      var location = f.spotLocation.value.trim();
       var lines = [
-        'Spot name / area: ' + name,
+        'Spot name: ' + name,
+        'Location (city, region, country): ' + location,
         'How you launch: ' + f.spotLaunch.value.trim(),
         'Parking: ' + f.spotParking.value.trim(),
         'Water (protected/open, depth, hazards): ' + f.spotWater.value.trim(),
@@ -163,7 +165,7 @@
         'Map pin or location: ' + f.spotPin.value.trim(),
         'Your name (for credit, optional): ' + f.spotSubmitter.value.trim()
       ];
-      var subject = 'Spot submission' + (name ? ': ' + name : '');
+      var subject = 'Spot submission' + (name ? ': ' + name : '') + (location ? ' (' + location + ')' : '');
       var body = lines.join('\n');
       var mailto = 'mailto:hello@jtsrfclub.com?subject=' + encodeURIComponent(subject) +
         '&body=' + encodeURIComponent(body);
