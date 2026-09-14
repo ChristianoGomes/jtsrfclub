@@ -234,10 +234,14 @@
 
     load().then(function (data) {
       if (!data || !data.items.length) return;
-      var page = location.pathname.split('/').pop() || 'index.html';
+      // compare by bare page name: hosts may serve /spark-plug-tutorial for spark-plug-tutorial.html
+      var pageKey = function (url) {
+        return (url.split(/[?#]/)[0].split('/').pop() || 'index').replace(/\.html$/, '');
+      };
+      var page = pageKey(location.pathname);
       var items = data.items;
       var idx = -1;
-      items.forEach(function (g, i) { if (g.href === page) idx = i; });
+      items.forEach(function (g, i) { if (pageKey(g.href) === page) idx = i; });
       // library pages (no mount) get the sidebar only; item pages need to be in the list
       if (idx === -1 && cfg.mount) return;
 
@@ -426,18 +430,18 @@
     var boardCta = document.querySelector('.cta-band');
     if (document.getElementById('tutSearch')) {
       pageIndex({
-        source: 'maintenance.html', cacheKey: 'jtsrf-guide-index-v1', parse: readGuides,
+        source: 'maintenance.html', cacheKey: 'jtsrf-guide-index-v2', parse: readGuides,
         noun: 'guide', Noun: 'Guide', plural: 'guides'
       });
     } else if (guideDoc) {
       pageIndex({
-        source: 'maintenance.html', cacheKey: 'jtsrf-guide-index-v1', parse: readGuides,
+        source: 'maintenance.html', cacheKey: 'jtsrf-guide-index-v2', parse: readGuides,
         noun: 'guide', Noun: 'Guide', plural: 'guides',
         mount: function (pager) { guideDoc.appendChild(pager); }
       });
-    } else if (/^board-[^/]*\.html$/.test(location.pathname.split('/').pop()) && boardCta) {
+    } else if (/^board-[^/]*$/.test(location.pathname.split('/').pop().replace(/\.html$/, '')) && boardCta) {
       pageIndex({
-        source: 'boards.html', cacheKey: 'jtsrf-board-index-v1', parse: readBoards,
+        source: 'boards.html', cacheKey: 'jtsrf-board-index-v2', parse: readBoards,
         noun: 'board', Noun: 'Board', plural: 'boards',
         mount: function (pager) {
           var sec = el('section', 'board-pager');
