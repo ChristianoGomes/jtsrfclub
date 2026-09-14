@@ -1,216 +1,96 @@
-# scroll-craft
+# JTSRF CLUB
 
-**An agent skill for building premium, scroll-driven websites, with a real design standard.**
+**The website for JTSRF CLUB — jetsurf riders and board maintenance out of Miami.**
 
-Use it with Codex, Claude Code, or another coding agent that can read instructions,
-edit files, run commands, and inspect a browser. The skill contains the design
-workflow, references, engine, and verification tools. It also ships as a Claude
-Code plugin for convenient installation.
+*Ride / Maintain / Master.*
 
-Most AI website output fails in one of two directions. It is either well behaved and forgettable, or it is a flashy scroll animation with 2.1:1 body text, a headline that wraps to six lines on a phone, and the same six sections every other AI page has. scroll-craft is built to fail neither way: it treats **interaction** and **craft** as one job rather than two.
+JTSRF CLUB is a home for people who ride motorized surfboards and want to keep them running. The site brings together step-by-step maintenance guides for every JETSURF board, the current board lineup, a path into racing, and a rider-built map of where to launch.
 
-[![MIT](https://img.shields.io/badge/licence-MIT-blue.svg)](LICENSE)
-[![Agent skill](https://img.shields.io/badge/agent-skill-3b82f6.svg)](plugins/nateherk-design/skills/scroll-craft/SKILL.md)
-[![Claude Code plugin](https://img.shields.io/badge/Claude%20Code-plugin-d97757.svg)](https://code.claude.com/docs/en/plugins)
+Live at [jtsrfclub.com](https://jtsrfclub.com) *(launching soon)*.
 
 ---
 
-## New in 0.3.0: the approved ten-site standard
+## What's on the site
 
-The skill now includes the process behind ten approved immersive websites:
-AI Automation Society, PERKFORM, Glaido, Herkules Advisory, Serein, FORME,
-Pelagic, NOEMA, OFFGRID, and Afterhours.
+- **Maintenance library — 71 guides.** Every guide leads with a video walkthrough and follows it with written, timestamped steps: cleaning and storage, spark plugs, fuel and electrics, all the way to a full engine rebuild. Videos come from JETSURF Official, JETSURF USA and Jetboard Australia, plus guides written by the club.
+- **Searchable guide index.** On every guide, a sidebar lists all the others by category with instant search, and next / previous arrows move through the library.
+- **Boards.** The 2026 JETSURF lineup — gas DFI and electric, surf and Ski — with a page per board, specs, a comparison table, and owner's manuals.
+- **Racing.** How to get from the club to a MotoSurf World Cup start line: the series, the race boards, the safety kit, and the race-day toolbox.
+- **Spots.** Launch points around South Florida with conditions, parking and local rules, and a form for riders to submit their own.
+- **Club guides.** Mixing fuel at 50:1 (with a calculator), charging older boards with the DFI charger, titling and registering a board, shipping one, mapping an ICU, choosing a board, and your first pop-up.
 
-### See the worked examples in motion
+## What's in this repository
 
-A 50-second walkthrough of several approved sites, showing their layered heroes,
-pointer response, and scroll transitions.
+```
+site-club/          the live website — plain HTML, CSS and JavaScript, no build step
+├── index.html      homepage
+├── maintenance.html  guide library + owner's manuals
+├── boards.html, board-*.html   lineup and one page per board
+├── racing.html, spots.html
+├── *-tutorial.html + club guides   one page per guide
+├── assets/         css, js, images, manuals, catalogs
+├── sitemap.xml, robots.txt
+├── tests/          site check + sitemap builder (not part of the published site)
+└── README.md       working notes for the site
 
-https://github.com/user-attachments/assets/d193073b-5af9-45de-93ae-95bf7c6934d5
-
-- Plan independent depth planes, contact anchors, and opening/midpoint/exit states.
-- Use authentic brand assets and verified product details before generating imagery.
-- Choose photographic compositing or real 3D rendering to suit the subject.
-- Give each site its own navigation, information order, useful controls, and ending.
-- Art-direct phones separately and verify actual scroll frames, fallbacks, and packages.
-- Honor explicit creative delegation without forcing a redundant interview.
-
-Read the [worked examples and production workflow](plugins/nateherk-design/skills/scroll-craft/references/approved-collection.md)
-and the [hero-depth guide](plugins/nateherk-design/skills/scroll-craft/references/hero-depth.md).
-These examples describe design behavior; client assets and private form data are
-not bundled. The existing engine and video compatibility fixes are preserved.
-
-## Three builds, three completely different pages
-
-Same skill, same engine, no shared skeleton. The differences below are not themes: they are different page grammars, different navigation models, different endings.
-
-### [AI Automation Society](https://aiautomationsociety.ai) · an AI community
-A dark editorial landing for a 450,000-member community. One stat carries the whole promise, a live product surface rises into the frame, and the proof stacks under it as you fall down the page.
-
-![AI Automation Society, a dark editorial community landing](media/ais.webp)
-
-### [Nate Herk](https://www.nateherk.com) · a creator portfolio
-High-key and bright, the opposite of the first. A lit-glass hero with the numbers up front, a portrait held in the light, and two clear next steps instead of a wall of links.
-
-![Nate Herk, a high-key lit-glass creator portfolio](media/nateherk.webp)
-
-### PERKFORM · a protein coffee
-A filmic one-shot that hard-cuts to two full-bleed inverted grounds mid-page. Loud, product-forward, and the only one of the three that raises its voice.
-
-![PERKFORM, a filmic one-shot product page](media/perkform.webp)
-
----
-
-## What it actually does
-
-**Interaction, engagement, and being unrepeatable**
-
-- **Scroll is the timeline.** Video scrubs frame by frame under the wheel, sections pin while their argument advances, rails pan sideways, headlines assemble line by line, the page ground shifts colour as you travel, and the pointer moves things that are not scrolling.
-- **Eight mutually exclusive page grammars.** Filmic one-shot, chaptered editorial, live surface, continuous world, typographic poster, gallery, split stage, rhythmic cutlist. Each one *forbids* what the others require, so two builds cannot quietly converge.
-- **A required signature move.** Every build invents one bespoke interaction that exists on that site alone. A recoloured spotlight does not count.
-- **A fingerprint gate.** A new build must differ from every page you have already made on at least 4 of 6 dimensions: grammar, nav, hero, act shape, close, signature move. Fail it and you change the plan, not the record.
-
-**Craft, and how the page actually feels**
-
-- **A feeling curve before any act exists.** One line per act: the emotion, then what on screen causes it. Two adjacent acts with the same feeling means one is filler.
-- **One engineered peak.** Peak-end rule, applied literally. The peak gets the asset budget, the silence in front of it, and the most scroll room. A page with three peaks has none.
-- **A typography floor.** Two families maximum, tracking that tightens as size grows, 45 to 75ch measure, line height inverse to measure, and light-on-dark compensated on three axes.
-- **A spacing scale with actual rhythm.** 4px base, more space above a heading than below it, fluid section padding so a phone does not inherit desktop air.
-- **Colour with six roles and one accent**, secondary text tinted rather than flat grey, no pure black, and a documented escape for pages that hard-cut between light and dark grounds.
-- **Depth as five tools, not one.** Offset shadows, edge light, scale-and-blur as distance, overlap, and grain.
-- **Brand guidelines are inputs, not decoration.** Point it at a brand kit and its hard rules win, including rules that forbid things the skill would otherwise reach for.
-- **A refuse list.** Identical feature-card grids, `01 / 06` counters, scroll cues, gradient text, em dashes, invented statistics, fake dashboards, AI-purple gradients, and the cream-and-brass artisan palette every craft brand defaults to.
-
-**It checks its own work**
-
-A headless browser walks the finished page at every scroll position, waits for the video playhead to settle, and reports:
-
-- **dead scroll**: scroll that changes nothing on screen
-- **cues that never reach full opacity**: copy the reader can only ever see faded
-- **contrast measured on the composited page**, per line, at the brightest frame that ever passes under it, with the direction picked per line so light-on-dark and dark-on-light are both graded correctly
-- **legs stuck on a poster**: a clip that silently never decoded, which looks exactly like a paused film
-
-Then it writes a contact sheet, because a machine can prove a page works and cannot tell you it means anything.
-
----
-
-## Install
-
-### Codex and other coding agents
-
-Clone or download this repository. The complete skill lives in
-[`plugins/nateherk-design/skills/scroll-craft/`](plugins/nateherk-design/skills/scroll-craft/).
-Keep that folder intact, including its references, scripts, templates, and engine.
-
-- **Codex:** copy the complete `scroll-craft` folder into your project's
-  `.agents/skills/` directory, then ask Codex to use the Scrollcraft skill.
-- **Other agents with skill support:** place the folder in the agent's documented
-  skill directory.
-- **Any coding agent with file access:** leave the repository in your workspace
-  and ask it to read and follow the skill directly:
-
-```text
-Read plugins/nateherk-design/skills/scroll-craft/SKILL.md and use it to build
-my website. Follow the referenced design and verification workflow.
+site/               the lessons version of the site, frozen until lessons return
+jtsrfclub-docs/     internal docs — SOURCES.md lists every video, document and photo source
+brand assets/       logo and brand source files
+plugins/            the scroll-craft design skill the site was started with (see Credits)
 ```
 
-Adjust the path if the repository is in a subfolder. Agents use their own tools
-for file access, shell commands, browser inspection, and user questions. The
-design workflow is shared; tool names and automatic skill discovery can differ.
-The ten-site rebuild documented here was built with Codex.
+## Run it locally
 
-### Claude Code plugin
+No install needed — it's static files.
 
 ```bash
-/plugin marketplace add nateherkai/scroll-craft
-```
-```bash
-/plugin install nateherk-design
+cd site-club
+python3 -m http.server 8000
 ```
 
-Then use it by describing what you want, or invoke it directly:
+Then open [http://localhost:8000](http://localhost:8000). Serve it rather than double-clicking the HTML files: the guide index and arrows load their list from the library page, which browsers block when a page is opened straight from disk.
 
-```
-/nateherk-design:scroll-craft
-```
-
-If the install summary says `Run /reload-plugins to activate.`, run that.
-
-To hack on the skill without installing:
+## Check it before you commit
 
 ```bash
-claude --plugin-dir ./plugins/nateherk-design
+python3 site-club/tests/check_site.py           # full check, about a minute
+python3 site-club/tests/check_site.py --fast    # skip external links and YouTube
 ```
 
-## First run
+It loads every page in a headless browser at desktop and phone width and reports JavaScript errors, missing images, pages that scroll sideways on a phone, broken internal links and anchors, dead external links, YouTube videos that were removed or can't be embedded, and missing titles, descriptions, headings or alt text. It exits with an error if anything is broken.
 
-From this repository's root, run:
+Needs Playwright once: `pip install playwright && python3 -m playwright install chromium`
 
-```bash
-node plugins/nateherk-design/skills/scroll-craft/scripts/doctor.mjs
-node plugins/nateherk-design/skills/scroll-craft/scripts/workspace.mjs --ensure
-```
+## Adding a guide
 
-If you installed the skill elsewhere, use that folder's `scripts/` path instead.
+1. Copy an existing guide page as the starting point — a `*-tutorial.html` page for a video guide, or `mixing-fuel.html` for a club guide.
+2. Put its images in `site-club/assets/img/guides/<guide-name>/`.
+3. Add a card for it on `maintenance.html`, in the right source section. **The card is what puts the guide in the sidebar index and the next / previous arrows.**
+4. Rebuild the sitemap: `python3 site-club/tests/make_sitemap.py`
+5. Run the site check, then commit.
 
-Run `doctor` before anything else. The three most common setup faults all surface later as misleading errors otherwise: a stripped ffmpeg reports a missing filter as a syntax error in *your* command, a missing WebP muxer reports as a bad filename, and `playwright-core` resolves from the wrong directory.
+Adding a board works the same way: a `board-<name>.html` page plus a card on `boards.html`.
 
-## Requirements
+## Deploying
 
-| | Why | Notes |
-| --- | --- | --- |
-| **Node 18+** | every script | |
-| **A full ffmpeg build** | encoding clips so they *scrub* rather than play | Some toolchains put a stripped ffmpeg on PATH with ~50 filters and no `scale`. `doctor` finds a real build if one exists; `SCROLLCRAFT_FFMPEG` overrides. |
-| **`playwright-core` + Chrome** | the verification pass | `npm i playwright-core` **in the build folder** |
-| **`KIE_AI_API_KEY`** | only if you want assets *generated* | Optional. Building from your own photos and footage needs no key and no spend, and it is a first-class route. See `.env.example`. |
+The site is the `site-club/` folder, published as-is. On a static host such as Netlify, set the **publish directory** to `site-club` with no build command. Leave `tests/` and `README.md` out of the published files.
 
-## The workspace
+The domain stays registered at Squarespace; point its website DNS records at the host and leave the Google Workspace email records (MX and TXT) untouched.
 
-Your builds and your fingerprint registry live in one directory, resolved rather than assumed. First hit wins:
+## Contact
 
-1. `SCROLLCRAFT_HOME`
-2. the nearest `.scrollcraft.json` walking up from the current directory: `{ "workspace": "path/to/builds" }`
-3. `<project root>/scrollcraft`
+- Email: [info@jtsrfclub.com](mailto:info@jtsrfclub.com)
+- WhatsApp: [305-896-5931](https://wa.me/13058965931)
+- Instagram: [@christiano_gomes](https://instagram.com/christiano_gomes) · [YouTube](https://www.youtube.com/@christianogomes1991) · [Facebook](https://www.facebook.com/profile.php?id=61557988845895)
 
-Builds land in `<workspace>/builds/<name>/`; your registry is `<workspace>/FINGERPRINTS.md`.
+## Credits
 
-**Your registry starts empty, and that is correct.** The gate exists to stop you repeating *yourself*, so your first build has nothing to clear and every build after it does. [`EXAMPLES.md`](EXAMPLES.md) is the author's twelve-row table, included so you can see what a filled registry looks like and which shapes tend to collide. It is illustration, not constraint.
-
-## What is in here
-
-```
-plugins/nateherk-design/
-└── skills/scroll-craft/
-    ├── SKILL.md            the procedure: brief, grammar, score, build, verify
-    ├── references/
-    │   ├── approved-collection.md  the ten-site workflow and worked examples
-    │   ├── hero-depth.md   independent planes, contact anchors, mobile composition
-    │   ├── uniqueness.md   eight page grammars, the signature move, the fingerprint gate
-    │   ├── feel.md         the feeling curve, the engineered peak, the feel check
-    │   ├── devices.md      nine scroll devices and the cue contract
-    │   ├── worldflight.md  continuous-world mode: one fixed stage, no seams
-    │   ├── worlds.md       art direction, and the style-preamble method
-    │   ├── taste.md        the design floor: spacing, type, colour, depth, motion
-    │   ├── assets.md       generation, camera moves, encoding for scrubbing
-    │   ├── verify.md       the harness, and what it cannot tell you
-    │   └── template.html   a starting skeleton, not a layout
-    ├── engine/             scrollcraft.js + .css. The mechanism, never edited per project
-    ├── templates/          the empty registry a new workspace is seeded from
-    └── scripts/            doctor · workspace · kie · encode · serve · shoot · worldflight-assert
-```
-
-[`CHANGELOG.md`](plugins/nateherk-design/skills/scroll-craft/CHANGELOG.md) is worth reading on its own: it records what broke on each build and the rule that came out of it, rather than a feature list.
-
-## The one rule that matters most
-
-The engine is the mechanism and it is **never edited per project**. Theme it with six colour tokens and two fonts, write your own semantic HTML, and drive anything bespoke off the `--sc-p` custom property the engine publishes. A runtime that builds the page from a config object is exactly why every site built on one looks the same.
-
-## Honest limitations
-
-- **Only ever run on Windows.** The scripts look for ffmpeg and Chrome in Windows, macOS and Linux locations, but no build has been done on a Mac. `SCROLLCRAFT_FFMPEG` and `SCROLLCRAFT_CHROME` override the search.
-- **Generated video is not free.** A ten-leg continuous-world flight is a real spend. A page built from your own assets costs nothing.
-- **It is opinionated on purpose.** It will refuse the layouts and palettes that make AI pages recognisable, and it will argue with you about your peak. If you want a page that looks like everything else, this is the wrong tool.
+- **Videos** belong to their channels — [JETSURF Official](https://www.youtube.com/@jetsurf_official), [JETSURF USA](https://www.youtube.com/@jetsurfusa1082) and [Jetboard Australia](https://www.youtube.com/@JetboardAustralia) — and are embedded from YouTube.
+- **Owner's manuals, catalogs and board specs** are JETSURF's. Product details come from [jetsurf.com](https://jetsurf.com) and [jetsurfusa.com](https://jetsurfusa.com).
+- The full list of sources, documents and photo origins is in [jtsrfclub-docs/SOURCES.md](jtsrfclub-docs/SOURCES.md).
+- JTSRF CLUB is an independent rider community, not official JETSURF documentation.
+- This repository started from [scroll-craft](https://github.com/nateherkai/scroll-craft) by Nate Herk, MIT-licensed; its licence is kept in [LICENSE](LICENSE) and the skill remains in `plugins/`.
 
 ## Licence
 
-MIT. See [LICENSE](LICENSE).
+The original scroll-craft code is MIT-licensed — see [LICENSE](LICENSE). JTSRF CLUB's own guide text, branding and photos are © JTSRF CLUB, all rights reserved; third-party videos, manuals and product images belong to their owners.
