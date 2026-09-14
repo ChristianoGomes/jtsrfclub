@@ -1,0 +1,6 @@
+# Netlify: publish the JTSRF CLUB site from site-club/.
+# The copy step leaves out the site check scripts and working notes,
+# so only the website itself goes live.
+[build]
+  command = "rm -rf dist && mkdir dist && cp -R site-club/. dist/ && rm -rf dist/tests dist/README.md"
+  publish = "dist"
