@@ -23,9 +23,29 @@ Plain static HTML — open `index.html` in a browser, or serve the folder:
 cd site-club && python3 -m http.server 8000
 ```
 
+## Test it
+
+Run before committing (about a minute):
+
+```
+python3 site-club/tests/check_site.py          # full check
+python3 site-club/tests/check_site.py --fast   # skip external links / YouTube
+```
+
+It loads every page in a headless browser at desktop and phone width (JavaScript
+errors, missing files, sideways scroll, guide/board index + arrows, library search,
+fuel calculator), checks every internal link, image and #anchor, pings external
+links and YouTube embeds, and flags missing titles/descriptions/alt text. Exits
+non-zero on any failure. Amazon, Instagram, Facebook, WhatsApp and Ko-fi block
+automated checks — click those by hand now and then.
+
+After adding, renaming or removing a page, rebuild the sitemap: `python3 site-club/tests/make_sitemap.py`
+
+Needs Playwright once: `pip install playwright && python3 -m playwright install chromium`
+
 ## Placeholders to replace before launch
 
-- **Contact** — `hello@jtsrfclub.com`, Instagram link
+- **Contact** — `info@jtsrfclub.com`, Instagram link
 - **Gallery** — add your own session photos (grid already supports a wall of them)
 - **Maintenance tutorials** — many cards are still "coming soon"; fill in using the
   template block at the bottom of `maintenance.html`

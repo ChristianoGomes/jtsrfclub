@@ -188,6 +188,10 @@ section { padding: 96px 0; }
   margin-inline: auto;
   mix-blend-mode: screen;
 }
+.hero__title {
+  font-size: clamp(2rem, 5.5vw, 3.6rem);
+  margin: 0 auto 16px;
+}
 .hero p {
   font-size: 1.2rem;
   margin: 0 auto 34px;
@@ -1306,23 +1310,23 @@ section { padding: 96px 0; }
 }
 .race-card__img img { width: 100%; height: 100%; object-fit: contain; padding: 14px; }
 
-/* ---------- fuel mixing guide ---------- */
+/* ---------- guide tables (fuel mixing, DFI charger) ---------- */
 .mix-ratio {
   font-family: var(--font-display); font-size: clamp(4.5rem, 16vw, 8rem);
   line-height: 0.9; color: #fff; margin: 0 0 8px;
 }
 .mix-ratio span { color: var(--brand-bright); }
-.mix-table-wrap { overflow-x: auto; margin-top: 16px; border: 1px solid var(--line); border-radius: var(--radius); }
-.mix-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 0.95rem; }
-.mix-table th, .mix-table td { text-align: left; padding: 11px 16px; border-bottom: 1px solid var(--line); white-space: nowrap; }
-.mix-table th {
+.guide-table-wrap { overflow-x: auto; margin-top: 16px; border: 1px solid var(--line); border-radius: var(--radius); }
+.guide-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 0.95rem; }
+.guide-table th, .guide-table td { text-align: left; padding: 11px 16px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.guide-table th {
   background: var(--bg-elev); color: var(--text-dim);
   font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em;
 }
-.mix-table td { color: var(--text-dim); }
-.mix-table td:first-child { color: var(--text); }
-.mix-table td strong { color: var(--brand-bright); }
-.mix-table tr:last-child td { border-bottom: 0; }
+.guide-table td { color: var(--text-dim); }
+.guide-table td:first-child { color: var(--text); }
+.guide-table td strong { color: var(--brand-bright); }
+.guide-table tr:last-child td { border-bottom: 0; }
 .mix-calc {
   background: var(--bg-elev); border: 1px solid var(--line); border-radius: var(--radius);
   padding: 22px;
@@ -1351,3 +1355,16 @@ section { padding: 96px 0; }
 @media (max-width: 560px) { .tutorial-doc .mix-gear { grid-template-columns: 1fr; } }
 .tutorial-doc .mix-gear h3 { margin: 0; font-size: 1rem; }
 .mix-faq { max-width: none; }
+.tutorial-doc .guide-gear { margin-top: 4px; }
+.tutorial-doc .guide-gear h3 { margin: 0; font-size: 1rem; }
+.guide-note { margin-top: 10px; font-size: 0.85rem; }
+.tutorial-doc .callout a, .tutorial-doc > p a, .tutorial-doc > ol a, .tutorial-doc > ul a { color: var(--brand-bright); font-weight: 600; }
+.tutorial-doc > p + ul, .tutorial-doc > p + ol, .tutorial-doc > ul + p, .tutorial-doc > ol + p { margin-top: 12px; }
+.guide-figs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 16px; }
+@media (max-width: 560px) { .guide-figs { grid-template-columns: 1fr; } }
+.guide-figs figure, .guide-fig { margin: 0; }
+.guide-fig { margin: 4px 0 18px; }
+.guide-figs img, .guide-fig img {
+  width: 100%; display: block; border-radius: var(--radius); border: 1px solid var(--line); background: #fff;
+}
+.guide-figs figcaption, .guide-fig figcaption { margin-top: 8px; font-size: 0.82rem; color: var(--text-dim); }

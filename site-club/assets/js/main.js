@@ -505,7 +505,7 @@
       ];
       var subject = 'Spot submission' + (name ? ': ' + name : '') + (location ? ' (' + location + ')' : '');
       var body = lines.join('\n');
-      var mailto = 'mailto:hello@jtsrfclub.com?subject=' + encodeURIComponent(subject) +
+      var mailto = 'mailto:info@jtsrfclub.com?subject=' + encodeURIComponent(subject) +
         '&body=' + encodeURIComponent(body);
       window.location.href = mailto;
       spotModal.close();
