@@ -1368,3 +1368,26 @@ section { padding: 96px 0; }
   width: 100%; display: block; border-radius: var(--radius); border: 1px solid var(--line); background: #fff;
 }
 .guide-figs figcaption, .guide-fig figcaption { margin-top: 8px; font-size: 0.82rem; color: var(--text-dim); }
+
+/* maintenance page — the library is the first thing on the page */
+.library-top { padding-top: 44px; }
+.library-top .sec-head { max-width: none; margin-bottom: 24px; }
+.library-top .sec-head p { max-width: 72ch; }
+.library-top h1 { font-size: clamp(1.9rem, 4.4vw, 2.9rem); }
+.library-top .tut-filter { margin-bottom: 36px; }
+@media (max-width: 960px) { .library-top { padding-top: 28px; } }
+@media (max-width: 700px) {
+  /* one swipeable row of categories instead of five stacked rows */
+  .library-top .tut-filter__chips {
+    flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none;
+    margin-inline: -24px; padding-inline: 24px; padding-bottom: 4px;
+  }
+  .library-top .tut-filter__chips::-webkit-scrollbar { display: none; }
+  .library-top .sec-head .winter-tip { display: none; }
+}
+.chip--manuals {
+  display: inline-flex; align-items: center; text-decoration: none;
+  color: var(--brand-cream); border-color: #5b5546; background: #1f1d18;
+}
+.chip--manuals:hover { border-color: var(--brand-cream); }
+#manuals { scroll-margin-top: 72px; }

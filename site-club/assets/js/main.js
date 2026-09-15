@@ -43,7 +43,7 @@
     var resultsGrid = document.getElementById('tutResults');
     var sourceGrids = Array.prototype.slice.call(libSection.querySelectorAll('.tut-grid:not(.tut-results)'));
     var sources = Array.prototype.slice.call(libSection.querySelectorAll('.tut-source'));
-    var chips = Array.prototype.slice.call(chipBox.querySelectorAll('.chip'));
+    var chips = Array.prototype.slice.call(chipBox.querySelectorAll('.chip[data-cat]'));
     var activeCat = 'all';
 
     // collect cards in document order, remembering each one's home row + search text
@@ -109,7 +109,7 @@
 
     chipBox.addEventListener('click', function (e) {
       var chip = e.target.closest('.chip');
-      if (!chip) return;
+      if (!chip || !chip.dataset.cat) return; // e.g. the Owner's manuals link
       activeCat = chip.dataset.cat;
       chips.forEach(function (c) { c.classList.toggle('is-active', c === chip); });
       apply();
@@ -151,7 +151,7 @@
   function readGuides(doc) {
     var labels = {};
     var order = [];
-    doc.querySelectorAll('#tutChips .chip').forEach(function (c) {
+    doc.querySelectorAll('#tutChips .chip[data-cat]').forEach(function (c) {
       if (c.dataset.cat === 'all') return;
       labels[c.dataset.cat] = c.textContent.trim();
       order.push(c.dataset.cat);
