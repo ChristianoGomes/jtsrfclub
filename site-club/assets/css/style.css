@@ -92,7 +92,7 @@ section { padding: 96px 0; }
 .btn:hover { transform: translateY(-2px); }
 .btn--primary { background: var(--brand); color: #fff; }
 .btn--primary:hover { background: var(--brand-bright); }
-.btn--ghost { border-color: var(--line); color: var(--text); }
+.btn--ghost { border-color: var(--line); color: var(--text); background: transparent; }
 .btn--ghost:hover { border-color: var(--brand-bright); color: #fff; }
 
 /* ---------- nav ---------- */
@@ -1391,3 +1391,43 @@ section { padding: 96px 0; }
 }
 .chip--manuals:hover { border-color: var(--brand-cream); }
 #manuals { scroll-margin-top: 72px; }
+
+/* ---------- spots: search + horizontal rail ---------- */
+.spot-finder { margin: 0 0 30px; }
+.spot-finder__search { max-width: 560px; }
+.spot-finder__actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+.spot-finder__btn { padding: 11px 20px; font-size: 0.82rem; }
+.spot-finder__btn svg { flex: 0 0 auto; }
+.spot-finder__btn[disabled] { opacity: 0.6; cursor: progress; transform: none; }
+.spot-finder__status { margin-top: 14px; font-size: 0.85rem; color: var(--text-dim); }
+.spot-finder__status strong { color: var(--text); }
+.spot-finder__status button {
+  background: none; border: 0; padding: 0; font: inherit; color: var(--brand-bright);
+  font-weight: 600; cursor: pointer;
+}
+.spot-rail {
+  display: flex; gap: 20px; overflow-x: auto; overflow-y: hidden;
+  scroll-snap-type: x proximity; padding-bottom: 18px;
+  -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain;
+  scrollbar-width: thin; scrollbar-color: var(--brand) transparent;
+}
+.spot-rail::-webkit-scrollbar { height: 8px; }
+.spot-rail::-webkit-scrollbar-track { background: var(--line); border-radius: 999px; }
+.spot-rail::-webkit-scrollbar-thumb { background: var(--brand); border-radius: 999px; }
+.spot-rail > * { flex: 0 0 clamp(270px, 82vw, 360px); scroll-snap-align: start; }
+.spot-rail .spot-feature { display: flex; flex-direction: column; }
+.spot-rail .spot-feature[hidden] { display: none; }
+.spot-rail .spot-feature__media { min-height: 0; aspect-ratio: 16 / 10; }
+.spot-rail .spot-feature__body { border-left: 0; border-top: 1px solid var(--line); flex: 1; padding: 20px 22px; }
+.spot-rail .spot-feature__map { border-left: 0; border-top: 1px solid var(--line); min-height: 0; }
+.spot-rail .spot-feature__map iframe { min-height: 0; height: 190px; }
+.spot-rail .race-card--add { justify-content: center; }
+.spot-feature__place { font-size: 0.8rem; color: var(--text-dim); margin-top: -4px; }
+.spot-feature__distance {
+  align-self: flex-start; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em;
+  color: #fff; background: var(--brand); border-radius: 999px; padding: 3px 10px;
+}
+.spot-feature__distance[hidden] { display: none; }
+.spot-rail .spot-feature.is-nearest { border-color: var(--brand); }
+.spot-rail-empty { padding: 22px 0; color: var(--text-dim); }
+.spot-rail-empty[hidden] { display: none; }

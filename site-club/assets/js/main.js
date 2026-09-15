@@ -477,6 +477,133 @@
     updateMix();
   }
 
+  // Spots — search by name/town, or sort by distance from a city, ZIP or the rider's location
+  var spotRail = document.getElementById('spotRail');
+  var spotFinder = document.getElementById('spotFinder');
+  if (spotRail && spotFinder) {
+    var spotQuery = document.getElementById('spotQuery');
+    var spotLocate = document.getElementById('spotLocate');
+    var spotStatus = document.getElementById('spotStatus');
+    var spotCards = Array.prototype.slice.call(spotRail.querySelectorAll('.spot-feature[data-lat]'));
+    var addCard = spotRail.querySelector('.race-card--add');
+    var spotEmpty = el('p', 'spot-rail-empty', 'No spots match that. Try a town or ZIP and press Find nearest — or send us yours.');
+    spotEmpty.hidden = true;
+    spotRail.parentNode.insertBefore(spotEmpty, spotRail.nextSibling);
+
+    spotCards.forEach(function (card, i) {
+      card._order = i;
+      card._text = card.textContent.toLowerCase().replace(/\s+/g, ' ');
+      card._lat = parseFloat(card.dataset.lat);
+      card._lng = parseFloat(card.dataset.lng);
+      var badge = el('span', 'spot-feature__distance');
+      badge.hidden = true;
+      var tag = card.querySelector('.race-card__tag');
+      tag.parentNode.insertBefore(badge, tag);
+      card._badge = badge;
+    });
+
+    var milesBetween = function (lat1, lng1, lat2, lng2) {
+      var rad = Math.PI / 180, R = 3958.8;
+      var dLat = (lat2 - lat1) * rad, dLng = (lng2 - lng1) * rad;
+      var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(lat1 * rad) * Math.cos(lat2 * rad) * Math.sin(dLng / 2) * Math.sin(dLng / 2);
+      return 2 * R * Math.asin(Math.sqrt(a));
+    };
+    var plural = function (n) { return n + (n === 1 ? ' spot' : ' spots'); };
+    var setStatus = function (html) { spotStatus.innerHTML = html; };
+    var escapeHtml = function (t) { return t.replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+
+    var resetSpots = function () {
+      spotCards.sort(function (a, b) { return a._order - b._order; });
+      spotCards.forEach(function (card) {
+        card.hidden = false;
+        card._badge.hidden = true;
+        card.classList.remove('is-nearest');
+        spotRail.insertBefore(card, addCard);
+      });
+      spotEmpty.hidden = true;
+      setStatus('<span>' + plural(spotCards.length) + '</span> · scroll sideways to see them all');
+    };
+
+    // typing filters by name / town / description straight away
+    var filterSpots = function () {
+      var terms = spotQuery.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+      if (!terms.length) { resetSpots(); return; }
+      var shown = 0;
+      spotCards.forEach(function (card) {
+        var ok = terms.every(function (t) { return card._text.indexOf(t) !== -1; });
+        card.hidden = !ok;
+        card._badge.hidden = true;
+        card.classList.remove('is-nearest');
+        if (ok) shown++;
+      });
+      spotEmpty.hidden = shown !== 0;
+      setStatus('<strong>' + plural(shown) + '</strong> matching “' + escapeHtml(spotQuery.value.trim()) + '” · press <strong>Find nearest</strong> to sort by distance from a town or ZIP');
+    };
+
+    var sortByDistance = function (lat, lng, label) {
+      spotCards.forEach(function (card) {
+        card._miles = milesBetween(lat, lng, card._lat, card._lng);
+        card.hidden = false;
+        card._badge.hidden = false;
+        card._badge.textContent = (card._miles < 10 ? card._miles.toFixed(1) : Math.round(card._miles).toLocaleString()) + ' mi away';
+        card.classList.remove('is-nearest');
+      });
+      spotCards.sort(function (a, b) { return a._miles - b._miles; });
+      spotCards.forEach(function (card) { spotRail.insertBefore(card, addCard); });
+      spotCards[0].classList.add('is-nearest');
+      spotEmpty.hidden = true;
+      spotRail.scrollTo({ left: 0, behavior: 'smooth' });
+      var nearest = spotCards[0];
+      setStatus('Nearest to <strong>' + escapeHtml(label) + '</strong>: ' + escapeHtml(nearest.querySelector('h3').textContent) +
+        ' (' + nearest._badge.textContent.replace(' away', '') + ') · <button type="button" data-spot-reset>Show all in order</button>');
+    };
+
+    var busy = function (btn, on) { btn.disabled = on; };
+
+    spotQuery.addEventListener('input', filterSpots);
+
+    spotFinder.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var q = spotQuery.value.trim();
+      if (!q) { setStatus('Type a city or ZIP code, or use your location.'); spotQuery.focus(); return; }
+      var submitBtn = spotFinder.querySelector('button[type="submit"]');
+      busy(submitBtn, true);
+      setStatus('Looking up “' + escapeHtml(q) + '”…');
+      fetch('https://nominatim.openstreetmap.org/search?format=json&limit=1&accept-language=en&q=' + encodeURIComponent(q))
+        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+        .then(function (results) {
+          if (!results.length) {
+            filterSpots();
+            setStatus('Couldn’t find a place called “' + escapeHtml(q) + '”. Try a city name or ZIP code.');
+            return;
+          }
+          var place = results[0].display_name.split(',').slice(0, 2).join(',').trim();
+          sortByDistance(parseFloat(results[0].lat), parseFloat(results[0].lon), place);
+        })
+        .catch(function () { setStatus('Location search isn’t available right now — try <strong>Use my location</strong>.'); })
+        .then(function () { busy(submitBtn, false); });
+    });
+
+    spotLocate.addEventListener('click', function () {
+      if (!navigator.geolocation) { setStatus('Your browser can’t share its location — type a city or ZIP instead.'); return; }
+      busy(spotLocate, true);
+      setStatus('Finding your location…');
+      navigator.geolocation.getCurrentPosition(function (pos) {
+        busy(spotLocate, false);
+        spotQuery.value = '';
+        sortByDistance(pos.coords.latitude, pos.coords.longitude, 'your location');
+      }, function () {
+        busy(spotLocate, false);
+        setStatus('Location access was blocked — type a city or ZIP instead.');
+      }, { enableHighAccuracy: false, timeout: 10000, maximumAge: 600000 });
+    });
+
+    spotStatus.addEventListener('click', function (e) {
+      if (e.target.closest('[data-spot-reset]')) { spotQuery.value = ''; resetSpots(); }
+    });
+  }
+
   // Spot submission modal
   var spotModal = document.getElementById('spotModal');
   var openSpotBtns = document.querySelectorAll('[data-open-modal="spotModal"]');
