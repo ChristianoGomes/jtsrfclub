@@ -1421,7 +1421,6 @@ section { padding: 96px 0; }
 .spot-rail .spot-feature__body { border-left: 0; border-top: 1px solid var(--line); flex: 1; padding: 20px 22px; }
 .spot-rail .spot-feature__map { border-left: 0; border-top: 1px solid var(--line); min-height: 0; }
 .spot-rail .spot-feature__map iframe { min-height: 0; height: 190px; }
-.spot-rail .race-card--add { justify-content: center; }
 .spot-feature__place { font-size: 0.8rem; color: var(--text-dim); margin-top: -4px; }
 .spot-feature__distance {
   align-self: flex-start; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em;
@@ -1431,3 +1430,19 @@ section { padding: 96px 0; }
 .spot-rail .spot-feature.is-nearest { border-color: var(--brand); }
 .spot-rail-empty { padding: 22px 0; color: var(--text-dim); }
 .spot-rail-empty[hidden] { display: none; }
+.spot-add {
+  display: flex; align-items: center; justify-content: space-between; gap: 24px 40px; flex-wrap: wrap;
+  margin-top: 26px; padding: 28px 32px;
+  border: 1px solid var(--line); border-radius: var(--radius);
+  background: linear-gradient(120deg, rgba(27, 108, 168, 0.18), rgba(27, 108, 168, 0.04) 60%), var(--bg-elev);
+}
+.spot-add__text { flex: 1 1 420px; max-width: 70ch; }
+.spot-add .eyebrow { margin-bottom: 8px; }
+.spot-add h3 { font-size: 1.35rem; margin-bottom: 10px; }
+.spot-add p { font-size: 0.95rem; }
+.spot-add__small { margin-top: 8px; font-size: 0.82rem !important; }
+.spot-add__btn { flex: 0 0 auto; }
+@media (max-width: 560px) {
+  .spot-add { padding: 22px 20px; }
+  .spot-add__btn { width: 100%; justify-content: center; }
+}

@@ -485,7 +485,6 @@
     var spotLocate = document.getElementById('spotLocate');
     var spotStatus = document.getElementById('spotStatus');
     var spotCards = Array.prototype.slice.call(spotRail.querySelectorAll('.spot-feature[data-lat]'));
-    var addCard = spotRail.querySelector('.race-card--add');
     var spotEmpty = el('p', 'spot-rail-empty', 'No spots match that. Try a town or ZIP and press Find nearest — or send us yours.');
     spotEmpty.hidden = true;
     spotRail.parentNode.insertBefore(spotEmpty, spotRail.nextSibling);
@@ -519,7 +518,7 @@
         card.hidden = false;
         card._badge.hidden = true;
         card.classList.remove('is-nearest');
-        spotRail.insertBefore(card, addCard);
+        spotRail.appendChild(card);
       });
       spotEmpty.hidden = true;
       setStatus('<span>' + plural(spotCards.length) + '</span> · scroll sideways to see them all');
@@ -550,7 +549,7 @@
         card.classList.remove('is-nearest');
       });
       spotCards.sort(function (a, b) { return a._miles - b._miles; });
-      spotCards.forEach(function (card) { spotRail.insertBefore(card, addCard); });
+      spotCards.forEach(function (card) { spotRail.appendChild(card); });
       spotCards[0].classList.add('is-nearest');
       spotEmpty.hidden = true;
       spotRail.scrollTo({ left: 0, behavior: 'smooth' });
