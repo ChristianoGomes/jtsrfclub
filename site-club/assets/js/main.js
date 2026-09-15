@@ -525,19 +525,30 @@
     };
 
     // typing filters by name / town / description straight away
+    var US_ZIP = /^\d{5}(-\d{4})?$/;
+
+    // typing filters by spot name / town / description; a ZIP or a place that matches
+    // no spot keeps every card visible and waits for Find nearest
     var filterSpots = function () {
-      var terms = spotQuery.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+      var q = spotQuery.value.trim();
+      var terms = q.toLowerCase().split(/\s+/).filter(Boolean);
       if (!terms.length) { resetSpots(); return; }
-      var shown = 0;
+      var matches = spotCards.filter(function (card) {
+        return terms.every(function (t) { return card._text.indexOf(t) !== -1; });
+      });
+      if (US_ZIP.test(q) || !matches.length) {
+        spotCards.forEach(function (card) { card.hidden = false; card._badge.hidden = true; card.classList.remove('is-nearest'); });
+        spotEmpty.hidden = true;
+        setStatus('Press <strong>Find nearest</strong> (or Enter) to sort spots by distance from “' + escapeHtml(q) + '”');
+        return;
+      }
       spotCards.forEach(function (card) {
-        var ok = terms.every(function (t) { return card._text.indexOf(t) !== -1; });
-        card.hidden = !ok;
+        card.hidden = matches.indexOf(card) === -1;
         card._badge.hidden = true;
         card.classList.remove('is-nearest');
-        if (ok) shown++;
       });
-      spotEmpty.hidden = shown !== 0;
-      setStatus('<strong>' + plural(shown) + '</strong> matching “' + escapeHtml(spotQuery.value.trim()) + '” · press <strong>Find nearest</strong> to sort by distance from a town or ZIP');
+      spotEmpty.hidden = true;
+      setStatus('<strong>' + plural(matches.length) + '</strong> matching “' + escapeHtml(q) + '” · press <strong>Find nearest</strong> to sort by distance instead');
     };
 
     var sortByDistance = function (lat, lng, label) {
@@ -569,16 +580,31 @@
       var submitBtn = spotFinder.querySelector('button[type="submit"]');
       busy(submitBtn, true);
       setStatus('Looking up “' + escapeHtml(q) + '”…');
-      fetch('https://nominatim.openstreetmap.org/search?format=json&limit=1&accept-language=en&q=' + encodeURIComponent(q))
+      // a bare 5-digit number is looked up as a US ZIP — as free text it matches postcodes worldwide
+      var isZip = US_ZIP.test(q);
+      var url = 'https://nominatim.openstreetmap.org/search?format=json&limit=1&accept-language=en&' +
+        (isZip ? 'countrycodes=us&postalcode=' + encodeURIComponent(q.slice(0, 5)) : 'q=' + encodeURIComponent(q));
+      fetch(url)
         .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
         .then(function (results) {
-          if (!results.length) {
-            filterSpots();
-            setStatus('Couldn’t find a place called “' + escapeHtml(q) + '”. Try a city name or ZIP code.');
+          if (results.length) return results[0];
+          if (!isZip) return null;
+          // backup ZIP lookup
+          return fetch('https://api.zippopotam.us/us/' + q.slice(0, 5))
+            .then(function (r) { return r.ok ? r.json() : null; })
+            .then(function (z) {
+              var pl = z && z.places && z.places[0];
+              return pl ? { lat: pl.latitude, lon: pl.longitude, display_name: q.slice(0, 5) + ', ' + pl['place name'] } : null;
+            });
+        })
+        .then(function (hit) {
+          if (!hit) {
+            setStatus('Couldn’t find ' + (isZip ? 'ZIP code' : 'a place called') + ' “' + escapeHtml(q) + '”. Try a city name or ZIP code.');
             return;
           }
-          var place = results[0].display_name.split(',').slice(0, 2).join(',').trim();
-          sortByDistance(parseFloat(results[0].lat), parseFloat(results[0].lon), place);
+          var parts = hit.display_name.split(',').map(function (x) { return x.trim(); });
+          var place = isZip ? parts.slice(0, 2).join(', ') : parts.slice(0, 2).join(', ');
+          sortByDistance(parseFloat(hit.lat), parseFloat(hit.lon), place);
         })
         .catch(function () { setStatus('Location search isn’t available right now — try <strong>Use my location</strong>.'); })
         .then(function () { busy(submitBtn, false); });
