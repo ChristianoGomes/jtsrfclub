@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>JTSRF CLUB — Ride-Ready Card</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  @page { size: letter; margin: 0; }
+  :root {
+    --ink: #10151b; --dim: #4a5563; --line: #d6dde5; --soft: #f2f5f8;
+    --brand: #1B6CA8; --brand-deep: #0f4a75; --warn: #b4531b; --dark: #0a0c0f;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #fff; color: var(--ink); font-family: "Inter", Arial, sans-serif; font-size: 9.4pt; line-height: 1.38;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .page { width: 8.5in; height: 11in; padding: 0 0.42in 0.36in; display: flex; flex-direction: column; page-break-after: always; overflow: hidden; }
+  .page:last-child { page-break-after: auto; }
+  h1, h2, h3 { font-family: "Archivo Black", "Arial Black", sans-serif; text-transform: uppercase; letter-spacing: -0.005em; line-height: 1.05; }
+
+  .band { margin: 0 -0.42in 0.2in; padding: 0.16in 0.42in; background: var(--dark); color: #fff; display: flex; align-items: center; gap: 0.18in; }
+  .band img { width: 0.72in; height: 0.72in; border-radius: 50%; }
+  .band .t { flex: 1; }
+  .band .kicker { font-size: 7.4pt; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: #66A3BF; }
+  .band h1 { font-size: 22pt; margin-top: 2px; }
+  .band .sub { font-size: 8.4pt; color: #b9c4cf; margin-top: 3px; }
+  .band .pill { font-family: "Archivo Black", sans-serif; font-size: 10pt; text-transform: uppercase; background: var(--brand); color: #fff; padding: 6px 12px; border-radius: 999px; white-space: nowrap; }
+  .band .pg { font-size: 7.4pt; color: #8a97a4; text-align: right; margin-top: 6px; letter-spacing: 0.08em; }
+
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0.2in; flex: 1; }
+  .col { display: flex; flex-direction: column; gap: 0.14in; }
+  .box { border: 1px solid var(--line); border-radius: 8px; padding: 0.12in 0.14in; }
+  .box.tint { background: var(--soft); border-color: var(--soft); }
+  .box.warn { border-color: #efc9ae; background: #fdf4ee; }
+  h2 { font-size: 11pt; color: var(--ink); display: flex; align-items: center; gap: 7px; margin-bottom: 7px; }
+  h2 .n { font-family: "Inter", sans-serif; font-weight: 700; font-size: 7.6pt; color: #fff; background: var(--brand); border-radius: 999px; padding: 2px 7px; letter-spacing: 0.04em; }
+  .warn h2 .n { background: var(--warn); }
+  h3 { font-size: 8.6pt; color: var(--brand-deep); margin: 8px 0 4px; }
+  p.lead { color: var(--dim); font-size: 8.6pt; margin-bottom: 6px; }
+
+  ul.check { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+  ul.check li { position: relative; padding-left: 19px; }
+  ul.check li::before { content: ""; position: absolute; left: 0; top: 1.5px; width: 11px; height: 11px; border: 1.4px solid var(--brand); border-radius: 3px; background: #fff; }
+  ul.dot { list-style: none; display: flex; flex-direction: column; gap: 3px; }
+  ul.dot li { position: relative; padding-left: 12px; }
+  ul.dot li::before { content: ""; position: absolute; left: 1px; top: 6px; width: 5px; height: 5px; border-radius: 50%; background: var(--brand); }
+  ol.steps { list-style: none; counter-reset: s; display: flex; flex-direction: column; gap: 4px; }
+  ol.steps li { counter-increment: s; position: relative; padding-left: 20px; }
+  ol.steps li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 14px; height: 14px; border-radius: 50%; background: var(--ink); color: #fff; font-size: 7.4pt; font-weight: 700; text-align: center; line-height: 14px; }
+  b, strong { font-weight: 700; }
+  .hl { color: var(--brand-deep); font-weight: 700; }
+  .warn .hl { color: var(--warn); }
+
+  table { width: 100%; border-collapse: collapse; font-size: 8.6pt; }
+  th { text-align: left; font-size: 7pt; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); font-weight: 700; padding: 4px 6px; border-bottom: 1.4px solid var(--ink); }
+  td { padding: 5px 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  tr:last-child td { border-bottom: 0; }
+  td.k { font-weight: 700; white-space: nowrap; }
+  table.log td { height: 0.29in; }
+  table.log th:first-child { width: 17%; }
+
+  .lights { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; margin-top: 4px; }
+  .lights div { border-radius: 6px; padding: 5px 6px; color: #fff; font-weight: 700; font-size: 8pt; text-align: center; line-height: 1.2; }
+  .lights span { display: block; font-weight: 500; font-size: 7.2pt; opacity: 0.92; }
+
+  .foot { margin-top: 0.14in; padding-top: 0.1in; border-top: 1.4px solid var(--ink); display: flex; align-items: center; gap: 0.16in; font-size: 7.8pt; color: var(--dim); }
+  .foot img { width: 0.72in; height: 0.72in; }
+  .foot .f { flex: 1; }
+  .foot strong { color: var(--ink); }
+  .foot .fine { font-size: 6.8pt; margin-top: 3px; }
+</style>
+</head>
+<body>
+
+<!-- ============ GAS · PAGE 1 ============ -->
+<section class="page">
+  <div class="band">
+    <img src="data:image/jpeg;base64,{{LOGO}}" alt="" />
+    <div class="t">
+      <div class="kicker">JTSRF CLUB · Ride / Maintain / Master</div>
+      <h1>Ride-Ready Card</h1>
+      <div class="sub">Every session, start to finish. Print it, laminate it, tick it off with a dry-erase marker.</div>
+    </div>
+    <div><div class="pill">Gas boards</div><div class="pg">1 / 2</div></div>
+  </div>
+
+  <div class="cols">
+    <div class="col">
+      <div class="box">
+        <h2><span class="n">1</span> Pack the kit</h2>
+        <ul class="check">
+          <li>Fuel pre-mixed at <b>50:1</b> — fully synthetic 2T oil, premium gas (93 at a US pump)</li>
+          <li>Buoyancy aid</li>
+          <li>Helmet — water-sports helmet at minimum</li>
+          <li>Wetsuit if the water's cold</li>
+          <li>Leash on your <b>arm</b></li>
+          <li>Both magnet keys — one on you, one spare</li>
+          <li>Board charged</li>
+          <li>Registration or proof of purchase, phone in a dry pouch</li>
+        </ul>
+      </div>
+
+      <div class="box">
+        <h2><span class="n">2</span> The 6-point check</h2>
+        <ul class="check">
+          <li><b>Fuel</b> — fuel in the tank, fuel line connected</li>
+          <li><b>Sensor</b> — connected (2018–2019 DFI and EFI)</li>
+          <li><b>Spark plug</b> — seated and in good condition</li>
+          <li><b>Starter</b> — magnet on the start point, listen for it turning</li>
+          <li><b>Charge</b> — the board is charged</li>
+          <li><b>Freewheel</b> — clockwise engages (piston moves), counter-clockwise spins free</li>
+        </ul>
+        <h3>Engine bay</h3>
+        <ul class="check">
+          <li>No debris or loose parts in the bay</li>
+          <li>All pipes seated; throttle squeezes smoothly</li>
+          <li>Engine cover on, every toggle locked</li>
+        </ul>
+      </div>
+
+      <div class="box tint">
+        <h2><span class="n">3</span> Start &amp; stop</h2>
+        <ol class="steps">
+          <li>Magnet into the handle — pumps run, <b>green light flashes</b></li>
+          <li>Magnet in a second time — starts after about <b>3 seconds</b></li>
+          <li><b>Stop:</b> pull the key. It stays ready to restart for ~5 min</li>
+          <li><b>Off:</b> hold the key against the flashing green light</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="box warn">
+        <h2><span class="n">4</span> On the water</h2>
+        <ul class="dot">
+          <li>Launch in at least <b>knee-deep</b> water — shallower puts sand in the pump</li>
+          <li><span class="hl">Watch the cooling telltale.</span> No water coming out? <b>Head straight to shore</b> and check the lines for weed or sand</li>
+          <li>Losing power or vibrating? Something's in the jet pump — stop and clear it</li>
+          <li>Won't start after <b>3–4 tries</b>? Stop — you'll overheat the starter</li>
+          <li><span class="hl">Flooded?</span> Don't keep cranking. Swim it in (see page 2)</li>
+          <li>Idle speed and no wake near ramps, docks, swimmers and manatee zones</li>
+          <li>A full 2.8 L tank is roughly <b>50–55 minutes</b></li>
+        </ul>
+      </div>
+
+      <div class="box">
+        <h2><span class="n">5</span> After every ride</h2>
+        <ul class="check">
+          <li>Rinse the whole board — deck, bindings, underneath, through the pump</li>
+          <li>Spray fresh water down the snorkel</li>
+          <li>Lid off (not in the sand). <b>Hand over the engine intake</b>, flush the bay</li>
+          <li>Magnet key on — the bilge pump pushes the water out</li>
+          <li>Flush adapter on the hose — run the cooling system through</li>
+          <li>Let it dry, then spray lubricant over the bay and moving parts</li>
+          <li>Check cable and pipe connections</li>
+          <li><b>Fuel tank out</b> — heat expands the fuel</li>
+          <li>Charge the board; note the engine hours (page 2)</li>
+        </ul>
+        <h3>Rode in salt water?</h3>
+        <p class="lead" style="margin:0">Do all of it <b>the same day</b> — no exceptions. Salt left in the cooling channels is what corrodes boards.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <img src="data:image/png;base64,{{QR}}" alt="" />
+    <div class="f">
+      <strong>Full step-by-step guides with video:</strong> jtsrfclub.com/maintenance.html — scan the code.<br />
+      Questions: <strong>info@jtsrfclub.com</strong> · WhatsApp <strong>305-896-5931</strong>
+      <div class="fine">Working reference from JTSRF CLUB, based on JETSURF and JETSURF USA tutorials — not official JETSURF documentation. Follow your owner's manual.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GAS · PAGE 2 ============ -->
+<section class="page">
+  <div class="band">
+    <img src="data:image/jpeg;base64,{{LOGO}}" alt="" />
+    <div class="t">
+      <div class="kicker">JTSRF CLUB · Ride-Ready Card</div>
+      <h1>Service, storage &amp; log</h1>
+      <div class="sub">The longer view — keep it with the board.</div>
+    </div>
+    <div><div class="pill">Gas boards</div><div class="pg">2 / 2</div></div>
+  </div>
+
+  <div class="cols">
+    <div class="col">
+      <div class="box">
+        <h2>Service schedule</h2>
+        <table>
+          <tr><th>When</th><th>What</th></tr>
+          <tr><td class="k">Every ride</td><td>Wash, flush, lubricate, check cable and pipe connections</td></tr>
+          <tr><td class="k">Every 6–10 hrs</td><td>New spark plug. Oil or lithium grease down the tube into the main bearing</td></tr>
+          <tr><td class="k">50 hrs or 12 months</td><td><b>Full service at a service center</b> — whichever comes first</td></tr>
+          <tr><td class="k">1–2× a year</td><td>Clean the anti-flood ball inside the exhaust</td></tr>
+        </table>
+      </div>
+
+      <div class="box warn">
+        <h2>If it floods</h2>
+        <ol class="steps">
+          <li>Stop trying to start it. Swim the board to shore</li>
+          <li>Stand it on its tail and drain the back. On the stand, lid off</li>
+          <li>Red cap and plug lead off. <b>Let the plug cool</b>, then unscrew it</li>
+          <li>Dry the plug with a towel — or fit the spare from the toolkit</li>
+          <li>Sit it in the stand with the plug hole facing down to drain</li>
+          <li>Magnet in and out to wake it. Board on its side, <b>crank with no plug</b> until the spray runs clear</li>
+          <li>Dry 5–10 min. Plug in to its natural stop, lead and red cap back on</li>
+        </ol>
+      </div>
+
+      <div class="box tint">
+        <h2>The 50:1 mix</h2>
+        <table>
+          <tr><th>Gasoline</th><th>2T oil</th><th>Gasoline</th><th>2T oil</th></tr>
+          <tr><td>1 gal</td><td class="k">2.6 oz</td><td>5 L</td><td class="k">100 ml</td></tr>
+          <tr><td>2.5 gal</td><td class="k">6.4 oz</td><td>10 L</td><td class="k">200 ml</td></tr>
+          <tr><td>5 gal</td><td class="k">12.8 oz</td><td>2.8 L tank</td><td class="k">56 ml</td></tr>
+        </table>
+        <p class="lead" style="margin:6px 0 0">Oil in the can first, then the gas. Swirl, label the can with the date, use within a month.</p>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="box">
+        <h2>Storage &amp; off-season</h2>
+        <ul class="check">
+          <li>Last ride cleaned and <b>completely dry</b></li>
+          <li>Rode salt this season? Full flush-attachment cycle, not a quick rinse</li>
+          <li>Spray lubricant over the dry bay and moving parts</li>
+          <li>Fuel tank out, stored dry and away from the board</li>
+          <li>Engine lid on loosely or offset so air flows — no condensation</li>
+          <li>Charge the board <b>every 30 days</b></li>
+        </ul>
+        <h3>Travel &amp; flying</h3>
+        <ul class="dot">
+          <li>Fuel tank out and empty; many airlines want the tank and iCU in hand luggage — check first</li>
+          <li>Engine flushed and dry, transport guards on, bag padded</li>
+        </ul>
+      </div>
+
+      <div class="box">
+        <h2>Engine hours log</h2>
+        <table class="log">
+          <tr><th>Date</th><th>Hours</th><th>Water</th><th>Work done / notes</th></tr>
+          <tr><td></td><td></td><td></td><td></td></tr>
+          <tr><td></td><td></td><td></td><td></td></tr>
+          <tr><td></td><td></td><td></td><td></td></tr>
+          <tr><td></td><td></td><td></td><td></td></tr>
+          <tr><td></td><td></td><td></td><td></td></tr>
+          <tr><td></td><td></td><td></td><td></td></tr>
+          <tr><td></td><td></td><td></td><td></td></tr>
+          <tr><td></td><td></td><td></td><td></td></tr>
+          <tr><td></td><td></td><td></td><td></td></tr>
+          <tr><td></td><td></td><td></td><td></td></tr>
+          <tr><td></td><td></td><td></td><td></td></tr>
+        </table>
+        <p class="lead" style="margin:6px 0 0">Last plug change: ______ hrs &nbsp;·&nbsp; Last service: ___/___/____</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <img src="data:image/png;base64,{{QR}}" alt="" />
+    <div class="f">
+      <strong>Every guide in detail:</strong> spark plug, flooded engine, cleaning, winterizing, fuel mixing and more at jtsrfclub.com/maintenance.html<br />
+      Questions: <strong>info@jtsrfclub.com</strong> · WhatsApp <strong>305-896-5931</strong>
+      <div class="fine">Working reference from JTSRF CLUB — not official JETSURF documentation. Your owner's manual and service center have the final word.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ELECTRIC · PAGE 1 ============ -->
+<section class="page">
+  <div class="band">
+    <img src="data:image/jpeg;base64,{{LOGO}}" alt="" />
+    <div class="t">
+      <div class="kicker">JTSRF CLUB · Ride / Maintain / Master</div>
+      <h1>Ride-Ready Card</h1>
+      <div class="sub">Every session, start to finish. Print it, laminate it, tick it off with a dry-erase marker.</div>
+    </div>
+    <div><div class="pill">Electric boards</div><div class="pg">1 / 2</div></div>
+  </div>
+
+  <div class="cols">
+    <div class="col">
+      <div class="box">
+        <h2><span class="n">1</span> Pack the kit</h2>
+        <ul class="check">
+          <li>Battery charged to <b>100%</b> (standard mode)</li>
+          <li>Stand, and fins — left, right and centre</li>
+          <li>Buoyancy aid and helmet</li>
+          <li>Wetsuit if the water's cold</li>
+          <li>Shut-off key on your wrist — both keys with you</li>
+          <li>Rubber key and Allen key for the lids</li>
+          <li>Registration or proof of purchase, phone in a dry pouch</li>
+        </ul>
+      </div>
+
+      <div class="box">
+        <h2><span class="n">2</span> Prep the board</h2>
+        <ul class="check">
+          <li>Fins clipped in; board on the stand</li>
+          <li>Battery-bay connectors all there — none bent or damaged</li>
+          <li>Battery in <b>dead flat</b>, pushed down, all four clips closed</li>
+          <li>Tone and light confirm the battery is registered</li>
+          <li>Engine-bay cap tightened <b>to the arrows</b> with the rubber key</li>
+          <li>Magnetic secondary lid on</li>
+          <li>Inspection lid: a little condensation is fine — <b>a lot of water, call service</b></li>
+          <li>Decompression chamber: remove any water; swap the valve if dirty</li>
+        </ul>
+      </div>
+
+      <div class="box tint">
+        <h2><span class="n">3</span> Power mode &amp; test start</h2>
+        <ol class="steps">
+          <li>Magnet into the handle — <b>green light</b> means it's ready</li>
+          <li>Pick the power mode — count the buzzes: <b>1 low · 2 medium · 3 high</b>. New riders start in 1</li>
+          <li>Don't touch the throttle before the key is in — fast blinking red</li>
+          <li>Test: key in, tone, green light, a little throttle — motor runs, light stays green</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="box warn">
+        <h2><span class="n">4</span> On the water</h2>
+        <ul class="dot">
+          <li>Carry by the handle and body — <b>never by the straps</b></li>
+          <li>Launch in at least <b>knee-deep</b> water — protects the fins and impeller</li>
+          <li><b>Booster:</b> push through the end of the throttle for 1–2 extra hp for 10–30 s. It cuts out on its own</li>
+          <li>Check cooling water is coming out while you ride</li>
+        </ul>
+        <h3>Battery light = charge left</h3>
+        <div class="lights">
+          <div style="background:#1f7a4d">Green<span>over 75%</span></div>
+          <div style="background:#1B6CA8">Blue<span>over 50%</span></div>
+          <div style="background:#c27a1e">Orange<span>over 25%</span></div>
+          <div style="background:#b3322b">Red<span>under 25%</span></div>
+        </div>
+        <p class="lead" style="margin:6px 0 0"><span class="hl">Red and no longer blinking = safe-return mode.</span> Power is cut back — you have about <b>400 m / 1,300 ft</b> to reach shore. Head in when you see red.</p>
+      </div>
+
+      <div class="box">
+        <h2><span class="n">5</span> After every ride</h2>
+        <ul class="check">
+          <li>Carry it on its side so the battery bay drains</li>
+          <li>On the stand: four clips down, <b>battery out</b>, set it somewhere dry</li>
+          <li>Blow water off the bay connectors; <b>fit the connector cover</b></li>
+          <li>Rinse the whole board, the handle and the battery bay</li>
+          <li>Clean the battery only with its connector cover on</li>
+          <li>Hose on the cooling-line fitting — flush, then let it drain</li>
+          <li>Open the motor compartment to dry — lid on its magnetic base</li>
+          <li>Lubricant around the handle and the bay connectors</li>
+          <li>Charge the battery in its bag — standard mode for the next ride</li>
+        </ul>
+        <p class="lead" style="margin:6px 0 0"><b>Water must never get into the motor compartment.</b> Connector cover on before you wash.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <img src="data:image/png;base64,{{QR}}" alt="" />
+    <div class="f">
+      <strong>Full step-by-step guides with video:</strong> jtsrfclub.com/maintenance.html — scan the code.<br />
+      Questions: <strong>info@jtsrfclub.com</strong> · WhatsApp <strong>305-896-5931</strong>
+      <div class="fine">Working reference from JTSRF CLUB, based on JETSURF and JETSURF USA tutorials — not official JETSURF documentation. Follow your owner's manual.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ELECTRIC · PAGE 2 ============ -->
+<section class="page">
+  <div class="band">
+    <img src="data:image/jpeg;base64,{{LOGO}}" alt="" />
+    <div class="t">
+      <div class="kicker">JTSRF CLUB · Ride-Ready Card</div>
+      <h1>Charging, storage &amp; log</h1>
+      <div class="sub">The longer view — keep it with the battery bag.</div>
+    </div>
+    <div><div class="pill">Electric boards</div><div class="pg">2 / 2</div></div>
+  </div>
+
+  <div class="cols">
+    <div class="col">
+      <div class="box">
+        <h2>The four charger modes</h2>
+        <table>
+          <tr><th>Mode</th><th>Charges to</th><th>Use it for</th></tr>
+          <tr><td class="k">Standard</td><td class="k">100%</td><td>The default — plug in between rides, nothing to press</td></tr>
+          <tr><td class="k">Storage</td><td class="k">50%</td><td>The board will sit unused for a while</td></tr>
+          <tr><td class="k">Travel</td><td class="k">30%</td><td>Flying or shipping the battery</td></tr>
+          <tr><td class="k">Recovery</td><td class="k">Slow</td><td>Only if the battery fell too low — check the manual first</td></tr>
+        </table>
+        <h3>Charging</h3>
+        <ol class="steps">
+          <li>Battery stays in its bag. Open the flap, remove the foam, cover off the connectors</li>
+          <li>Charger plugged in shows <b>"charger ready, connect battery"</b></li>
+          <li>Push the lead in until the lock <b>clicks</b></li>
+          <li>To change mode: disconnect, covers on, hold the menu button, step through, hold again, reconnect</li>
+        </ol>
+      </div>
+
+      <div class="box tint">
+        <h2>Storage</h2>
+        <ul class="check">
+          <li>Cleaned with fresh water first</li>
+          <li>Charged in <b>storage mode (50%)</b></li>
+          <li>Battery <b>out of the board</b>, in its bag, connector cover on</li>
+          <li>Engine-bay cover in its cloth cover; connector covers kept safe</li>
+          <li>Motor-bay lid on its magnetic tray — compartment left open to breathe</li>
+          <li>Lubricant around the handle and the bay connectors</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="box warn">
+        <h2>Battery handling</h2>
+        <ul class="dot">
+          <li><b>In:</b> four locks open, drop it in flat, press on the connector end to seat it, lock all four</li>
+          <li><b>Out:</b> press the sides to release the locks, fingers underneath, thumbs push it up</li>
+          <li>Keep connectors clean and dry — covers on the board bay and the battery whenever it's out</li>
+          <li>Never force the caps on a crooked battery — it damages the pins</li>
+          <li>Flying or shipping? Charge in <b>travel mode (30%)</b> and check the carrier's battery rules first</li>
+        </ul>
+      </div>
+
+      <div class="box">
+        <h2>Session log</h2>
+        <table class="log">
+          <tr><th>Date</th><th>Start %</th><th>End %</th><th>Mode · water · notes</th></tr>
+          <tr><td></td><td></td><td></td><td></td></tr>
+          <tr><td></td><td></td><td></td><td></td></tr>
+          <tr><td></td><td></td><td></td><td></td></tr>
+          <tr><td></td><td></td><td></td><td></td></tr>
+          <tr><td></td><td></td><td></td><td></td></tr>
+          <tr><td></td><td></td><td></td><td></td></tr>
+          <tr><td></td><td></td><td></td><td></td></tr>
+          <tr><td></td><td></td><td></td><td></td></tr>
+          <tr><td></td><td></td><td></td><td></td></tr>
+          <tr><td></td><td></td><td></td><td></td></tr>
+          <tr><td></td><td></td><td></td><td></td></tr>
+        </table>
+        <p class="lead" style="margin:6px 0 0">Last service: ___/___/____ &nbsp;·&nbsp; Service intervals: owner's manual</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <img src="data:image/png;base64,{{QR}}" alt="" />
+    <div class="f">
+      <strong>Every guide in detail:</strong> charging, cleaning and storing an electric board, power modes and more at jtsrfclub.com/maintenance.html<br />
+      Questions: <strong>info@jtsrfclub.com</strong> · WhatsApp <strong>305-896-5931</strong>
+      <div class="fine">Working reference from JTSRF CLUB — not official JETSURF documentation. Your owner's manual and service center have the final word.</div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

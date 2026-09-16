@@ -477,6 +477,74 @@
     updateMix();
   }
 
+  // Guide pages — clicking a timestamp jumps the video above it to that moment
+  var guideBody = document.querySelector('.tutorial-doc');
+  if (guideBody) {
+    var frames = Array.prototype.slice.call(guideBody.querySelectorAll('iframe[src*="youtube.com/embed/"]'));
+    var stamps = [];
+    Array.prototype.slice.call(guideBody.querySelectorAll('li > strong:first-child')).forEach(function (tag) {
+      var m = /^(?:(\d{1,2}):)?(\d{1,2}):(\d{2})$/.exec(tag.textContent.trim());
+      if (!m) return;
+      var seconds = (parseInt(m[1] || 0, 10) * 3600) + (parseInt(m[2], 10) * 60) + parseInt(m[3], 10);
+      // the video this step belongs to: the last one before it on the page
+      var owner = null;
+      frames.forEach(function (f) {
+        if (f.compareDocumentPosition(tag) & Node.DOCUMENT_POSITION_FOLLOWING) owner = f;
+      });
+      if (!owner) owner = frames[0];
+      if (!owner) return;
+      var btn = el('button', 'ts');
+      btn.type = 'button';
+      btn.innerHTML = '<span class="ts__icon" aria-hidden="true"></span>' + tag.textContent.trim();
+      btn.title = 'Play the video from ' + tag.textContent.trim();
+      btn.setAttribute('aria-label', 'Play from ' + tag.textContent.trim());
+      tag.parentNode.replaceChild(btn, tag);
+      stamps.push({ btn: btn, seconds: seconds, frame: owner });
+    });
+
+    if (stamps.length) {
+      var players = {};
+      var videoId = function (frame) {
+        var m = /embed\/([\w-]{11})/.exec(frame.src);
+        return m ? m[1] : null;
+      };
+      var watchUrl = function (stamp) {
+        return 'https://www.youtube.com/watch?v=' + videoId(stamp.frame) + '&t=' + stamp.seconds + 's';
+      };
+      var ready = false;
+
+      var play = function (stamp) {
+        var player = players[stamp.frame.dataset.ytIndex];
+        if (!ready || !player || !player.seekTo) { window.open(watchUrl(stamp), '_blank', 'noopener'); return; }
+        var box = stamp.frame.getBoundingClientRect();
+        if (box.top < 60 || box.bottom > window.innerHeight) {
+          stamp.frame.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        player.seekTo(stamp.seconds, true);
+        player.playVideo();
+      };
+      stamps.forEach(function (stamp) {
+        stamp.btn.addEventListener('click', function () { play(stamp); });
+      });
+
+      // the player API can only drive iframes that asked for it
+      frames.forEach(function (frame, i) {
+        frame.dataset.ytIndex = i;
+        if (frame.src.indexOf('enablejsapi=') === -1) {
+          frame.src += (frame.src.indexOf('?') === -1 ? '?' : '&') + 'enablejsapi=1&origin=' + encodeURIComponent(location.origin);
+        }
+      });
+      window.onYouTubeIframeAPIReady = function () {
+        frames.forEach(function (frame, i) { players[i] = new YT.Player(frame); });
+        ready = true;
+      };
+      var api = document.createElement('script');
+      api.src = 'https://www.youtube.com/iframe_api';
+      api.async = true;
+      document.head.appendChild(api);
+    }
+  }
+
   // Spots — search by name/town, or sort by distance from a city, ZIP or the rider's location
   var spotRail = document.getElementById('spotRail');
   var spotFinder = document.getElementById('spotFinder');
