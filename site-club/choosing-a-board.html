@@ -34,6 +34,7 @@
         <li><a href="racing.html">Racing</a></li>
         <li><a href="spots.html">Spots</a></li>
         <li><a href="index.html#gallery">Gallery</a></li>
+        <li><button type="button" class="nav__search" data-site-search aria-label="Search the site"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>Search</span></button></li>
         <li><a href="maintenance.html" class="btn btn--primary">Maintenance guides</a></li>
       </ul>
     </div>
@@ -49,6 +50,62 @@
   </section>
 
   <!-- ================= LINEUP STRIP ================= -->
+  <!-- ================= BOARD FINDER ================= -->
+  <section id="finder">
+    <div class="container">
+      <div class="sec-head">
+        <span class="eyebrow">Board finder</span>
+        <h2>Answer four questions</h2>
+        <p>Eight boards, and most of the difference comes down to who rides it, how hard you ride, and whether you want fuel or a battery. Answer these and we'll point at the one to look at first — then read the rest of this page to check we're right.</p>
+      </div>
+
+      <form class="finder" id="boardFinder">
+        <ol class="finder__questions" id="finderQuestions">
+          <li class="finder__q" data-q="riders">
+            <h3>1 · Who rides it?</h3>
+            <div class="finder__opts">
+              <label><input type="radio" name="riders" value="solo" /><span><strong>Just me</strong><em>One rider, one stance</em></span></label>
+              <label><input type="radio" name="riders" value="shared" /><span><strong>Shared with someone</strong><em>Different stances — needs dual bindings</em></span></label>
+              <label><input type="radio" name="riders" value="family" /><span><strong>Family, kids too</strong><em>Stability and a second rider on board</em></span></label>
+            </div>
+          </li>
+          <li class="finder__q" data-q="level">
+            <h3>2 · How much have you ridden?</h3>
+            <div class="finder__opts">
+              <label><input type="radio" name="level" value="new" /><span><strong>New to it</strong><em>First motorized board</em></span></label>
+              <label><input type="radio" name="level" value="some" /><span><strong>Some water sports</strong><em>Surf, wake, foil or jet ski</em></span></label>
+              <label><input type="radio" name="level" value="pro" /><span><strong>Experienced</strong><em>I want the fast one</em></span></label>
+              <label><input type="radio" name="level" value="race" /><span><strong>I want to race</strong><em>MotoSurf World Cup classes</em></span></label>
+            </div>
+          </li>
+          <li class="finder__q" data-q="power">
+            <h3>3 · Gas or electric?</h3>
+            <div class="finder__opts">
+              <label><input type="radio" name="power" value="gas" /><span><strong>Gas</strong><em>Longest range, refuel in minutes</em></span></label>
+              <label><input type="radio" name="power" value="electric" /><span><strong>Electric</strong><em>Quiet, no fuel, less maintenance</em></span></label>
+              <label><input type="radio" name="power" value="either" /><span><strong>Not sure</strong><em>Show me what fits best</em></span></label>
+            </div>
+          </li>
+          <li class="finder__q" data-q="style">
+            <h3>4 · How do you want to ride?</h3>
+            <div class="finder__opts">
+              <label><input type="radio" name="style" value="cruise" /><span><strong>Cruising</strong><em>Long, relaxed sessions</em></span></label>
+              <label><input type="radio" name="style" value="carve" /><span><strong>Carving and speed</strong><em>Hard turns, top end</em></span></label>
+              <label><input type="radio" name="style" value="ski" /><span><strong>Standing upright</strong><em>With a handlebar, like a stand-up jet ski</em></span></label>
+            </div>
+          </li>
+        </ol>
+
+        <div class="finder__bar">
+          <p class="finder__progress" id="finderProgress">0 of 4 answered</p>
+          <button type="button" class="btn btn--ghost finder__reset" id="finderReset">Start over</button>
+        </div>
+      </form>
+
+      <div class="finder__result" id="finderResult" hidden></div>
+    </div>
+  </section>
+
   <section style="background:var(--bg-elev);border-block:1px solid var(--line)">
     <div class="container">
       <div class="sec-head">
@@ -180,7 +237,8 @@
       <h2>Ready to get on one?</h2>
       <p>Compare every spec side by side, or talk to us about a demo, a used board, or getting on the water with the club.</p>
       <div class="hero__cta" style="justify-content:center">
-        <a href="boards.html" class="btn btn--primary">See the full lineup</a>
+        <a href="#finder" class="btn btn--primary">Find my board</a>
+        <a href="boards.html" class="btn btn--ghost">See the full lineup</a>
         <a href="https://wa.me/13058965931?text=I%27m%20trying%20to%20pick%20a%20JETSURF%20board" target="_blank" rel="noopener" class="btn btn--ghost">WhatsApp us</a>
       </div>
     </div>
@@ -198,6 +256,8 @@
           <h4><a href="maintenance.html#jtsrf-club">JTSRF CLUB guides</a></h4>
           <ul>
             <li><a href="choosing-a-board.html">How to choose a board</a></li>
+            <li><a href="toolbox.html">Toolbox &amp; spares</a></li>
+            <li><a href="glossary.html">Jetsurf glossary</a></li>
           </ul>
           <h4 style="margin-top:20px">Maintenance</h4>
           <ul>

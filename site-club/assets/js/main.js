@@ -477,73 +477,436 @@
     updateMix();
   }
 
-  // Guide pages — clicking a timestamp jumps the video above it to that moment
-  var guideBody = document.querySelector('.tutorial-doc');
-  if (guideBody) {
-    var frames = Array.prototype.slice.call(guideBody.querySelectorAll('iframe[src*="youtube.com/embed/"]'));
-    var stamps = [];
-    Array.prototype.slice.call(guideBody.querySelectorAll('li > strong:first-child')).forEach(function (tag) {
-      var m = /^(?:(\d{1,2}):)?(\d{1,2}):(\d{2})$/.exec(tag.textContent.trim());
-      if (!m) return;
-      var seconds = (parseInt(m[1] || 0, 10) * 3600) + (parseInt(m[2], 10) * 60) + parseInt(m[3], 10);
-      // the video this step belongs to: the last one before it on the page
-      var owner = null;
-      frames.forEach(function (f) {
-        if (f.compareDocumentPosition(tag) & Node.DOCUMENT_POSITION_FOLLOWING) owner = f;
-      });
-      if (!owner) owner = frames[0];
-      if (!owner) return;
-      var btn = el('button', 'ts');
-      btn.type = 'button';
-      btn.innerHTML = '<span class="ts__icon" aria-hidden="true"></span>' + tag.textContent.trim();
-      btn.title = 'Play the video from ' + tag.textContent.trim();
-      btn.setAttribute('aria-label', 'Play from ' + tag.textContent.trim());
-      tag.parentNode.replaceChild(btn, tag);
-      stamps.push({ btn: btn, seconds: seconds, frame: owner });
-    });
+  (function () {
+    // Site-wide search — one box in the nav, everything on the site behind it
+    var searchButtons = Array.prototype.slice.call(document.querySelectorAll('[data-site-search]'));
+    if (searchButtons.length && window.fetch) {
+      var panelEl = null, inputEl = null, resultsEl = null, indexData = null, hits = [], active = -1;
 
-    if (stamps.length) {
-      var players = {};
-      var videoId = function (frame) {
-        var m = /embed\/([\w-]{11})/.exec(frame.src);
-        return m ? m[1] : null;
+      var escapeHtml = function (t) {
+        return t.replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; });
       };
-      var watchUrl = function (stamp) {
-        return 'https://www.youtube.com/watch?v=' + videoId(stamp.frame) + '&t=' + stamp.seconds + 's';
+      var mark = function (text, terms) {
+        var out = escapeHtml(text);
+        terms.forEach(function (t) {
+          out = out.replace(new RegExp('(' + t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'ig'), '<b>$1</b>');
+        });
+        return out;
       };
-      var ready = false;
+      var snippet = function (entry, terms) {
+        var text = entry.d || entry.x;
+        var low = text.toLowerCase();
+        var at = -1;
+        terms.forEach(function (t) { if (at === -1) at = low.indexOf(t); });
+        var start = at > 60 ? at - 50 : 0;
+        var cut = text.slice(start, start + 150).trim();
+        return (start ? '…' : '') + mark(cut, terms) + '…';
+      };
 
-      var play = function (stamp) {
-        var player = players[stamp.frame.dataset.ytIndex];
-        if (!ready || !player || !player.seekTo) { window.open(watchUrl(stamp), '_blank', 'noopener'); return; }
-        var box = stamp.frame.getBoundingClientRect();
-        if (box.top < 60 || box.bottom > window.innerHeight) {
-          stamp.frame.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      var search = function (query) {
+        var terms = query.toLowerCase().split(/\s+/).filter(Boolean)
+          // match winterize/winterizing and board/boards
+          .map(function (t) { return t.length > 4 ? t.replace(/(ings?|ed|es|s|e)$/, '') : t; });
+        if (!terms.length || !indexData) { hits = []; return; }
+        hits = indexData.map(function (entry) {
+          var title = entry.t.toLowerCase(), desc = (entry.d || '').toLowerCase(), text = (entry.x || '').toLowerCase();
+          var score = 0;
+          terms.forEach(function (t) {
+            if (title.indexOf(t) !== -1) score += title.indexOf(t) === 0 ? 30 : 20;
+            if (desc.indexOf(t) !== -1) score += 5;
+            var n = text.split(t).length - 1;
+            if (n) score += Math.min(n, 3);
+          });
+          // every term has to appear somewhere
+          var all = terms.every(function (t) { return (title + ' ' + desc + ' ' + text).indexOf(t) !== -1; });
+          return all ? { entry: entry, score: score } : null;
+        }).filter(Boolean).sort(function (a, b) { return b.score - a.score; }).slice(0, 8);
+        return terms;
+      };
+
+      var draw = function () {
+        var query = inputEl.value.trim();
+        if (!query) {
+          resultsEl.innerHTML = '<p class="site-search__msg">Search every guide, board and page — try <b>spark plug</b>, <b>winterize</b>, <b>electric</b> or <b>registration</b>.</p>';
+          return;
         }
-        player.seekTo(stamp.seconds, true);
-        player.playVideo();
-      };
-      stamps.forEach(function (stamp) {
-        stamp.btn.addEventListener('click', function () { play(stamp); });
-      });
-
-      // the player API can only drive iframes that asked for it
-      frames.forEach(function (frame, i) {
-        frame.dataset.ytIndex = i;
-        if (frame.src.indexOf('enablejsapi=') === -1) {
-          frame.src += (frame.src.indexOf('?') === -1 ? '?' : '&') + 'enablejsapi=1&origin=' + encodeURIComponent(location.origin);
+        if (!indexData) { resultsEl.innerHTML = '<p class="site-search__msg">Loading…</p>'; return; }
+        var terms = search(query) || [];
+        active = -1;
+        if (!hits.length) {
+          resultsEl.innerHTML = '<p class="site-search__msg">Nothing matched “' + escapeHtml(query) + '”. Try a simpler word, or browse the <a href="maintenance.html" style="color:var(--brand-bright);font-weight:600">guide library</a>.</p>';
+          return;
         }
-      });
-      window.onYouTubeIframeAPIReady = function () {
-        frames.forEach(function (frame, i) { players[i] = new YT.Player(frame); });
-        ready = true;
+        resultsEl.innerHTML = hits.map(function (hit, i) {
+          return '<a class="site-search__hit" href="' + hit.entry.u + '" data-i="' + i + '">' +
+            '<span class="site-search__top"><span class="site-search__kind">' + hit.entry.k + '</span>' +
+            '<span class="site-search__title">' + mark(hit.entry.t, terms) + '</span></span>' +
+            '<span class="site-search__snip">' + snippet(hit.entry, terms) + '</span></a>';
+        }).join('');
       };
-      var api = document.createElement('script');
-      api.src = 'https://www.youtube.com/iframe_api';
-      api.async = true;
-      document.head.appendChild(api);
+
+      var move = function (step) {
+        var links = resultsEl.querySelectorAll('.site-search__hit');
+        if (!links.length) return;
+        active = (active + step + links.length) % links.length;
+        Array.prototype.slice.call(links).forEach(function (l, i) { l.classList.toggle('is-active', i === active); });
+        links[active].scrollIntoView({ block: 'nearest' });
+      };
+
+      var close = function () {
+        if (panelEl) panelEl.hidden = true;
+        document.documentElement.classList.remove('guide-index-open');
+      };
+
+      var open = function () {
+        if (!panelEl) {
+          panelEl = el('div', 'site-search');
+          panelEl.innerHTML =
+            '<div class="site-search__panel" role="dialog" aria-label="Search the site">' +
+              '<div class="site-search__head">' +
+                '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>' +
+                '<input type="search" autocomplete="off" placeholder="Search guides, boards, spots…" aria-label="Search the site" />' +
+                '<button type="button" class="site-search__close">Esc</button>' +
+              '</div>' +
+              '<div class="site-search__results"></div>' +
+              '<div class="site-search__foot"><span>↑ ↓ to move</span><span>↵ to open</span><span>Press / to search from anywhere</span></div>' +
+            '</div>';
+          document.body.appendChild(panelEl);
+          inputEl = panelEl.querySelector('input');
+          resultsEl = panelEl.querySelector('.site-search__results');
+          panelEl.addEventListener('click', function (e) { if (e.target === panelEl) close(); });
+          panelEl.querySelector('.site-search__close').addEventListener('click', close);
+          inputEl.addEventListener('input', draw);
+          inputEl.addEventListener('keydown', function (e) {
+            if (e.key === 'ArrowDown') { e.preventDefault(); move(1); }
+            else if (e.key === 'ArrowUp') { e.preventDefault(); move(-1); }
+            else if (e.key === 'Enter') {
+              var links = resultsEl.querySelectorAll('.site-search__hit');
+              if (links.length) { e.preventDefault(); (links[active] || links[0]).click(); }
+            }
+          });
+          fetch('assets/search-index.json')
+            .then(function (r) { return r.json(); })
+            .then(function (data) { indexData = data; draw(); })
+            .catch(function () {
+              resultsEl.innerHTML = '<p class="site-search__msg">Search isn\'t available right now — the <a href="maintenance.html" style="color:var(--brand-bright);font-weight:600">guide library</a> has its own search.</p>';
+            });
+        }
+        panelEl.hidden = false;
+        document.documentElement.classList.add('guide-index-open');
+        draw();
+        setTimeout(function () { inputEl.focus(); inputEl.select(); }, 30);
+      };
+
+      searchButtons.forEach(function (btn) { btn.addEventListener('click', open); });
+      document.addEventListener('keydown', function (e) {
+        var typing = /^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName);
+        if (e.key === '/' && !typing) { e.preventDefault(); open(); }
+        else if (e.key === 'Escape' && panelEl && !panelEl.hidden) close();
+      });
     }
-  }
+  })();
+
+  (function () {
+    // Board finder — four questions, then a recommendation
+    var boardFinder = document.getElementById('boardFinder');
+    if (boardFinder) {
+      var BOARDS = [
+        { id: 'adventure-2-dfi', name: 'Adventure 2 DFI', href: 'board-adventure-2-dfi.html', img: 'assets/img/boards/adventure-2-dfi.png',
+          why: 'The most forgiving hull in the range, with dual bindings so a second rider or a kid can go too.',
+          power: 'gas', bindings: 'dual', ski: false,
+          score: { riders: { solo: 1, shared: 3, family: 3 }, level: { new: 3, some: 2, pro: 0, race: 0 }, style: { cruise: 3, carve: 1, ski: 0 } } },
+        { id: 'cruiser-dfi', name: 'Cruiser DFI', href: 'board-cruiser-dfi.html', img: 'assets/img/boards/cruiser-dfi.png',
+          why: 'Long, comfortable sessions with dual bindings — stable like the Adventure, but quicker.',
+          power: 'gas', bindings: 'dual', ski: false,
+          score: { riders: { solo: 2, shared: 3, family: 2 }, level: { new: 2, some: 3, pro: 1, race: 0 }, style: { cruise: 3, carve: 2, ski: 0 } } },
+        { id: 'race-dfi-sl', name: 'Race DFI Super Light', href: 'board-race-dfi-sl.html', img: 'assets/img/boards/race-dfi-sl.png',
+          why: 'The race board — light, fast and single-stance, and the class the World Cup is run in.',
+          power: 'gas', bindings: 'single', ski: false,
+          score: { riders: { solo: 3, shared: 0, family: 0 }, level: { new: 0, some: 1, pro: 3, race: 3 }, style: { cruise: 0, carve: 3, ski: 0 } } },
+        { id: 'titanium-dfi-sl', name: 'Titanium DFI Super Light', href: 'board-titanium-dfi-sl.html', img: 'assets/img/boards/titanium-dfi-sl.png',
+          why: 'The PRO-level step up — the fastest surf board in the range, with a titanium exhaust and a racing binding.',
+          power: 'gas', bindings: 'single', ski: false,
+          score: { riders: { solo: 3, shared: 0, family: 0 }, level: { new: 0, some: 0, pro: 3, race: 2 }, style: { cruise: 0, carve: 3, ski: 0 } } },
+        { id: 'race-dfi-ski', name: 'Race DFI Ski', href: 'board-race-dfi-ski.html', img: 'assets/img/boards/race-dfi-ski.png',
+          why: 'The same race intent, ridden standing upright on a handlebar — and the bar comes off to ride it as a board.',
+          power: 'gas', bindings: 'single', ski: true,
+          score: { riders: { solo: 3, shared: 1, family: 1 }, level: { new: 1, some: 2, pro: 3, race: 2 }, style: { cruise: 1, carve: 2, ski: 3 } } },
+        { id: 'titanium-dfi-ski', name: 'Titanium DFI Ski', href: 'board-titanium-dfi-ski.html', img: 'assets/img/boards/titanium-dfi-ski.png',
+          why: 'The quickest Ski — upright riding with the titanium exhaust and the top speed that comes with it.',
+          power: 'gas', bindings: 'single', ski: true,
+          score: { riders: { solo: 3, shared: 1, family: 1 }, level: { new: 0, some: 1, pro: 3, race: 2 }, style: { cruise: 1, carve: 2, ski: 3 } } },
+        { id: 'electric-2', name: 'Electric 2', href: 'board-electric-2.html', img: 'assets/img/boards/electric-2.png',
+          why: 'Quiet, no fuel to mix, dual bindings and swappable batteries — the easiest board to live with.',
+          power: 'electric', bindings: 'dual', ski: false,
+          score: { riders: { solo: 2, shared: 3, family: 3 }, level: { new: 3, some: 3, pro: 1, race: 0 }, style: { cruise: 3, carve: 2, ski: 0 } } },
+        { id: 'electric-2-ski', name: 'Electric 2 Ski', href: 'board-electric-2-ski.html', img: 'assets/img/boards/electric-2-ski.png',
+          why: 'The electric ridden standing upright with a handlebar — silent, and the bar comes off.',
+          power: 'electric', bindings: 'dual', ski: true,
+          score: { riders: { solo: 2, shared: 2, family: 2 }, level: { new: 2, some: 3, pro: 2, race: 0 }, style: { cruise: 2, carve: 1, ski: 3 } } }
+      ];
+      var finderResult = document.getElementById('finderResult');
+      var finderProgress = document.getElementById('finderProgress');
+      var answers = {};
+      var QUESTIONS = ['riders', 'level', 'power', 'style'];
+
+      var pickBoards = function () {
+        var ranked = BOARDS.map(function (board) {
+          var total = 0;
+          QUESTIONS.forEach(function (q) {
+            var a = answers[q];
+            if (!a) return;
+            if (q === 'power') {
+              if (a === 'either') total += 1;
+              else total += (board.power === a ? 4 : -3);
+              return;
+            }
+            total += (board.score[q] && board.score[q][a]) || 0;
+          });
+          // a shared board has to take both stances
+          if (answers.riders && answers.riders !== 'solo' && board.bindings !== 'dual') total -= 3;
+          if (answers.style === 'ski' && !board.ski) total -= 3;
+          if (answers.style !== 'ski' && board.ski) total -= 1;
+          return { board: board, total: total };
+        }).sort(function (a, b) { return b.total - a.total; });
+        return ranked;
+      };
+
+      var boardCard = function (board, lead) {
+        var msg = encodeURIComponent("I'm interested in the " + board.name + " — the board finder suggested it.");
+        return '<article class="finder__card' + (lead ? ' finder__card--lead' : '') + '">' +
+          '<span class="finder__badge">' + (lead ? 'Start here' : 'Also worth a look') + '</span>' +
+          '<img src="' + board.img + '" alt="" loading="lazy" />' +
+          '<h3>' + board.name + '</h3>' +
+          '<p>' + board.why + '</p>' +
+          '<div class="finder__links">' +
+            '<a class="badge-ready" href="' + board.href + '">Full details →</a>' +
+            (lead ? '<a class="badge-ready" target="_blank" rel="noopener" href="https://wa.me/13058965931?text=' + msg + '">Ask us about it →</a>' : '') +
+          '</div></article>';
+      };
+
+      var render = function () {
+        var answered = QUESTIONS.filter(function (q) { return answers[q]; }).length;
+        finderProgress.textContent = answered + ' of ' + QUESTIONS.length + ' answered';
+        if (answered < QUESTIONS.length) { finderResult.hidden = true; return; }
+        var ranked = pickBoards();
+        finderResult.innerHTML =
+          '<h3 class="finder__resultTitle">Start with the ' + ranked[0].board.name + '</h3>' +
+          '<p class="finder__resultLead">Based on your answers. Read the rest of this page before you decide — and message us if you want a second opinion.</p>' +
+          '<div class="finder__cards">' + boardCard(ranked[0].board, true) + boardCard(ranked[1].board, false) + '</div>' +
+          '<p class="finder__note">Not convinced? <a href="boards.html">Compare all eight boards</a> side by side.</p>';
+        finderResult.hidden = false;
+        finderResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      };
+
+      boardFinder.addEventListener('change', function (e) {
+        if (!e.target.name) return;
+        answers[e.target.name] = e.target.value;
+        var q = e.target.closest('.finder__q');
+        if (q) q.classList.add('is-done');
+        render();
+      });
+      document.getElementById('finderReset').addEventListener('click', function () {
+        boardFinder.reset();
+        answers = {};
+        Array.prototype.slice.call(boardFinder.querySelectorAll('.finder__q')).forEach(function (q) { q.classList.remove('is-done'); });
+        render();
+        boardFinder.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+      render();
+    }
+  })();
+
+  (function () {
+    // Glossary — filter terms as you type
+    var glossarySearch = document.getElementById('glossarySearch');
+    if (glossarySearch) {
+      var gItems = Array.prototype.slice.call(document.querySelectorAll('.glossary__item'));
+      var gGroups = Array.prototype.slice.call(document.querySelectorAll('.glossary__group'));
+      var gCount = document.getElementById('glossaryCount');
+      var gEmpty = document.getElementById('glossaryEmpty');
+      gItems.forEach(function (item) { item._text = item.textContent.toLowerCase(); });
+      var filterGlossary = function () {
+        var terms = glossarySearch.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+        var shown = 0;
+        gItems.forEach(function (item) {
+          var ok = terms.every(function (t) { return item._text.indexOf(t) !== -1; });
+          item.hidden = !ok;
+          if (ok) shown++;
+        });
+        gGroups.forEach(function (group) {
+          var list = group.nextElementSibling;
+          group.hidden = !list || !list.querySelector('.glossary__item:not([hidden])');
+        });
+        gEmpty.hidden = shown !== 0;
+        gCount.textContent = terms.length
+          ? shown + (shown === 1 ? ' term' : ' terms') + ' matching \u201c' + glossarySearch.value.trim() + '\u201d'
+          : gItems.length + ' terms';
+      };
+      glossarySearch.addEventListener('input', filterGlossary);
+      filterGlossary();
+    }
+  })();
+
+  (function () {
+    // Guide pages — clicking a timestamp jumps the video above it to that moment
+    var guideBody = document.querySelector('.tutorial-doc');
+    if (guideBody) {
+      var frames = Array.prototype.slice.call(guideBody.querySelectorAll('iframe[src*="youtube.com/embed/"]'));
+      var stamps = [];
+      Array.prototype.slice.call(guideBody.querySelectorAll('li > strong:first-child')).forEach(function (tag) {
+        var m = /^(?:(\d{1,2}):)?(\d{1,2}):(\d{2})$/.exec(tag.textContent.trim());
+        if (!m) return;
+        var seconds = (parseInt(m[1] || 0, 10) * 3600) + (parseInt(m[2], 10) * 60) + parseInt(m[3], 10);
+        // the video this step belongs to: the last one before it on the page
+        var owner = null;
+        frames.forEach(function (f) {
+          if (f.compareDocumentPosition(tag) & Node.DOCUMENT_POSITION_FOLLOWING) owner = f;
+        });
+        if (!owner) owner = frames[0];
+        if (!owner) return;
+        var btn = el('button', 'ts');
+        btn.type = 'button';
+        btn.innerHTML = '<span class="ts__icon" aria-hidden="true"></span>' + tag.textContent.trim();
+        btn.title = 'Play the video from ' + tag.textContent.trim();
+        btn.setAttribute('aria-label', 'Play from ' + tag.textContent.trim());
+        tag.parentNode.replaceChild(btn, tag);
+        stamps.push({ btn: btn, seconds: seconds, frame: owner });
+      });
+
+      if (stamps.length) {
+        var players = {};
+        var videoId = function (frame) {
+          var m = /embed\/([\w-]{11})/.exec(frame.src);
+          return m ? m[1] : null;
+        };
+        var watchUrl = function (stamp) {
+          return 'https://www.youtube.com/watch?v=' + videoId(stamp.frame) + '&t=' + stamp.seconds + 's';
+        };
+        var ready = false;
+
+        var play = function (stamp) {
+          var player = players[stamp.frame.dataset.ytIndex];
+          if (!ready || !player || !player.seekTo) { window.open(watchUrl(stamp), '_blank', 'noopener'); return; }
+          var box = stamp.frame.getBoundingClientRect();
+          if (box.top < 60 || box.bottom > window.innerHeight) {
+            stamp.frame.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+          player.seekTo(stamp.seconds, true);
+          player.playVideo();
+        };
+        stamps.forEach(function (stamp) {
+          stamp.btn.addEventListener('click', function () { play(stamp); });
+        });
+
+        // the player API can only drive iframes that asked for it
+        frames.forEach(function (frame, i) {
+          frame.dataset.ytIndex = i;
+          if (frame.src.indexOf('enablejsapi=') === -1) {
+            frame.src += (frame.src.indexOf('?') === -1 ? '?' : '&') + 'enablejsapi=1&origin=' + encodeURIComponent(location.origin);
+          }
+        });
+        window.onYouTubeIframeAPIReady = function () {
+          frames.forEach(function (frame, i) { players[i] = new YT.Player(frame); });
+          ready = true;
+        };
+        var api = document.createElement('script');
+        api.src = 'https://www.youtube.com/iframe_api';
+        api.async = true;
+        document.head.appendChild(api);
+      }
+    }
+  })();
+
+  (function () {
+    // Spots — live wind, water temp and next tide from the National Weather Service and NOAA tides
+    var condCards = Array.prototype.slice.call(document.querySelectorAll('.spot-feature[data-grid]'));
+    if (condCards.length && window.fetch) {
+      var COMPASS = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
+      var compass = function (deg) { return COMPASS[Math.round(((deg % 360) / 45)) % 8]; };
+      var clock = function (iso) {
+        var d = new Date(iso.replace(' ', 'T'));
+        var h = d.getHours(), m = d.getMinutes();
+        return ((h % 12) || 12) + ':' + (m < 10 ? '0' : '') + m + (h < 12 ? 'am' : 'pm');
+      };
+      var chip = function (label, value, cls) {
+        return '<span' + (cls ? ' class="' + cls + '"' : '') + '><i>' + label + '</i> ' + value + '</span>';
+      };
+      var ymd = function (d) {
+        return d.getFullYear() + ('0' + (d.getMonth() + 1)).slice(-2) + ('0' + d.getDate()).slice(-2);
+      };
+
+      var loadCard = function (card) {
+        var box = card.querySelector('.spot-cond');
+        var chips = {};
+        var ORDER = ['wind', 'air', 'water', 'tide'];
+        var show = function () {
+          var html = ORDER.map(function (k) { return chips[k] || ''; }).join('');
+          if (!html) return;
+          box.innerHTML = html;
+          box.hidden = false;
+        };
+
+        fetch('https://api.weather.gov/gridpoints/' + card.dataset.grid + '/forecast/hourly')
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .then(function (data) {
+            var now = data && data.properties && data.properties.periods && data.properties.periods[0];
+            if (!now) return;
+            var speed = (now.windSpeed || '').split(' ')[0];
+            var high = parseInt(speed, 10) >= 18;
+            chips.wind = chip('Wind', now.windDirection + ' ' + speed + ' mph', high ? 'spot-cond__wind--high' : '');
+            chips.air = chip('Air', now.temperature + '°' + now.temperatureUnit);
+            show();
+          })
+          .catch(function () {});
+
+        if (!card.dataset.station) {
+          chips.water = chip('Water', 'Fresh — no tide');
+          show();
+          return;
+        }
+        var today = new Date();
+        fetch('https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?product=water_temperature&application=jtsrfclub' +
+          '&date=latest&station=' + card.dataset.station + '&time_zone=lst_ldt&units=english&format=json')
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .then(function (d) {
+            var v = d && d.data && d.data[0] && d.data[0].v;
+            if (v) { chips.water = chip('Water', Math.round(parseFloat(v)) + '°F'); show(); }
+          })
+          .catch(function () {});
+        fetch('https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?product=predictions&application=jtsrfclub' +
+          '&begin_date=' + ymd(today) + '&end_date=' + ymd(new Date(today.getTime() + 864e5)) +
+          '&datum=MLLW&interval=hilo&station=' + card.dataset.station + '&time_zone=lst_ldt&units=english&format=json')
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .then(function (d) {
+            var list = (d && d.predictions) || [];
+            var next = null;
+            list.forEach(function (t) {
+              if (!next && new Date(t.t.replace(' ', 'T')) > new Date()) next = t;
+            });
+            if (next) { chips.tide = chip('Next tide', (next.type === 'H' ? 'High' : 'Low') + ' ' + clock(next.t)); show(); }
+          })
+          .catch(function () {});
+      };
+
+      var start = function () {
+        condCards.forEach(loadCard);
+        var stamp = el('p', 'spot-cond__stamp');
+        stamp.innerHTML = 'Conditions from the National Weather Service and NOAA Tides &amp; Currents, updated when you open the page. Always check the forecast yourself before you launch.';
+        var rail = document.getElementById('spotRail');
+        if (rail) rail.parentNode.insertBefore(stamp, rail.nextSibling);
+      };
+
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (entries) {
+          if (entries.some(function (e) { return e.isIntersecting; })) { io.disconnect(); start(); }
+        }, { rootMargin: '200px' });
+        io.observe(condCards[0]);
+      } else {
+        start();
+      }
+    }
+  })();
 
   // Spots — search by name/town, or sort by distance from a city, ZIP or the rider's location
   var spotRail = document.getElementById('spotRail');
