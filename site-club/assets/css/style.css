@@ -1580,3 +1580,4 @@ section { padding: 96px 0; }
 .spot-cond__stamp { margin-top: 10px; font-size: 0.72rem; color: var(--text-dim); }
 .doc-narrow { max-width: 820px; margin: 0 auto; }
 .doc-narrow .note { margin-top: 24px; }
+.footer__aff { display: block; margin-top: 4px; font-size: 0.78rem; color: var(--text-dim); }
