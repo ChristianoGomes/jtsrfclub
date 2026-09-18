@@ -229,6 +229,28 @@ Products linked (and photographed) on the racing page and the fuel mixing guide.
 | Manual and catalog cover thumbnails | `site-club/assets/img/manuals/`, `assets/img/catalogs/` | Page 1 of each JETSURF PDF |
 | Maintenance guide card thumbnails | YouTube (`i.ytimg.com`) | Each video's own thumbnail |
 
+### Spot photos (Wikimedia Commons)
+
+Photos for the US spots added on 18 Sep 2026, saved in `site-club/assets/img/spots/`. Each card credits the photographer and licence on the page. Lake of the Ozarks and Lake St. Clair have no photo yet — no suitably licensed one was found.
+
+| Spot | Photographer | Licence | File |
+|---|---|---|---|
+| Biscayne Bay & the Intracoastal | Wilfredor | CC0 | [, Florida, Skyline 4.jpg](https://commons.wikimedia.org/wiki/File:Miami,_Florida,_Skyline_4.jpg) |
+| Columbia River | Blue Ice at English Wikipedia | Public domain | [omah OR July 14 2004.jpg](https://commons.wikimedia.org/wiki/File:Multnomah_OR_July_14_2004.jpg) |
+| Lake Austin | Larry D. Moore | CC BY 4.0 | [austin 2005.jpg](https://commons.wikimedia.org/wiki/File:Lake_austin_2005.jpg) |
+| Lake George | Hayden Soloviev | CC BY 4.0 | [George aerial view 2025.jpg](https://commons.wikimedia.org/wiki/File:Lake_George_aerial_view_2025.jpg) |
+| Lake Havasu & the Colorado River | No machine-readable author provided. Kjkolb assumed (based on copyrigh | CC BY 2.5 | [Havasu 1.jpg](https://commons.wikimedia.org/wiki/File:Lake_Havasu_1.jpg) |
+| Lake Lanier | Thomson200 | CC0 | [Baldridge Creek, Lake Lanier, GA July 2018.j](https://commons.wikimedia.org/wiki/File:Baldridge_Creek,_Lake_Lanier,_GA_July_2018.jpg) |
+| Lake Michigan | Sergei Gussev | CC BY 2.0 | [Chicago - -i---i- (29497836390).jpg](https://commons.wikimedia.org/wiki/File:Chicago_-_-i---i-_(29497836390).jpg) |
+| Lake Minnetonka | Tyler Vigen | CC BY-SA 4.0 | [Minnetonka - Aerial photo.jpg](https://commons.wikimedia.org/wiki/File:Lake_Minnetonka_-_Aerial_photo.jpg) |
+| Lake Norman | Prince Grobhelm | CC BY-SA 3.0 | [orman.jpg](https://commons.wikimedia.org/wiki/File:LakeNorman.jpg) |
+| Lake Powell | NPS Photo/Gary Ladd | Public domain | [Glen Canyon National Recreation Area - Lake ](https://commons.wikimedia.org/wiki/File:Glen_Canyon_National_Recreation_Area_-_Lake_Powell_-_Reflection_Canyon.jpg) |
+| Lake Tahoe | Lara Farhadi | CC BY 2.0 | [ North Shore from the East Shore.jpg](https://commons.wikimedia.org/wiki/File:Tahoe_North_Shore_from_the_East_Shore.jpg) |
+| Lake Washington | Clemens Vasters from Viersen, Germany | CC BY 2.0 | [le, Washington (7377915272).jpg](https://commons.wikimedia.org/wiki/File:Seattle,_Washington_(7377915272).jpg) |
+| Lake Winnipesaukee | Wikimedia Commons | CC BY 3.0 | [orsummitbig-2007-1022a.jpg](https://commons.wikimedia.org/wiki/File:Mtmajorsummitbig-2007-1022a.jpg) |
+
+CC BY and CC BY-SA images require the credit shown on the card; keep it if the photo is reused elsewhere.
+
 ### Origin not recorded — confirm
 
 These were added before sources were tracked. Check you have the right to use each one (your own photos, `brand assets/`, or JETSURF press images).

@@ -36,6 +36,9 @@ body {
 }
 
 img { max-width: 100%; display: block; }
+/* The width/height attributes on every <img> reserve space while the page loads.
+   :where() keeps this at zero specificity so any rule below still sets the size. */
+:where(img[width][height]) { height: auto; }
 a { color: inherit; text-decoration: none; }
 
 h1, h2, h3 {
@@ -1581,3 +1584,106 @@ section { padding: 96px 0; }
 .doc-narrow { max-width: 820px; margin: 0 auto; }
 .doc-narrow .note { margin-top: 24px; }
 .footer__aff { display: block; margin-top: 4px; font-size: 0.78rem; color: var(--text-dim); }
+
+/* ---------- enquire chooser ---------- */
+.enquire {
+  position: fixed; inset: 0; z-index: 85;
+  background: rgba(6, 8, 11, 0.7); backdrop-filter: blur(5px);
+  display: flex; align-items: center; justify-content: center; padding: 20px;
+}
+.enquire[hidden] { display: none; }
+.enquire__panel {
+  position: relative; width: min(440px, 100%);
+  background: var(--bg-elev); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 28px 26px 24px; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+}
+.enquire__close {
+  position: absolute; top: 14px; right: 14px; width: 32px; height: 32px;
+  border: 1px solid var(--line); background: none; color: var(--text-dim);
+  border-radius: 999px; font-size: 1.1rem; line-height: 1; cursor: pointer;
+}
+.enquire__close:hover { border-color: var(--brand-bright); color: #fff; }
+.enquire__title { font-size: 1.25rem; margin-bottom: 8px; }
+.enquire__lead { font-size: 0.88rem; margin-bottom: 18px; }
+.enquire__list { display: flex; flex-direction: column; gap: 10px; }
+.enquire__option {
+  display: flex; align-items: center; gap: 14px;
+  padding: 13px 15px; border: 1px solid var(--line); border-radius: 12px;
+  background: var(--bg); color: var(--text);
+  transition: border-color .15s ease, background .15s ease, transform .15s ease;
+}
+.enquire__option:hover { border-color: var(--brand-bright); background: var(--bg-elev-2); transform: translateY(-1px); }
+.enquire__option:focus-visible { outline: 2px solid var(--brand-bright); outline-offset: 2px; }
+.enquire__option span:last-child { display: flex; flex-direction: column; gap: 2px; }
+.enquire__option strong { font-size: 0.98rem; }
+.enquire__option em { font-style: normal; font-size: 0.8rem; color: var(--text-dim); }
+.enquire__icon {
+  flex: 0 0 auto; width: 38px; height: 38px; border-radius: 10px;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.enquire__icon svg { width: 20px; height: 20px; fill: #fff; }
+.enquire__icon--wa { background: #25d366; }
+.enquire__icon--sms { background: var(--brand); }
+.enquire__icon--mail { background: #5b6b7c; }
+.enquire__note { margin-top: 16px; font-size: 0.78rem; color: var(--text-dim); }
+
+/* ---------- homepage spots strip ---------- */
+.sec-head--split { max-width: none; display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+.sec-head--split > div { max-width: 640px; }
+.spot-mini { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+.spot-mini__card {
+  display: flex; flex-direction: column; overflow: hidden;
+  border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg);
+  transition: border-color .2s ease, transform .2s ease;
+}
+.spot-mini__card:hover { border-color: var(--brand-deep); transform: translateY(-4px); }
+.spot-mini__card img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+.spot-mini__body { display: flex; flex-direction: column; gap: 4px; padding: 16px 18px; }
+.spot-mini__tag { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--brand-bright); }
+.spot-mini__card strong { font-family: var(--font-display); font-size: 1rem; text-transform: uppercase; letter-spacing: -0.01em; }
+.spot-mini__card em { font-style: normal; font-size: 0.85rem; color: var(--text-dim); }
+.spot-mini__card--more { justify-content: center; background: linear-gradient(140deg, rgba(27,108,168,0.2), rgba(27,108,168,0.03) 60%), var(--bg); }
+.spot-mini__count { font-family: var(--font-display); font-size: 3rem; line-height: 1; color: var(--brand-bright); padding: 20px 18px 0; }
+.spot-mini__card--more .badge-ready { align-self: flex-start; margin-top: 8px; }
+@media (max-width: 960px) { .spot-mini { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .spot-mini { grid-template-columns: 1fr; } .sec-head--split { align-items: flex-start; } }
+
+/* ---------- troubleshooting finder ---------- */
+.symptom-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.symptom {
+  border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-elev);
+  padding: 24px 26px; scroll-margin-top: 90px;
+}
+.symptom[hidden] { display: none; }
+.symptom h3 { font-size: 1.15rem; }
+.symptom__lead { margin: 8px 0 14px; font-size: 0.9rem; }
+.symptom__steps { list-style: none; counter-reset: sx; display: flex; flex-direction: column; gap: 10px; margin: 0; padding: 0; }
+.symptom__steps li {
+  counter-increment: sx; position: relative; padding-left: 34px;
+  font-size: 0.92rem; color: var(--text-dim);
+}
+.symptom__steps li::before {
+  content: counter(sx); position: absolute; left: 0; top: 1px;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--bg-elev-2); border: 1px solid var(--line); color: var(--brand-bright);
+  font-size: 0.72rem; font-weight: 700; text-align: center; line-height: 21px;
+}
+.symptom__steps strong { color: var(--text); }
+.symptom__steps a { color: var(--brand-bright); font-weight: 600; }
+.symptom-empty { margin-top: 20px; color: var(--text-dim); }
+.symptom-empty a { color: var(--brand-bright); font-weight: 600; }
+.chip[data-symptom="gas"] { color: #e0a05f; border-color: #6a4a24; background: #271c11; }
+.chip[data-symptom="electric"] { color: #64aae0; border-color: #244a63; background: #10222d; }
+.chip[data-symptom="gas"].is-active { background: #a8641e; border-color: #a8641e; color: #fff; }
+.chip[data-symptom="electric"].is-active { background: #1B6CA8; border-color: #1B6CA8; color: #fff; }
+@media (max-width: 860px) { .symptom-grid { grid-template-columns: 1fr; } }
+
+/* ---------- FAQ page ---------- */
+.faq__search { max-width: 520px; margin-bottom: 8px; }
+.faq__count { font-size: 0.85rem; color: var(--text-dim); margin-bottom: 20px; }
+.faq__group { font-size: 1.15rem; margin: 34px 0 14px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+.faq__group[hidden] { display: none; }
+.faq details[hidden] { display: none; }
+.faq details p a { color: var(--brand-bright); font-weight: 600; }
+.faq__empty { color: var(--text-dim); }
+.faq__empty a { color: var(--brand-bright); font-weight: 600; }

@@ -478,7 +478,133 @@
   }
 
   (function () {
-    // Site-wide search — one box in the nav, everything on the site behind it
+    // Board pages — "Enquire with us" opens a choice of WhatsApp, text or email
+  (function () {
+    var enquireButtons = Array.prototype.slice.call(document.querySelectorAll('[data-enquire]'));
+    if (!enquireButtons.length) return;
+    var PHONE = '13058965931', PHONE_PRETTY = '305-896-5931', EMAIL = 'info@jtsrfclub.com';
+    var sheet = null, titleEl = null, listEl = null, lastFocus = null;
+
+    var closeSheet = function () {
+      if (sheet) sheet.hidden = true;
+      if (lastFocus) lastFocus.focus({ preventScroll: true });
+    };
+
+    var openSheet = function (board, button) {
+      var message = "Hi JTSRF CLUB — I'm interested in the " + board + ".";
+      if (!sheet) {
+        sheet = el('div', 'enquire');
+        sheet.innerHTML =
+          '<div class="enquire__panel" role="dialog" aria-label="Contact JTSRF CLUB">' +
+            '<button type="button" class="enquire__close" aria-label="Close">&times;</button>' +
+            '<span class="eyebrow">Get in touch</span>' +
+            '<h3 class="enquire__title"></h3>' +
+            '<p class="enquire__lead">Pick whichever suits you — your message is written for you, and you can change it before sending.</p>' +
+            '<div class="enquire__list"></div>' +
+            '<p class="enquire__note">Miami time, most days. We answer WhatsApp fastest.</p>' +
+          '</div>';
+        document.body.appendChild(sheet);
+        titleEl = sheet.querySelector('.enquire__title');
+        listEl = sheet.querySelector('.enquire__list');
+        sheet.addEventListener('click', function (e) { if (e.target === sheet) closeSheet(); });
+        sheet.querySelector('.enquire__close').addEventListener('click', closeSheet);
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && sheet && !sheet.hidden) closeSheet();
+        });
+      }
+      titleEl.textContent = 'Ask us about the ' + board;
+      listEl.innerHTML =
+        '<a class="enquire__option" target="_blank" rel="noopener" href="https://wa.me/' + PHONE + '?text=' + encodeURIComponent(message) + '">' +
+          '<span class="enquire__icon enquire__icon--wa" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M19.05 4.91A9.82 9.82 0 0 0 12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.02ZM12.04 20.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.22 8.22 0 0 1-1.26-4.4c0-4.54 3.7-8.23 8.24-8.23a8.2 8.2 0 0 1 5.82 2.41 8.18 8.18 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.25 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.14.16-.29.18-.54.06-.25-.13-1.05-.39-1.99-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.16.04-.31-.02-.43-.06-.12-.56-1.35-.77-1.85-.2-.48-.4-.42-.56-.43-.14-.01-.31-.01-.47-.01a.9.9 0 0 0-.65.31c-.22.24-.86.84-.86 2.06s.88 2.39 1 2.55c.12.16 1.73 2.64 4.19 3.7.58.25 1.04.4 1.4.52.59.19 1.12.16 1.54.1.47-.07 1.47-.6 1.68-1.18.2-.58.2-1.08.14-1.18-.06-.1-.22-.16-.47-.28Z"/></svg></span>' +
+          '<span><strong>WhatsApp</strong><em>' + PHONE_PRETTY + ' — usually the fastest reply</em></span></a>' +
+        '<a class="enquire__option" href="sms:+' + PHONE + '?&body=' + encodeURIComponent(message) + '">' +
+          '<span class="enquire__icon enquire__icon--sms" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4l4 4 4-4h4a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Z"/></svg></span>' +
+          '<span><strong>Text message</strong><em>' + PHONE_PRETTY + '</em></span></a>' +
+        '<a class="enquire__option" href="mailto:' + EMAIL + '?subject=' + encodeURIComponent('Interested in the ' + board) + '&body=' + encodeURIComponent(message + '\n\n') + '">' +
+          '<span class="enquire__icon enquire__icon--mail" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm1.4 2L12 12.5 19.6 7H4.4Z"/></svg></span>' +
+          '<span><strong>Email</strong><em>' + EMAIL + '</em></span></a>';
+      lastFocus = button;
+      sheet.hidden = false;
+      setTimeout(function () { sheet.querySelector('.enquire__option').focus(); }, 30);
+    };
+
+    enquireButtons.forEach(function (button) {
+      button.addEventListener('click', function () { openSheet(button.dataset.enquire, button); });
+    });
+  })();
+
+  // FAQ — filter questions as you type
+  (function () {
+    var faqSearch = document.getElementById('faqSearch');
+    if (!faqSearch) return;
+    var items = Array.prototype.slice.call(document.querySelectorAll('.faq details'));
+    var groups = Array.prototype.slice.call(document.querySelectorAll('.faq__group'));
+    var countEl = document.getElementById('faqCount');
+    var emptyEl = document.getElementById('faqEmpty');
+    items.forEach(function (item) { item._text = item.textContent.toLowerCase(); });
+    var apply = function () {
+      var terms = faqSearch.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+      var shown = 0;
+      items.forEach(function (item) {
+        var ok = terms.every(function (t) { return item._text.indexOf(t) !== -1; });
+        item.hidden = !ok;
+        item.open = ok && terms.length > 0;
+        if (ok) shown++;
+      });
+      groups.forEach(function (group) {
+        var list = group.nextElementSibling;
+        group.hidden = !list || !list.querySelector('details:not([hidden])');
+        if (list) list.hidden = group.hidden;
+      });
+      emptyEl.hidden = shown !== 0;
+      countEl.textContent = terms.length
+        ? shown + (shown === 1 ? ' question' : ' questions') + ' matching “' + faqSearch.value.trim() + '”'
+        : items.length + ' questions';
+    };
+    faqSearch.addEventListener('input', apply);
+    apply();
+  })();
+
+  // Troubleshooting finder — filter symptoms by words or board type
+  (function () {
+    var symptomSearch = document.getElementById('symptomSearch');
+    var symptomChips = document.getElementById('symptomChips');
+    if (!symptomSearch || !symptomChips) return;
+    var cards = Array.prototype.slice.call(document.querySelectorAll('.symptom'));
+    var countEl = document.getElementById('symptomCount');
+    var emptyEl = document.getElementById('symptomEmpty');
+    var chips = Array.prototype.slice.call(symptomChips.querySelectorAll('.chip'));
+    var kind = 'all';
+    cards.forEach(function (card) { card._text = card.textContent.toLowerCase().replace(/\s+/g, ' '); });
+
+    var apply = function () {
+      var terms = symptomSearch.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+      var shown = 0;
+      cards.forEach(function (card) {
+        var okKind = kind === 'all' || card.dataset.kind === kind;
+        var okText = terms.every(function (t) { return card._text.indexOf(t) !== -1; });
+        card.hidden = !(okKind && okText);
+        if (!card.hidden) shown++;
+      });
+      emptyEl.hidden = shown !== 0;
+      countEl.hidden = false;
+      countEl.textContent = shown + (shown === 1 ? ' symptom' : ' symptoms') +
+        (kind === 'all' ? '' : ' · ' + (kind === 'gas' ? 'gas boards' : 'electric boards')) +
+        (terms.length ? ' · “' + symptomSearch.value.trim() + '”' : '');
+    };
+
+    symptomChips.addEventListener('click', function (e) {
+      var chip = e.target.closest('.chip');
+      if (!chip) return;
+      kind = chip.dataset.symptom;
+      chips.forEach(function (c) { c.classList.toggle('is-active', c === chip); });
+      apply();
+    });
+    symptomSearch.addEventListener('input', apply);
+    apply();
+  })();
+
+  // Site-wide search — one box in the nav, everything on the site behind it
     var searchButtons = Array.prototype.slice.call(document.querySelectorAll('[data-site-search]'));
     if (searchButtons.length && window.fetch) {
       var panelEl = null, inputEl = null, resultsEl = null, indexData = null, hits = [], active = -1;
@@ -616,7 +742,7 @@
           why: 'The most forgiving hull in the range, with dual bindings so a second rider or a kid can go too.',
           power: 'gas', bindings: 'dual', ski: false,
           score: { riders: { solo: 1, shared: 3, family: 3 }, level: { new: 3, some: 2, pro: 0, race: 0 }, style: { cruise: 3, carve: 1, ski: 0 } } },
-        { id: 'cruiser-dfi', name: 'Cruiser DFI', href: 'board-cruiser-dfi.html', img: 'assets/img/boards/cruiser-dfi.png',
+        { id: 'cruiser-dfi', name: 'Cruiser DFI', href: 'board-cruiser-dfi.html', img: 'assets/img/boards/cruiser-dfi.jpg',
           why: 'Long, comfortable sessions with dual bindings — stable like the Adventure, but quicker.',
           power: 'gas', bindings: 'dual', ski: false,
           score: { riders: { solo: 2, shared: 3, family: 2 }, level: { new: 2, some: 3, pro: 1, race: 0 }, style: { cruise: 3, carve: 2, ski: 0 } } },

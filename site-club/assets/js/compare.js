@@ -87,7 +87,9 @@
   };
 
   var head = '<thead><tr><th aria-hidden="true"></th>' + boards.map(function (b, i) {
-    var img = '<img src="assets/img/boards/' + slugs[i] + '.png" alt="" loading="lazy" />';
+    // board photos are .png except where a photo had no transparency to keep
+    var EXT = { 'cruiser-dfi': 'jpg' };
+    var img = '<img src="assets/img/boards/' + slugs[i] + '.' + (EXT[slugs[i]] || 'png') + '" alt="" loading="lazy" />';
     var name = '<strong>' + esc(b) + '</strong>';
     var detail = detailPages[slugs[i]];
     var identity = detail

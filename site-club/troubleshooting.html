@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jetsurf Troubleshooting — JTSRF CLUB</title>
+  <meta name="description" content="Jetsurf troubleshooting by symptom — won't start, cranks but won't fire, flooded, no cooling water, lost power, won't charge, sticky throttle, electric faults — with the checks in order." />
+  <link rel="canonical" href="https://jtsrfclub.com/troubleshooting.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="JTSRF CLUB" />
+  <meta property="og:title" content="Jetsurf Troubleshooting — JTSRF CLUB" />
+  <meta property="og:description" content="Jetsurf troubleshooting by symptom — won't start, cranks but won't fire, flooded, no cooling water, lost power, won't charge, sticky throttle, electric faults — with the checks in order." />
+  <meta property="og:url" content="https://jtsrfclub.com/troubleshooting.html" />
+  <meta property="og:image" content="https://jtsrfclub.com/assets/img/og-image.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#0a0c0f" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16.png" />
+  <link rel="apple-touch-icon" href="assets/img/favicon-180.png" />
+</head>
+<body>
+
+  <!-- ================= NAV ================= -->
+  <header class="nav">
+    <div class="container nav__inner">
+      <a href="index.html" class="brand"><img src="assets/img/logo-wordmark.png" alt="JTSRF CLUB" width="620" height="170" /></a>
+      <button class="nav__toggle" aria-label="Menu" aria-expanded="false">☰</button>
+      <ul class="nav__links">
+        <li><a href="boards.html">Boards</a></li>
+        <li><a href="racing.html">Racing</a></li>
+        <li><a href="spots.html">Spots</a></li>
+        <li><button type="button" class="nav__search" data-site-search aria-label="Search the site"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>Search</span></button></li>
+        <li><a href="maintenance.html" class="btn btn--primary">Maintenance guides</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ================= PAGE HERO ================= -->
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Troubleshooting</span>
+      <h1>What's wrong with my board?</h1>
+      <p>Pick the symptom. Each one lists the checks in the order a service centre would work through them, with a link to the full guide at every step. Start at the top and stop when it fixes itself.</p>
+    </div>
+  </section>
+
+  <!-- ================= SYMPTOMS ================= -->
+  <section>
+    <div class="container">
+      <div class="tut-filter">
+        <div class="tut-filter__search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input type="search" id="symptomSearch" placeholder="Describe it — won't start, no water, flooded, sticky throttle…" autocomplete="off" aria-label="Search symptoms" />
+        </div>
+        <div class="tut-filter__chips" id="symptomChips">
+          <button type="button" class="chip is-active" data-symptom="all">All symptoms</button>
+          <button type="button" class="chip" data-symptom="gas">Gas boards</button>
+          <button type="button" class="chip" data-symptom="electric">Electric boards</button>
+        </div>
+        <p class="tut-filter__count" id="symptomCount"></p>
+      </div>
+
+      <div class="symptom-grid" id="symptomGrid">
+        <article class="symptom" data-kind="gas" id="no-crank">
+          <h3>Nothing happens when I try to start</h3>
+          <p class="symptom__lead">The starter doesn't turn, or the board doesn't wake up at all.</p>
+          <ol class="symptom__steps">
+            <li>Is the <strong>magnet key</strong> seated in the handle? The board only wakes with the key in — pumps run and the <strong>green light flashes</strong>. <a href="starting-your-board-tutorial.html">Starting your board</a></li>
+            <li>Is the board <strong>charged</strong>? A flat electronics battery is the usual answer. <a href="charging-petrol-board-tutorial.html">Charging a petrol board</a></li>
+            <li>Work the <a href="six-point-check-tutorial.html">6-point check</a> in order — fuel, sensor, plug, starter, charge, freewheel.</li>
+            <li>Put the magnet on the light/start point and listen: does the <strong>starter</strong> turn at all? <a href="starter-tutorial.html">Starter removal &amp; installation</a></li>
+            <li>Check the <strong>freewheel</strong>: clockwise should engage (you hear the piston), counter-clockwise should spin free. <a href="freewheel-tutorial.html">Freewheel guide</a></li>
+            <li>Still dead? Check the connectors at the <strong>iCU</strong> for corrosion or water. <a href="icu-tutorial.html">iCU removal &amp; installation</a></li>
+          </ol>
+        </article>
+
+        <article class="symptom" data-kind="gas" id="cranks-no-fire">
+          <h3>It cranks but won't fire</h3>
+          <p class="symptom__lead">The starter spins the engine over, but it never catches.</p>
+          <ol class="symptom__steps">
+            <li>Is there <strong>fuel in the tank</strong>, and is the fuel line connected and seated? <a href="fuel-tank-tutorial.html">Fuel tank removal &amp; installation</a></li>
+            <li>Is the fuel <strong>50:1 mix</strong>, and fresh? Old mix from last season is a common no-start. <a href="mixing-fuel.html">How to mix fuel</a></li>
+            <li>Pull the <strong>spark plug</strong>: wet, black or worn? Fit the spare from the toolkit. <a href="spark-plug-tutorial.html">Spark plug check &amp; replacement</a></li>
+            <li>Confirm you have <strong>spark</strong> with a plug tester before going further. <a href="six-point-check-tutorial.html">6-point check</a></li>
+            <li>Water in the cylinder from an earlier fall? Treat it as flooded and drain it. <a href="flooded-engine-tutorial.html">Draining a flooded engine</a></li>
+            <li><strong>Stop after 3–4 attempts in a row</strong> — more and you will overheat the starter.</li>
+          </ol>
+        </article>
+
+        <article class="symptom" data-kind="gas" id="flooded">
+          <h3>It flooded and won't restart</h3>
+          <p class="symptom__lead">It went over, filled with water, and now it will not run.</p>
+          <ol class="symptom__steps">
+            <li><strong>Do not keep cranking it.</strong> Swim the board back to shore.</li>
+            <li>Stand it on its tail and drain the back, then get it on the stand and take the lid off.</li>
+            <li>Pull the plug lead and the plug, and let the plug cool before you touch it.</li>
+            <li>Sit the board so the plug hole faces down, then crank with <strong>no plug fitted</strong> until the spray runs clear.</li>
+            <li>Dry it 5–10 minutes, fit the plug (or the spare), and restart. <a href="flooded-board-riding-tutorial.html">Flooded board while riding</a> · <a href="flooded-engine-tutorial.html">Draining a flooded engine</a></li>
+            <li>If it still will not run, stop and get it to a service centre before you do damage.</li>
+          </ol>
+        </article>
+
+        <article class="symptom" data-kind="gas" id="no-cooling">
+          <h3>No water coming out while riding</h3>
+          <p class="symptom__lead">The telltale has stopped, or the board feels hotter than usual.</p>
+          <ol class="symptom__steps">
+            <li><strong>Head straight back to shore.</strong> Running without cooling damages the engine and exhaust.</li>
+            <li>Check the cooling intake and lines for <strong>weed, sand or plastic</strong> — that is the usual cause. <a href="cooling-check-tutorial.html">Is your board cooling properly?</a></li>
+            <li>Some boards have no visible telltale — the water exits at the back. Know which type yours is before you panic. <a href="cooling-check-tutorial.html">Cooling check guide</a></li>
+            <li>Ridden in salt without flushing? Salt crystals block the channels. <a href="jba-blocked-cooling-tutorial.html">Blocked cooling system</a></li>
+            <li>Flush the system properly with the attachment before the next session. <a href="cleaning-attachment-tutorial.html">The flush attachment</a></li>
+          </ol>
+        </article>
+
+        <article class="symptom" data-kind="gas" id="power-loss">
+          <h3>Lost power, or it vibrates</h3>
+          <p class="symptom__lead">It runs, but it will not pull like it should.</p>
+          <ol class="symptom__steps">
+            <li>Stop and check the <strong>jet pump</strong> for weed, rope or sand. Debris in the impeller causes both symptoms.</li>
+            <li>Look at the <strong>impeller</strong> for chewed or bent blades. <a href="jba-jetpump-bearings-tutorial.html">Jet pump &amp; impeller repair</a></li>
+            <li>Check the <strong>spark plug</strong> — a fouling plug loses top end first. <a href="spark-plug-tutorial.html">Spark plug guide</a></li>
+            <li>Riding much higher or hotter than usual? The ICU map may need changing. <a href="mapping-your-icu.html">Mapping your ICU</a></li>
+            <li>Exhaust problems make power vanish too — valve, ball or a burnt silencer. <a href="jba-exhaust-problems-tutorial.html">Exhaust systems explained</a></li>
+          </ol>
+        </article>
+
+        <article class="symptom" data-kind="gas" id="charging">
+          <h3>It won't charge</h3>
+          <p class="symptom__lead">The charger light never goes green, or the board dies after a short ride.</p>
+          <ol class="symptom__steps">
+            <li>Find the charge lead — it always has a <strong>red cable tie</strong>. <a href="charging-petrol-board-tutorial.html">Charging a petrol board</a></li>
+            <li>Red light means charging, green means done. A long red is normal on a flat battery — the iCU balances it.</li>
+            <li>Check the charger plug and the board socket for <strong>corrosion</strong>; clean and grease the pins.</li>
+            <li>Older board with the orange touchscreen charger? Use <strong>LiPo mode</strong> only. <a href="battery-charger-older-tutorial.html">Battery charger (older JetSurfs)</a></li>
+            <li>Carbureted board with a new DFI charger? You need the <strong>4-pin to 2-pin reduction</strong>. <a href="dfi-charger-older-boards.html">DFI charger on older boards</a></li>
+          </ol>
+        </article>
+
+        <article class="symptom" data-kind="gas" id="throttle">
+          <h3>The throttle is sticky or dead</h3>
+          <p class="symptom__lead">The throttle does not spring back, feels notchy, or does nothing.</p>
+          <ol class="symptom__steps">
+            <li>Squeeze it with the engine off: notchy or stiff means the cable, not the engine.</li>
+            <li>Free the cable with a cable luber and penetrant rather than replacing it. <a href="jba-throttle-cable-tutorial.html">Freeing a sticky throttle cable</a></li>
+            <li>Check the cable routing at the base of the handle — sand and salt gather there.</li>
+            <li>If the cable is frayed or the handle is full of water, replace the unit. <a href="jba-hand-control-tutorial.html">Hand control replacement</a></li>
+          </ol>
+        </article>
+
+        <article class="symptom" data-kind="gas" id="water-inside">
+          <h3>Water in the engine bay</h3>
+          <p class="symptom__lead">There is water sitting in the bay after a session.</p>
+          <ol class="symptom__steps">
+            <li>Some water is normal — that is what the <strong>bilge pump</strong> is for. Wake the board with the magnet and let it clear.</li>
+            <li>No water at the bilge outlet means the pump is not running. <a href="bilge-pump-tutorial.html">Bilge pump removal &amp; installation</a></li>
+            <li>Check the <strong>lid seal and every cover</strong> is closed properly — including the engine cover toggles.</li>
+            <li>Dry the bay out and lubricate it before storing. <a href="clean-your-board-tutorial.html">Cleaning your board after a ride</a></li>
+          </ol>
+        </article>
+
+        <article class="symptom" data-kind="electric" id="electric-dead">
+          <h3>Electric: no response from the board</h3>
+          <p class="symptom__lead">Lights, tones or throttle are not doing what they should.</p>
+          <ol class="symptom__steps">
+            <li>Is the <strong>battery charged</strong>, and does the board give the tone and light that confirm it is registered? <a href="electric-get-ready-tutorial.html">Getting an electric board ready</a></li>
+            <li>Is the battery seated <strong>dead flat</strong> with all four clips closed? A crooked battery will not connect.</li>
+            <li>Did you touch the throttle before the key went in? That gives a <strong>fast blinking red light</strong> — key out, key in, try again.</li>
+            <li>Check the bay connectors for bent pins, water or sand, and dry them before refitting.</li>
+            <li>Solid red battery light means <strong>safe-return mode</strong> — power is cut back and you have about 400 m to shore. <a href="electric-board-overview-tutorial.html">Electric board orientation</a></li>
+          </ol>
+        </article>
+
+        <article class="symptom" data-kind="electric" id="electric-charge">
+          <h3>Electric: the battery won't charge</h3>
+          <p class="symptom__lead">The charger will not start, or the battery is not filling.</p>
+          <ol class="symptom__steps">
+            <li>The battery charges <strong>inside its bag</strong> — open the flap, pull the foam, uncover the connectors.</li>
+            <li>The charger should read "charger ready, connect battery" before you plug in. Push the lead until it <strong>clicks</strong>.</li>
+            <li>Check the mode: <strong>standard</strong> charges to 100%. Storage stops at 50% and travel at 30%. <a href="charging-electric-board-tutorial.html">Charging an electric board</a></li>
+            <li>Battery fell very low? That is what <strong>recovery</strong> mode is for — check the manual first.</li>
+            <li>Still nothing? Stop and contact JETSURF USA rather than experimenting with a lithium pack.</li>
+          </ol>
+        </article>
+      </div>
+
+      <p class="symptom-empty" id="symptomEmpty" hidden>Nothing matches that. Try a simpler word, search the <a href="maintenance.html">guide library</a>, or <a href="https://wa.me/13058965931" target="_blank" rel="noopener">WhatsApp us</a> and describe it.</p>
+
+      <div class="callout callout--warn" style="margin-top:30px">
+        <strong>When to stop and call a service centre:</strong> water in the engine that will not clear, a board that has been cranked repeatedly while flooded, anything with the fuel system that smells wrong, or any electric battery fault. Cheap to fix now, expensive after another session — <a href="tel:+13055387873">+1 305 JET SURF</a> or <a href="mailto:info@jetsurfusa.com">info@jetsurfusa.com</a>.
+      </div>
+
+      <p class="note" style="margin-top:24px">Not sure which symptom fits? <a href="https://wa.me/13058965931" target="_blank" rel="noopener">Send us a message</a> describing what the board does, with a video if you have one. Working reference from JTSRF CLUB — not official JETSURF documentation.</p>
+    </div>
+  </section>
+
+  <!-- ================= CTA ================= -->
+  <section class="cta-band">
+    <div class="container">
+      <span class="eyebrow">Keep riding</span>
+      <h2>More in the maintenance library</h2>
+      <p>Cleaning and storage through to a full engine rebuild, every guide with a video walkthrough and timestamped steps.</p>
+      <div class="hero__cta" style="justify-content:center">
+        <a href="maintenance.html" class="btn btn--primary">Back to tutorial library</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <img class="footer__logo" src="assets/img/logo-wordmark.png" alt="JTSRF CLUB logo" width="620" height="170" />
+          <p>Ride / Maintain / Master. Jetsurf riders and board maintenance out of Miami.</p>
+        </div>
+        <div>
+          <h4><a href="maintenance.html#jtsrf-club">JTSRF CLUB guides</a></h4>
+          <ul>
+            <li><a href="troubleshooting.html">Troubleshooting</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="choosing-a-board.html">How to choose a board</a></li>
+            <li><a href="toolbox.html">Toolbox &amp; spares</a></li>
+            <li><a href="glossary.html">Jetsurf glossary</a></li>
+          </ul>
+          <h4 style="margin-top:20px">Maintenance</h4>
+          <ul>
+            <li><a href="maintenance.html">Care &amp; storage</a></li>
+            <li><a href="maintenance.html">Petrol boards</a></li>
+            <li><a href="maintenance.html?cat=electric">Electric boards</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Club</h4>
+          <ul>
+            <li><a href="boards.html">Boards</a></li>
+            <li><a href="racing.html">Racing</a></li>
+            <li><a href="spots.html">Spots</a></li>
+                <li><a href="maintenance.html">Maintenance tutorials</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:info@jtsrfclub.com">info@jtsrfclub.com</a></li>
+            <li><a href="https://wa.me/13058965931" target="_blank" rel="noopener">WhatsApp &middot; 305-896-5931</a></li>
+          </ul>
+          <div style="margin-top:16px">
+            <a href="https://ko-fi.com/V1Z626X15I" target="_blank" rel="noopener"><img height="36" style="border:0px;height:36px;" src="https://storage.ko-fi.com/cdn/kofi2.png?v=6" border="0" alt="Buy Me a Coffee at ko-fi.com" /></a>
+          </div>
+          <div class="footer__social">
+            <a href="https://wa.me/13058965931" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.05 4.91A9.82 9.82 0 0 0 12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.02ZM12.04 20.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.22 8.22 0 0 1-1.26-4.4c0-4.54 3.7-8.23 8.24-8.23a8.2 8.2 0 0 1 5.82 2.41 8.18 8.18 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.25 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.14.16-.29.18-.54.06-.25-.13-1.05-.39-1.99-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.16.04-.31-.02-.43-.06-.12-.56-1.35-.77-1.85-.2-.48-.4-.42-.56-.43-.14-.01-.31-.01-.47-.01a.9.9 0 0 0-.65.31c-.22.24-.86.84-.86 2.06s.88 2.39 1 2.55c.12.16 1.73 2.64 4.19 3.7.58.25 1.04.4 1.4.52.59.19 1.12.16 1.54.1.47-.07 1.47-.6 1.68-1.18.2-.58.2-1.08.14-1.18-.06-.1-.22-.16-.47-.28Z"/></svg></a>
+            <a href="https://instagram.com/christiano_gomes" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16Zm0 1.8c-3.15 0-3.5.01-4.74.07-1.14.05-1.76.24-2.17.4-.55.21-.94.47-1.35.88-.41.41-.67.8-.88 1.35-.16.41-.35 1.03-.4 2.17-.06 1.24-.07 1.6-.07 4.74s.01 3.5.07 4.74c.05 1.14.24 1.76.4 2.17.21.55.47.94.88 1.35.41.41.8.67 1.35.88.41.16 1.03.35 2.17.4 1.24.06 1.6.07 4.74.07s3.5-.01 4.74-.07c1.14-.05 1.76-.24 2.17-.4.55-.21.94-.47 1.35-.88.41-.41.67-.8.88-1.35.16-.41.35-1.03.4-2.17.06-1.24.07-1.6.07-4.74s-.01-3.5-.07-4.74c-.05-1.14-.24-1.76-.4-2.17a3.6 3.6 0 0 0-.88-1.35 3.6 3.6 0 0 0-1.35-.88c-.41-.16-1.03-.35-2.17-.4-1.24-.06-1.6-.07-4.74-.07Zm0 3.06a4.98 4.98 0 1 1 0 9.96 4.98 4.98 0 0 1 0-9.96Zm0 8.22a3.24 3.24 0 1 0 0-6.48 3.24 3.24 0 0 0 0 6.48Zm6.34-8.42a1.16 1.16 0 1 1-2.33 0 1.16 1.16 0 0 1 2.33 0Z"/></svg></a>
+            <a href="https://www.facebook.com/profile.php?id=61557988845895" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.9h2.54V9.85c0-2.52 1.49-3.91 3.78-3.91 1.1 0 2.24.2 2.24.2v2.47h-1.26c-1.24 0-1.63.78-1.63 1.57v1.88h2.78l-.44 2.9h-2.34v7.03C18.34 21.24 22 17.08 22 12.06Z"/></svg></a>
+            <a href="https://www.youtube.com/@christianogomes1991" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M6 5H18A4 4 0 0 1 22 9V15A4 4 0 0 1 18 19H6A4 4 0 0 1 2 15V9A4 4 0 0 1 6 5ZM10 9L16 12L10 15V9Z"/></svg></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>&copy; <span data-year>2026</span> JTSRF CLUB. All rights reserved. <span class="footer__aff">As an Amazon Associate we earn from qualifying purchases.</span></span>
+        <span>Miami, FL</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
