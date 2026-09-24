@@ -1687,3 +1687,10 @@ section { padding: 96px 0; }
 .faq details p a { color: var(--brand-bright); font-weight: 600; }
 .faq__empty { color: var(--text-dim); }
 .faq__empty a { color: var(--brand-bright); font-weight: 600; }
+.spot-group {
+  font-size: 0.82rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--text-dim); margin: 0 0 12px; display: flex; align-items: center; gap: 12px;
+}
+.spot-group::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+.spot-group + .spot-rail { margin-bottom: 30px; }
+.spot-group[hidden] { display: none; }

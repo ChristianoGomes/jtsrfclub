@@ -946,7 +946,7 @@
 
   (function () {
     // Spots — live wind, water temp and next tide from the National Weather Service and NOAA tides
-    var condCards = Array.prototype.slice.call(document.querySelectorAll('.spot-feature[data-grid]'));
+    var condCards = Array.prototype.slice.call(document.querySelectorAll('.spot-feature[data-lat]'));
     if (condCards.length && window.fetch) {
       var COMPASS = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
       var compass = function (deg) { return COMPASS[Math.round(((deg % 360) / 45)) % 8]; };
@@ -973,18 +973,35 @@
           box.hidden = false;
         };
 
-        fetch('https://api.weather.gov/gridpoints/' + card.dataset.grid + '/forecast/hourly')
-          .then(function (r) { return r.ok ? r.json() : null; })
-          .then(function (data) {
-            var now = data && data.properties && data.properties.periods && data.properties.periods[0];
-            if (!now) return;
-            var speed = (now.windSpeed || '').split(' ')[0];
-            var high = parseInt(speed, 10) >= 18;
-            chips.wind = chip('Wind', now.windDirection + ' ' + speed + ' mph', high ? 'spot-cond__wind--high' : '');
-            chips.air = chip('Air', now.temperature + '°' + now.temperatureUnit);
-            show();
-          })
-          .catch(function () {});
+        if (card.dataset.grid) {
+          // US spots: the National Weather Service forecast
+          fetch('https://api.weather.gov/gridpoints/' + card.dataset.grid + '/forecast/hourly')
+            .then(function (r) { return r.ok ? r.json() : null; })
+            .then(function (data) {
+              var now = data && data.properties && data.properties.periods && data.properties.periods[0];
+              if (!now) return;
+              var speed = (now.windSpeed || '').split(' ')[0];
+              var high = parseInt(speed, 10) >= 18;
+              chips.wind = chip('Wind', now.windDirection + ' ' + speed + ' mph', high ? 'spot-cond__wind--high' : '');
+              chips.air = chip('Air', now.temperature + '°' + now.temperatureUnit);
+              show();
+            })
+            .catch(function () {});
+        } else {
+          // everywhere else: Open-Meteo — same units, no key needed
+          fetch('https://api.open-meteo.com/v1/forecast?latitude=' + card.dataset.lat + '&longitude=' + card.dataset.lng +
+            '&current=temperature_2m,wind_speed_10m,wind_direction_10m&temperature_unit=fahrenheit&wind_speed_unit=mph')
+            .then(function (r) { return r.ok ? r.json() : null; })
+            .then(function (data) {
+              var now = data && data.current;
+              if (!now) return;
+              var mph = Math.round(now.wind_speed_10m);
+              chips.wind = chip('Wind', compass(now.wind_direction_10m) + ' ' + mph + ' mph', mph >= 18 ? 'spot-cond__wind--high' : '');
+              chips.air = chip('Air', Math.round(now.temperature_2m) + '°F');
+              show();
+            })
+            .catch(function () {});
+        }
 
         if (!card.dataset.station) {
           chips.water = chip('Water', 'Fresh — no tide');
@@ -1041,7 +1058,20 @@
     var spotQuery = document.getElementById('spotQuery');
     var spotLocate = document.getElementById('spotLocate');
     var spotStatus = document.getElementById('spotStatus');
-    var spotCards = Array.prototype.slice.call(spotRail.querySelectorAll('.spot-feature[data-lat]'));
+    var spotRails = Array.prototype.slice.call(document.querySelectorAll('.spot-rail'));
+    var spotGroups = Array.prototype.slice.call(document.querySelectorAll('.spot-group'));
+    var spotCards = [];
+    spotRails.forEach(function (rail) {
+      Array.prototype.slice.call(rail.querySelectorAll('.spot-feature[data-lat]')).forEach(function (card) {
+        card._rail = rail;
+        spotCards.push(card);
+      });
+    });
+    // searching or sorting pools every match into the first rail; the groups come back on reset
+    var setGrouped = function (grouped) {
+      spotGroups.forEach(function (g) { g.hidden = !grouped; });
+      spotRails.slice(1).forEach(function (r) { r.hidden = !grouped; });
+    };
     var spotEmpty = el('p', 'spot-rail-empty', 'No spots match that. Try a town or ZIP and press Find nearest — or send us yours.');
     spotEmpty.hidden = true;
     spotRail.parentNode.insertBefore(spotEmpty, spotRail.nextSibling);
@@ -1075,8 +1105,9 @@
         card.hidden = false;
         card._badge.hidden = true;
         card.classList.remove('is-nearest');
-        spotRail.appendChild(card);
+        card._rail.appendChild(card);
       });
+      setGrouped(true);
       spotEmpty.hidden = true;
       setStatus('<span>' + plural(spotCards.length) + '</span> · scroll sideways to see them all');
     };
@@ -1094,15 +1125,21 @@
         return terms.every(function (t) { return card._text.indexOf(t) !== -1; });
       });
       if (US_ZIP.test(q) || !matches.length) {
-        spotCards.forEach(function (card) { card.hidden = false; card._badge.hidden = true; card.classList.remove('is-nearest'); });
+        setGrouped(true);
+        spotCards.forEach(function (card) {
+          card.hidden = false; card._badge.hidden = true; card.classList.remove('is-nearest');
+          card._rail.appendChild(card);
+        });
         spotEmpty.hidden = true;
         setStatus('Press <strong>Find nearest</strong> (or Enter) to sort spots by distance from “' + escapeHtml(q) + '”');
         return;
       }
+      setGrouped(false);
       spotCards.forEach(function (card) {
         card.hidden = matches.indexOf(card) === -1;
         card._badge.hidden = true;
         card.classList.remove('is-nearest');
+        spotRail.appendChild(card);
       });
       spotEmpty.hidden = true;
       setStatus('<strong>' + plural(matches.length) + '</strong> matching “' + escapeHtml(q) + '” · press <strong>Find nearest</strong> to sort by distance instead');
@@ -1117,6 +1154,7 @@
         card.classList.remove('is-nearest');
       });
       spotCards.sort(function (a, b) { return a._miles - b._miles; });
+      setGrouped(false);
       spotCards.forEach(function (card) { spotRail.appendChild(card); });
       spotCards[0].classList.add('is-nearest');
       spotEmpty.hidden = true;
