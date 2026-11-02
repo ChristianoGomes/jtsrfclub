@@ -1694,3 +1694,26 @@ section { padding: 96px 0; }
 .spot-group::after { content: ""; flex: 1; height: 1px; background: var(--line); }
 .spot-group + .spot-rail { margin-bottom: 30px; }
 .spot-group[hidden] { display: none; }
+
+/* ---------- troubleshooting: talk to a human ---------- */
+.helpdesk {
+  display: flex; align-items: center; justify-content: space-between; gap: 24px 40px; flex-wrap: wrap;
+  margin-top: 36px; padding: 28px 32px;
+  border: 1px solid var(--brand-deep); border-radius: var(--radius);
+  background: linear-gradient(120deg, rgba(27, 108, 168, 0.18), rgba(27, 108, 168, 0.04) 60%), var(--bg-elev);
+}
+.helpdesk__text { flex: 1 1 420px; max-width: 70ch; }
+.helpdesk .eyebrow { margin-bottom: 6px; }
+.helpdesk h3 { font-size: 1.35rem; margin-bottom: 10px; }
+.helpdesk p { font-size: 0.95rem; }
+.helpdesk strong { color: var(--text); }
+.helpdesk__small { margin-top: 8px; font-size: 0.82rem !important; }
+.helpdesk__actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; flex: 0 0 auto; }
+.helpdesk__actions .btn { white-space: nowrap; justify-content: center; }
+.helpdesk__actions .btn { padding: 13px 24px; font-size: 0.85rem; }
+@media (max-width: 560px) {
+  .helpdesk { padding: 22px 20px; }
+  .helpdesk__actions { width: 100%; }
+  .helpdesk__actions .btn { flex: 1 1 100%; justify-content: center; }
+}
+.helpdesk__small a { color: var(--brand-bright); font-weight: 600; }
